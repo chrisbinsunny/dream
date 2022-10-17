@@ -3,29 +3,27 @@
 
 import 'package:flutter/material.dart';
 
+import 'dropFile/dropFile.dart';
+
 class ColorDetails extends ChangeNotifier {
-  int slideNo = 1;
+  DroppedFile? file;
+  Offset coordinates=const Offset(0, 0);
 
-  int get getSlideNo {
-    return slideNo;
+  DroppedFile? get getFile {
+    return file;
   }
 
-  void setSlideNo(int val) {
-    slideNo = val;
+  void setFile(DroppedFile? file1) {
+    file = file1;
     notifyListeners();
   }
 
-  void incSlideNo() {
-    if (slideNo != 30) {
-      slideNo++;
-    }
-    notifyListeners();
+  Offset get getCoordinates{
+    return coordinates;
   }
 
-  void decSlideNo() {
-    if (slideNo != 1) {
-      slideNo--;
-    }
+  set setCoordinates(Offset coordinates1){
+    coordinates= coordinates1;
     notifyListeners();
   }
 }

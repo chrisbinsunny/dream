@@ -3,7 +3,9 @@ import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/imageView.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'colorDetails.dart';
 import 'dropFile/dropzoneWidget.dart';
 
 class HomePage extends StatefulWidget {
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
         children: [
           DropHere(
-            onDroppedFile: (file)=> setState(() => this.file=file),
+            onDroppedFile: (file)=> Provider.of<ColorDetails>(context, listen: false).setFile(file),
           ),
           ListView(
             shrinkWrap: true,
@@ -44,7 +46,7 @@ class _HomePageState extends State<HomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ImageViewer(file: file),
+                  ImageViewer(),
                   ColorCode()
                 ],
               )

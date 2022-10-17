@@ -13,24 +13,19 @@ class _DropHereState extends State<DropHere> {
   late DropzoneViewController controller;
   @override
   Widget build(BuildContext context) {
-    if(kIsWeb){
-      return Container(
-        color: Colors.greenAccent,
-        height: 300,
-        width: 300,
-        child: DropzoneView(
-          operation: DragOperation.copy,
-          cursor: CursorType.grab,
-          onCreated: (DropzoneViewController ctrl) => controller = ctrl,
-          onLoaded: () => print('Zone loaded'),
-          onError: (String? ev) => print('Error: $ev'),
-          onHover: () => print('Zone hovered'),
-          onDrop: acceptFile,
-          onLeave: () => print('Zone left'),
-        ),
-      );
-    }
-    return SizedBox();
+    return Container(
+      color: Colors.greenAccent.withOpacity(0.2),
+      child: DropzoneView(
+        operation: DragOperation.copy,
+        cursor: CursorType.grab,
+        onCreated: (DropzoneViewController ctrl) => controller = ctrl,
+        onLoaded: () => print('Zone loaded'),
+        onError: (String? ev) => print('Error: $ev'),
+        onHover: () => print('Zone hovered'),
+        onDrop: acceptFile,
+        onLeave: () => print('Zone left'),
+      ),
+    );
   }
 
 

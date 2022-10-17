@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +30,11 @@ class _ImageViewerState extends State<ImageViewer> {
           )):
       GestureDetector(
         onTapDown: (tap){
-
+          
+        },
+        onPanUpdate: (tap){
+          log("Global1 "+tap.globalPosition.toString());
+          log("Local1 "+tap.localPosition.toString());
         },
         child: Image.network(
         widget.file!.url,

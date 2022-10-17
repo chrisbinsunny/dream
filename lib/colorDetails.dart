@@ -22,7 +22,7 @@ class ColorDetails extends ChangeNotifier {
     return coordinates;
   }
 
-  set setCoordinates(Offset coordinates1){
+  void setCoordinates(Offset coordinates1){
     coordinates= coordinates1;
     notifyListeners();
   }

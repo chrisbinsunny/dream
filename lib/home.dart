@@ -15,9 +15,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        alignment: Alignment.center,
-        child: DropHere(),
+      body: Stack(
+        children: [
+          DropHere(),
+        ],
       ),
     );
   }

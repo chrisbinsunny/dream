@@ -1,6 +1,7 @@
+import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:flutter/material.dart';
 
-import 'dropzoneWidget.dart';
+import 'dropFile/dropzoneWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -11,13 +12,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  DroppedFile? file;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          DropHere(),
+          DropHere(
+            onDroppedFile: (file)=> setState(() => this.file=file),
+          ),
+          Container(
+            child: Column(
+              children: [
+                
+              ],
+            ),
+          )
         ],
       ),
     );

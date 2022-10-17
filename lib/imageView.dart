@@ -16,7 +16,8 @@ class _ImageViewerState extends State<ImageViewer> {
     return Container(
       width: screenWidth(context, mulBy: 0.35),
       height: screenHeight(context, mulBy: 0.4),
-      decoration: BoxDecoration(
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
         color: Colors.blue
       ),
       child: (widget.file == null)?
@@ -25,10 +26,15 @@ class _ImageViewerState extends State<ImageViewer> {
             "No Preview",
             style: TextStyle(color: Colors.white),
           )):
-      Image.network(
-      widget.file!.url,
-      fit: BoxFit.contain,
+      GestureDetector(
+        onTapDown: (tap){
+
+        },
+        child: Image.network(
+        widget.file!.url,
+        fit: BoxFit.contain,
     ),
+      ),
     );
   }
 }

@@ -21,11 +21,8 @@ class _DropHereState extends State<DropHere> {
       color: Colors.greenAccent.withOpacity(0.2),
       child: DropzoneView(
         operation: DragOperation.copy,
-        cursor: CursorType.grab,
         onCreated: (DropzoneViewController ctrl) => controller = ctrl,
         onLoaded: () => print('Zone loaded'),
-        onError: (String? ev) => print('Error: $ev'),
-        onHover: () => print('Zone hovered'),
         onDrop: acceptFile,
         onLeave: () => print('Zone left'),
       ),

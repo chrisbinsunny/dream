@@ -10,8 +10,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: 'Color Finder',
+      theme: ThemeData.dark(),
       home: HomePage(),
     );
   }

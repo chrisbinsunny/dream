@@ -1,4 +1,5 @@
 import 'package:color_finder/dropFile/dropFile.dart';
+import 'package:color_finder/imageView.dart';
 import 'package:flutter/material.dart';
 
 import 'dropFile/dropzoneWidget.dart';
@@ -22,12 +23,10 @@ class _HomePageState extends State<HomePage> {
           DropHere(
             onDroppedFile: (file)=> setState(() => this.file=file),
           ),
-          Container(
-            child: Column(
-              children: [
-                
-              ],
-            ),
+          Column(
+            children: [
+              ImageViewer(file: file)
+            ],
           )
         ],
       ),

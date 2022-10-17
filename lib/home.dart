@@ -1,5 +1,7 @@
+import 'package:color_finder/colorCode.dart';
 import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/imageView.dart';
+import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 
 import 'dropFile/dropzoneWidget.dart';
@@ -19,13 +21,33 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
+
         children: [
           DropHere(
             onDroppedFile: (file)=> setState(() => this.file=file),
           ),
-          Column(
+          ListView(
+            shrinkWrap: true,
             children: [
-              ImageViewer(file: file)
+              Container(
+                alignment: Alignment.center,
+                height: screenHeight(context, mulBy: 0.2),
+                child: const Text(
+                  "Color Finder | Palette Finder",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ImageViewer(file: file),
+                  ColorCode()
+                ],
+              )
             ],
           )
         ],

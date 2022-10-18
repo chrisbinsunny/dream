@@ -34,10 +34,6 @@ class _ImageViewerState extends State<ImageViewer> {
       child: GestureDetector(
         onPanDown: (event) async {
           final windowSize = MediaQuery.of(context).size;
-
-          /// re-capture the image only when the window size changed.
-          /// We might use a LayoutBuilder or similar as well. Is just a way
-          /// to optimize the CPU required to draw Image.
           if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
             print('capture image');
             _lastWindowSize = windowSize;
@@ -52,22 +48,40 @@ class _ImageViewerState extends State<ImageViewer> {
         child: RepaintBoundary(
           key: imageKey,
           child: Center(
-            child: Container(
+            child: (file == null)?
+            Container(
               width: screenWidth(context, mulBy: 0.35),
-              height: screenHeight(context, mulBy: 0.4),
+              //height: screenHeight(context, mulBy: 0.4),
+              constraints: BoxConstraints(
+                  minHeight: 370,
+                  minWidth: screenWidth(context, mulBy: 0.35)
+              ),
               alignment: Alignment.center,
+              padding: EdgeInsets.all(9),
               decoration: const BoxDecoration(
                   color: Colors.blue
               ),
-              child: (file == null)?
-              const Center(
-                  child: Text(
-                    "No Preview",
-                    style: TextStyle(color: Colors.white),
-                  )):
-              Image.network(
+              child: Text(
+                "No Preview",
+                style: TextStyle(color: Colors.white),
+              ),
+            ):
+            Container(
+              width: screenWidth(context, mulBy: 0.35),
+
+              //height: screenHeight(context, mulBy: 0.4),
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(9),
+              decoration: BoxDecoration(
+                  color: Colors.black,
+                border: Border.all(
+                  color: Colors.white
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.network(
                 file!.url,
-                fit: BoxFit.contain,
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),

@@ -17,11 +17,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  DroppedFile? file;
 
   @override
   Widget build(BuildContext context) {
-    file= Provider.of<ColorDetails>(context, listen: true).getFile;
     return Scaffold(
       body: Stack(
 

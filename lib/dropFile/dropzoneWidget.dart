@@ -27,7 +27,7 @@ class _DropHereState extends State<DropHere> {
       decoration: BoxDecoration(
         color: Colors.black,
         image: DecorationImage(
-          image: (file!=null)?Image.network(file!.url).image:Image.asset("assets/img (1).jpg").image,
+          image: (file!.url!="#")?Image.network(file!.url).image:Image.asset("assets/img (1).jpg").image,
           fit: BoxFit.cover,
         ),
       ),

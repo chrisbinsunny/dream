@@ -29,10 +29,25 @@ class _ImageViewerState extends State<ImageViewer> {
   @override
   Widget build(BuildContext context) {
     file= Provider.of<ColorDetails>(context, listen: true).getFile;
-    return MouseRegion(
-      cursor: SystemMouseCursors.precise,
-      child: GestureDetector(
-        onPanDown: (event) async {
+    return Container(
+      width: screenWidth(context, mulBy: 0.35),
+
+      //height: screenHeight(context, mulBy: 0.4),
+      constraints: const BoxConstraints(
+          minWidth: 500
+      ),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(9),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        border: Border.all(
+            color: Colors.white
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.precise,
+        onHover: (event) async {
           final windowSize = MediaQuery.of(context).size;
           if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
             print('capture image');
@@ -40,47 +55,33 @@ class _ImageViewerState extends State<ImageViewer> {
             _lastUrl=file!.url;
             imageDataList = await captureImage();
           }
-          getPixelColor(event.localPosition);
+          Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
         },
-        onPanUpdate: (event) {
-          getPixelColor(event.localPosition);
-        },
-        child: RepaintBoundary(
-          key: imageKey,
-          child: Center(
-            child: (file == null)?
-            Container(
-              width: screenWidth(context, mulBy: 0.35),
-              //height: screenHeight(context, mulBy: 0.4),
-              constraints: BoxConstraints(
-                  minHeight: 370,
-                  minWidth: screenWidth(context, mulBy: 0.35)
-              ),
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(9),
-              decoration: const BoxDecoration(
-                  color: Colors.blue
-              ),
-              child: Text(
-                "No Preview",
-                style: TextStyle(color: Colors.white),
-              ),
-            ):
-            Container(
-              width: screenWidth(context, mulBy: 0.35),
-
-              //height: screenHeight(context, mulBy: 0.4),
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(9),
-              decoration: BoxDecoration(
-                  color: Colors.black,
-                border: Border.all(
-                  color: Colors.white
-                ),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Image.network(
-                file!.url,
+        child: GestureDetector(
+          onPanDown: (event) async {
+            final windowSize = MediaQuery.of(context).size;
+            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+              print('capture image');
+              _lastWindowSize = windowSize;
+              _lastUrl=file!.url;
+              imageDataList = await captureImage();
+            }
+            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+          },
+          onPanUpdate: (event) {
+            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+          },
+          child: RepaintBoundary(
+            key: imageKey,
+            child: Center(
+              child:
+              (file!=null)?
+              Image.network(
+                  file!.url,
+                fit: BoxFit.fitWidth,
+              ):
+              Image.asset(
+                  "assets/img (1).jpg",
                 fit: BoxFit.fitWidth,
               ),
             ),
@@ -94,10 +95,10 @@ class _ImageViewerState extends State<ImageViewer> {
 
 
 
-  void getPixelColor(Offset position) {
+  Color? getPixelColor(Offset position) {
     /// no process if we in a race condition while image is being captured
     /// and mouse/touch dragged around the screen.
-    if (imageDataList.isEmpty) return;
+    if (imageDataList.isEmpty) return null;
     final w = image.width;
     final h = image.height;
     final x = position.dx.round().clamp(0, w - 1);
@@ -109,13 +110,11 @@ class _ImageViewerState extends State<ImageViewer> {
     var i = y * (w * 4) + x * 4;
 
     /// pixels are encoded in `RGBA` in the List.
-    Provider.of<ColorDetails>(context, listen: false).setColor(
-        Color.fromARGB(
-          list[i + 3],
-          list[i],
-          list[i + 1],
-          list[i + 2],
-        )
+    return Color.fromARGB(
+      list[i + 3],
+      list[i],
+      list[i + 1],
+      list[i + 2],
     );
   }
 

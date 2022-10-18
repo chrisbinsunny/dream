@@ -93,7 +93,7 @@ class _ColorCodeState extends State<ColorCode> {
                     width: screenWidth(context, mulBy: 0.15),
                     height: 55,
                     decoration: BoxDecoration(
-                        color: color,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             color: Colors.white,
@@ -148,7 +148,7 @@ class _ColorCodeState extends State<ColorCode> {
                     width: screenWidth(context, mulBy: 0.15),
                     height: 55,
                     decoration: BoxDecoration(
-                        color: color,
+                        color: Colors.black,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             color: Colors.white,
@@ -170,7 +170,7 @@ class _ColorCodeState extends State<ColorCode> {
                           ),
                         ),
                         IconButton(
-                          
+
                             onPressed:  () async {
                               await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
                                   .then((value) {

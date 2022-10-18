@@ -1,10 +1,13 @@
 
+import 'dart:developer';
+
 import 'package:color_finder/colorDetails.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:image/image.dart' as img;
+import 'package:http/http.dart' as http;
 
 class ColorCode extends StatefulWidget {
   const ColorCode({Key? key}) : super(key: key);
@@ -15,16 +18,12 @@ class ColorCode extends StatefulWidget {
 
 class _ColorCodeState extends State<ColorCode> {
 
-  final coverData =
-      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg';
-
-  img.Image photo;
+  late img.Image photo;
 
   void setImageBytes(imageBytes) {
     print("setImageBytes");
     List<int> values = imageBytes.buffer.asUint8List();
-    photo = null;
-    photo = img.decodeImage(values);
+    photo = img.decodeImage(values)!;
   }
 
   // image lib uses uses KML color format, convert #AABBGGRR to regular #AARRGGBB
@@ -39,17 +38,15 @@ class _ColorCodeState extends State<ColorCode> {
 
   Future<Color> _getColor() async {
     print("_getColor");
-    Uint8List data;
+    Uint8List? data;
 
     try{
       data =
-          (await NetworkAssetBundle(
-              Uri.parse(coverData)).load(coverData))
-              .buffer
-              .asUint8List();
+          (await http.get(Uri.parse(Provider.of<ColorDetails>(context, listen: true).getFile!.url)))
+              .bodyBytes;
     }
     catch(ex){
-      print(ex.toString());
+      log(ex.toString());
     }
 
     print("setImageBytes....");
@@ -77,11 +74,29 @@ class _ColorCodeState extends State<ColorCode> {
       decoration: const BoxDecoration(
           color: Colors.grey
       ),
-      child: Text(
-        "Coordinates: ${Provider.of<ColorDetails>(context, listen: true).getCoordinates}",
-        style: TextStyle(
-          color: Colors.black
-        ),
+      child: Column(
+        children: [
+          Text(
+            "Coordinates: ${Provider.of<ColorDetails>(context, listen: true).getCoordinates}",
+            style: TextStyle(
+              color: Colors.black
+            ),
+          ),
+          FutureBuilder(
+              future: _getColor(),
+              builder: (_, AsyncSnapshot<Color> data){
+                if (data.connectionState==ConnectionState.done){
+                  log(data.data.toString());
+                  return Container(
+                    height: 100,
+                    width: 100,
+                    color: data.data,
+                  );
+                }
+                return CircularProgressIndicator();
+              }
+          ),
+        ],
       ),
     );
   }

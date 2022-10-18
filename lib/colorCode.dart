@@ -2,12 +2,11 @@
 import 'dart:developer';
 
 import 'package:color_finder/colorDetails.dart';
+import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:image_pixels/image_pixels.dart';
 import 'package:provider/provider.dart';
-import 'package:image/image.dart' as img;
-import 'package:http/http.dart' as http;
 
 class ColorCode extends StatefulWidget {
   const ColorCode({Key? key}) : super(key: key);
@@ -18,55 +17,13 @@ class ColorCode extends StatefulWidget {
 
 class _ColorCodeState extends State<ColorCode> {
 
-  late img.Image photo;
-
-  void setImageBytes(imageBytes) {
-    print("setImageBytes");
-    List<int> values = imageBytes.buffer.asUint8List();
-    photo = img.decodeImage(values)!;
-  }
-
-  // image lib uses uses KML color format, convert #AABBGGRR to regular #AARRGGBB
-  int abgrToArgb(int argbColor) {
-    print("abgrToArgb");
-    int r = (argbColor >> 16) & 0xFF;
-    int b = argbColor & 0xFF;
-    return (argbColor & 0xFF00FF00) | (b << 16) | r;
-  }
-
-  // FUNCTION
-
-  Future<Color> _getColor() async {
-    print("_getColor");
-    Uint8List? data;
-
-    try{
-      data =
-          (await http.get(Uri.parse(Provider.of<ColorDetails>(context, listen: true).getFile!.url)))
-              .bodyBytes;
-    }
-    catch(ex){
-      log(ex.toString());
-    }
-
-    print("setImageBytes....");
-    setImageBytes(data);
-
-//FractionalOffset(1.0, 0.0); //represents the top right of the [Size].
-    double px = 1.0;
-    double py = 0.0;
-
-    int pixel32 = photo.getPixelSafe(px.toInt(), py.toInt());
-    int hex = abgrToArgb(pixel32);
-    print("Value of int: $hex ");
-
-    return Color(hex);
-  }
-
-
+  DroppedFile? file;
+  late Offset coordi;
 
   @override
   Widget build(BuildContext context) {
+    file= Provider.of<ColorDetails>(context, listen: true).getFile;
+    coordi= Provider.of<ColorDetails>(context, listen: true).getCoordinates;
     return Container(
       width: screenWidth(context, mulBy: 0.35),
       height: screenHeight(context, mulBy: 0.4),
@@ -82,22 +39,18 @@ class _ColorCodeState extends State<ColorCode> {
               color: Colors.black
             ),
           ),
-          FutureBuilder(
-              future: _getColor(),
-              builder: (_, AsyncSnapshot<Color> data){
-                if (data.connectionState==ConnectionState.done){
-                  log(data.data.toString());
-                  return Container(
-                    height: 100,
-                    width: 100,
-                    color: data.data,
-                  );
-                }
-                return CircularProgressIndicator();
-              }
-          ),
+
+          file!=null?ImagePixels(
+              imageProvider: NetworkImage(file!.url),
+              builder: (context, img) =>
+                  Text(
+                      "Img size is: ${img.width} × ${img.height}.\n"
+                          "Pixel color is: ${img.pixelColorAt!(coordi.dx.toInt(),coordi.dy.toInt())}."
+                          "")
+          ):SizedBox()
         ],
       ),
     );
   }
+
 }

@@ -14,9 +14,8 @@ import 'package:http/http.dart' as http;
 import 'imagePixel.dart';
 
 class ColorCode extends StatefulWidget {
-  const ColorCode({Key? key, required this.imagUrl}) : super(key: key);
+  const ColorCode({Key? key, }) : super(key: key);
 
-  final String? imagUrl;
 
   @override
   State<ColorCode> createState() => _ColorCodeState();
@@ -53,25 +52,6 @@ class _ColorCodeState extends State<ColorCode> {
               color: Colors.black
             ),
           ),
-          ImagePixels(
-              imageProvider: NetworkImage(widget.imagUrl!),
-              builder: (context, img) =>
-                  Text(
-                      "Img size is: ${img.width} × ${img.height}.\n"
-                          "Pixel color is: ${img.pixelColorAt!(0, 0)}.")
-          ),
-          // FutureBuilder(
-          //     future: _getColor(),
-          // builder: (context, AsyncSnapshot<Color?> snapshot) {
-          //   if(snapshot.hasData) {
-          //     return Container(
-          //       width: 300,
-          //       height: 300,
-          //       color: snapshot.data,
-          //     );
-          //   }
-          //   return CircularProgressIndicator();
-          // }),
         ],
       ),
     );

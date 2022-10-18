@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             onDroppedFile: (file)=> Provider.of<ColorDetails>(context, listen: false).setFile(file),
           ),
           ListView(
-            shrinkWrap: true,
+            shrinkWrap: false,
             children: [
               Container(
                 alignment: Alignment.center,
@@ -44,13 +44,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+              Wrap(
+                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                direction: Axis.horizontal,
+                alignment: WrapAlignment.spaceEvenly,
+                children: const [
                   ImageViewer(),
-                  ColorCode(
-
-                  )
+                  ColorCode()
                 ],
               )
             ],

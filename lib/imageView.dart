@@ -48,14 +48,19 @@ class _ImageViewerState extends State<ImageViewer> {
       child: MouseRegion(
         cursor: SystemMouseCursors.precise,
         onHover: (event) async {
-          final windowSize = MediaQuery.of(context).size;
-          if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
-            print('capture image');
-            _lastWindowSize = windowSize;
-            _lastUrl=file!.url;
-            imageDataList = await captureImage();
+          try{
+            final windowSize = MediaQuery.of(context).size;
+            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+              print('capture image');
+              _lastWindowSize = windowSize;
+              _lastUrl=file!.url;
+              imageDataList = await captureImage();
+            }
+            Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
           }
-          Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
+          catch(e){
+            log(e.toString());
+          }
         },
         child: GestureDetector(
           onPanDown: (event) async {
@@ -75,7 +80,7 @@ class _ImageViewerState extends State<ImageViewer> {
             key: imageKey,
             child: Center(
               child:
-              (file!=null)?
+              (file!.url!="#")?
               Image.network(
                   file!.url,
                 fit: BoxFit.fitWidth,

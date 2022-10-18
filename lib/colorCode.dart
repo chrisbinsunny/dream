@@ -108,7 +108,7 @@ class _ColorCodeState extends State<ColorCode> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Hex: #${color.value.toRadixString(16).substring(2)}',
+                          'Hex: #${color.value.toRadixString(16)}',
                           style: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w400,
@@ -116,7 +116,7 @@ class _ColorCodeState extends State<ColorCode> {
                         ),
                         IconButton(
                             onPressed:  () async {
-                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16).substring(2)}"))
+                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
                                   .then((value) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(

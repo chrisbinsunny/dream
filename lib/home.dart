@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    file= Provider.of<ColorDetails>(context, listen: true).getFile;
     return Scaffold(
       body: Stack(
 
@@ -47,7 +48,10 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ImageViewer(),
-                  ColorCode()
+                  file!=null?
+                  ColorCode(
+                    imagUrl: Provider.of<ColorDetails>(context, listen: true).getFile!.url,
+                  ): SizedBox()
                 ],
               )
             ],

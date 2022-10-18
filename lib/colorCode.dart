@@ -1,6 +1,7 @@
 
 import 'dart:developer';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:color_finder/colorDetails.dart';
 import 'package:color_finder/dropFile/dropFile.dart';
@@ -23,8 +24,7 @@ class ColorCode extends StatefulWidget {
 
 class _ColorCodeState extends State<ColorCode> {
 
-  late Offset coordi;
-  late Color color;
+  late Color color, colorTemp;
 
   @override
   void initState() {
@@ -34,36 +34,126 @@ class _ColorCodeState extends State<ColorCode> {
 
   @override
   Widget build(BuildContext context) {
-    coordi= Provider.of<ColorDetails>(context, listen: true).getCoordinates;
     color=Provider.of<ColorDetails>(context, listen: true).getColor;
-    return Container(
-      width: screenWidth(context, mulBy: 0.35),
-      height: screenHeight(context, mulBy: 0.4),
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-          color: Colors.grey
-      ),
-      child: Column(
-        children: [
-          Text(
-            "Coordinates: ${Provider.of<ColorDetails>(context, listen: true).getCoordinates}",
-            style: TextStyle(
-              color: Colors.black
-            ),
+    colorTemp=Provider.of<ColorDetails>(context, listen: true).getColorTemp;
+    return ClipRRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+        child: Container(
+          width: screenWidth(context, mulBy: 0.35),
+          height: screenHeight(context, mulBy: 0.4),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                  color: Colors.white,
+
+              )
           ),
-          Text(
-            '#${color.value.toRadixString(16)}',
-            style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.w500,
-                shadows: [
-                  Shadow(
-                    color: Colors.black26,
-                    blurRadius: 1.5,
-                  )
-                ]),
-          )
-        ],
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 70,
+                    height: 70,
+                    decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors.white,
+                            width: 0.2
+                        )
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: 70,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        color: colorTemp,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors.white,
+                          width: 0.2
+                        )
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: screenWidth(context, mulBy: 0.15),
+                    height: 55,
+                    decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors.white,
+                            width: 0.2
+                        )
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 15
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Hex: #${color.value.toRadixString(16).substring(2)}',
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w400,
+                              ),
+                        ),
+                        IconButton(
+                            onPressed:  () async {
+                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16).substring(2)}"));
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                  "Text Copied to clipboard",
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
+                                ),
+                                  backgroundColor: Colors.blueAccent,
+                                )
+                              );
+                            },
+                            icon: const Icon(Icons.copy, size: 22,)
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    width: screenWidth(context, mulBy: 0.15),
+                    height: 55,
+                    decoration: BoxDecoration(
+                        color: colorTemp,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                            color: Colors.white,
+                            width: 0.2
+                        )
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -23,9 +23,8 @@ class ColorCode extends StatefulWidget {
 
 class _ColorCodeState extends State<ColorCode> {
 
-  DroppedFile? file;
   late Offset coordi;
-  late img.Image photo;
+  late Color color;
 
   @override
   void initState() {
@@ -35,8 +34,8 @@ class _ColorCodeState extends State<ColorCode> {
 
   @override
   Widget build(BuildContext context) {
-    file= Provider.of<ColorDetails>(context, listen: true).getFile;
     coordi= Provider.of<ColorDetails>(context, listen: true).getCoordinates;
+    color=Provider.of<ColorDetails>(context, listen: true).getColor;
     return Container(
       width: screenWidth(context, mulBy: 0.35),
       height: screenHeight(context, mulBy: 0.4),
@@ -52,6 +51,18 @@ class _ColorCodeState extends State<ColorCode> {
               color: Colors.black
             ),
           ),
+          Text(
+            '#${color.value.toRadixString(16)}',
+            style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w500,
+                shadows: [
+                  Shadow(
+                    color: Colors.black26,
+                    blurRadius: 1.5,
+                  )
+                ]),
+          )
         ],
       ),
     );

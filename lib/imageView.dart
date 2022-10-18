@@ -20,10 +20,9 @@ class _ImageViewerState extends State<ImageViewer> {
   DroppedFile? file;
   final imageKey = GlobalKey();
 
-  final onColorPicked = ValueNotifier<Color>(Colors.black);
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
-
+  String _lastUrl= "";
   Size _lastWindowSize = Size.zero;
 
 
@@ -39,9 +38,10 @@ class _ImageViewerState extends State<ImageViewer> {
           /// re-capture the image only when the window size changed.
           /// We might use a LayoutBuilder or similar as well. Is just a way
           /// to optimize the CPU required to draw Image.
-          if (_lastWindowSize != windowSize) {
+          if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
             print('capture image');
             _lastWindowSize = windowSize;
+            _lastUrl=file!.url;
             imageDataList = await captureImage();
           }
           getPixelColor(event.localPosition);
@@ -95,11 +95,13 @@ class _ImageViewerState extends State<ImageViewer> {
     var i = y * (w * 4) + x * 4;
 
     /// pixels are encoded in `RGBA` in the List.
-    onColorPicked.value = Color.fromARGB(
-      list[i + 3],
-      list[i],
-      list[i + 1],
-      list[i + 2],
+    Provider.of<ColorDetails>(context, listen: false).setColor(
+        Color.fromARGB(
+          list[i + 3],
+          list[i],
+          list[i + 1],
+          list[i + 2],
+        )
     );
   }
 

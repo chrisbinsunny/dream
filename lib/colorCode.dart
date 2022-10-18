@@ -116,18 +116,25 @@ class _ColorCodeState extends State<ColorCode> {
                         ),
                         IconButton(
                             onPressed:  () async {
-                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16).substring(2)}"));
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                  "Text Copied to clipboard",
-                                      style: TextStyle(
-                                        color: Colors.white
+                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16).substring(2)}"))
+                                  .then((value) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                        "Text Copied to clipboard",
+                                        style: TextStyle(
+                                            color: Colors.white
+                                        ),
                                       ),
-                                ),
-                                  backgroundColor: Colors.blueAccent,
-                                )
-                              );
+                                      backgroundColor: Colors.blueAccent,
+                                      width: screenWidth(context, mulBy: 0.2),
+                                      behavior: SnackBarBehavior.floating,
+
+
+                                    )
+                                );
+                              });
+
                             },
                             icon: const Icon(Icons.copy, size: 22,)
                         )
@@ -141,12 +148,53 @@ class _ColorCodeState extends State<ColorCode> {
                     width: screenWidth(context, mulBy: 0.15),
                     height: 55,
                     decoration: BoxDecoration(
-                        color: colorTemp,
+                        color: color,
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
                             color: Colors.white,
                             width: 0.2
                         )
+                    ),
+                    alignment: Alignment.centerLeft,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'RGB: rgba(${color.red},${color.green},${color.blue},${color.alpha})',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        IconButton(
+                          
+                            onPressed:  () async {
+                              await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
+                                  .then((value) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                        "Text Copied to clipboard",
+                                        style: TextStyle(
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                      backgroundColor: Colors.blueAccent,
+                                      width: screenWidth(context, mulBy: 0.2),
+                                      behavior: SnackBarBehavior.floating,
+
+
+                                    )
+                                );
+                              });
+
+                            },
+                            icon: const Icon(Icons.copy, size: 22,)
+                        )
+                      ],
                     ),
                   ),
                 ],

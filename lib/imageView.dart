@@ -39,7 +39,7 @@ class _ImageViewerState extends State<ImageViewer> {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: Colors.black,
         border: Border.all(
             color: Colors.white
         ),

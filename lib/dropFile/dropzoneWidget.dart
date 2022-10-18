@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
+import 'package:provider/provider.dart';
 
+import '../colorDetails.dart';
 import 'dropFile.dart';
 
 class DropHere extends StatefulWidget {
@@ -24,13 +26,21 @@ class _DropHereState extends State<DropHere> {
         onCreated: (DropzoneViewController ctrl) => controller = ctrl,
         onLoaded: () => print('Zone loaded'),
         onDrop: acceptFile,
-        onLeave: () => print('Zone left'),
+        onLeave: () {
+          Provider.of<ColorDetails>(context, listen: false).setHover(false);
+
+        },
+        onHover: (){
+          Provider.of<ColorDetails>(context, listen: false).setHover(true);
+        },
       ),
     );
   }
 
 
   Future acceptFile(dynamic event) async {
+    Provider.of<ColorDetails>(context, listen: false).setHover(false);
+
     final name = event.name;
     final mime = await controller.getFileMIME(event);
     final bytes = await controller.getFileSize(event);

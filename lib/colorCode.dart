@@ -11,10 +11,11 @@ import 'package:provider/provider.dart';
 import 'package:image/image.dart' as img;
 import 'package:http/http.dart' as http;
 
-class ColorCode extends StatefulWidget {
-  const ColorCode({Key? key, required this.imagUrl}) : super(key: key);
+import 'imagePixel.dart';
 
-  final String? imagUrl;
+class ColorCode extends StatefulWidget {
+  const ColorCode({Key? key, }) : super(key: key);
+
 
   @override
   State<ColorCode> createState() => _ColorCodeState();
@@ -22,65 +23,19 @@ class ColorCode extends StatefulWidget {
 
 class _ColorCodeState extends State<ColorCode> {
 
-  DroppedFile? file;
   late Offset coordi;
-  late img.Image photo;
+  late Color color;
 
   @override
   void initState() {
-    setImageBytes();
     super.initState();
   }
 
 
-
-  Future<void> setImageBytes() async {
-    print("_getColor");
-    late Uint8List data;
-
-    try{
-      data =
-      (await http.get(
-          Uri.parse(widget.imagUrl!),
-    )).bodyBytes;
-    }
-    catch(ex){
-    print(ex.toString());
-    }
-
-    print("setImageBytes....");
-    print("setImageBytes");
-    List<int> values = data.buffer.asUint8List();
-    photo = img.decodeImage(values)!;
-  }
-
-  // image lib uses uses KML color format, convert #AABBGGRR to regular #AARRGGBB
-  int abgrToArgb(int argbColor) {
-    print("abgrToArgb");
-    int r = (argbColor >> 16) & 0xFF;
-    int b = argbColor & 0xFF;
-    return (argbColor & 0xFF00FF00) | (b << 16) | r;
-  }
-
-  // FUNCTION
-
-  Future<Color> _getColor() async {
-
-
-//FractionalOffset(1.0, 0.0); //represents the top right of the [Size].
-    double px = Provider.of<ColorDetails>(context, listen: true).getCoordinates.dx;
-    double py = Provider.of<ColorDetails>(context, listen: true).getCoordinates.dy;
-
-    int pixel32 = photo.getPixelSafe(px.toInt(), py.toInt());
-    int hex = abgrToArgb(pixel32);
-    print("Value of int: $hex ");
-
-    return Color(hex);
-  }
   @override
   Widget build(BuildContext context) {
-    file= Provider.of<ColorDetails>(context, listen: true).getFile;
     coordi= Provider.of<ColorDetails>(context, listen: true).getCoordinates;
+    color=Provider.of<ColorDetails>(context, listen: true).getColor;
     return Container(
       width: screenWidth(context, mulBy: 0.35),
       height: screenHeight(context, mulBy: 0.4),
@@ -96,18 +51,18 @@ class _ColorCodeState extends State<ColorCode> {
               color: Colors.black
             ),
           ),
-          FutureBuilder(
-              future: _getColor(),
-          builder: (context, AsyncSnapshot<Color?> snapshot) {
-            if(snapshot.hasData) {
-              return Container(
-                width: 300,
-                height: 300,
-                color: snapshot.data,
-              );
-            }
-            return CircularProgressIndicator();
-          }),
+          Text(
+            '#${color.value.toRadixString(16)}',
+            style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w500,
+                shadows: [
+                  Shadow(
+                    color: Colors.black26,
+                    blurRadius: 1.5,
+                  )
+                ]),
+          )
         ],
       ),
     );

@@ -48,13 +48,55 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ImageViewer(),
-                  file!=null?
                   ColorCode(
-                    imagUrl: Provider.of<ColorDetails>(context, listen: true).getFile!.url,
-                  ): SizedBox()
+
+                  )
                 ],
               )
             ],
+          ),
+
+          Visibility(
+            visible: Provider.of<ColorDetails>(context, listen: true).getHover,
+            child: Container(
+              color: Colors.black.withOpacity(0.9),
+              height: screenHeight(context),
+              width: screenWidth(context),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.cloud_upload,
+                    size: 140,
+                    color: Colors.white,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      text: "We strongly support data privacy. ",
+                      children: [
+                        TextSpan(
+                          text: "No data is being sent to our servers. ",
+                          style: TextStyle(
+                            fontStyle: FontStyle.italic,
+                            decoration: TextDecoration.underline
+                          )
+                        ),
+                        TextSpan(
+                          text: "Your browser handles everything.",
+                        )
+                      ]
+                    ),
+                    style: TextStyle(
+                      fontSize: 17
+                    ),
+                  )
+                ],
+              ),
+            ),
           )
         ],
       ),

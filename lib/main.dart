@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import 'colorDetails.dart';
 
+///flutter run -d chrome --web-renderer canvaskit --release --dart-define=BROWSER_IMAGE_DECODING_ENABLED=false
+
 void main() {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ColorDetails>(

@@ -48,10 +48,9 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ImageViewer(),
-                  file!=null?
                   ColorCode(
-                    imagUrl: Provider.of<ColorDetails>(context, listen: true).getFile!.url,
-                  ): SizedBox()
+
+                  )
                 ],
               )
             ],

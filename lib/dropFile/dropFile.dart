@@ -4,7 +4,7 @@ class DroppedFile {
   final String mime;
   final int bytes;
   const DroppedFile({
-    this.url="#",
+    required this.url,
     this.name="https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg",
     required this.mime,
     required this.bytes,

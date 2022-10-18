@@ -7,8 +7,8 @@ import 'dropFile/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
   DroppedFile? file;
-  Offset coordinates=const Offset(0, 0);
   Color color =Colors.black;
+  Color colorTemp =Color(0xff8540ec);
   bool hover= false;
 
   DroppedFile? get getFile {
@@ -20,14 +20,6 @@ class ColorDetails extends ChangeNotifier {
     notifyListeners();
   }
 
-  Offset get getCoordinates{
-    return coordinates;
-  }
-
-  void setCoordinates(Offset coordinates1){
-    coordinates= coordinates1;
-    notifyListeners();
-  }
 
   Color get getColor{
     return color;
@@ -35,6 +27,15 @@ class ColorDetails extends ChangeNotifier {
 
   void setColor(Color color1){
     color= color1;
+    notifyListeners();
+  }
+
+  Color get getColorTemp{
+    return colorTemp;
+  }
+
+  void setColorTemp(Color colorTemp1){
+    colorTemp= colorTemp1;
     notifyListeners();
   }
 

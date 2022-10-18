@@ -19,8 +19,8 @@ class _ImageViewerState extends State<ImageViewer> {
   Widget build(BuildContext context) {
     file= Provider.of<ColorDetails>(context, listen: true).getFile;
     return Container(
-      width: screenWidth(context, mulBy: 0.35),
-      height: screenHeight(context, mulBy: 0.4),
+      //width: screenWidth(context, mulBy: 0.35),
+      //height: screenHeight(context, mulBy: 0.4),
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: Colors.blue

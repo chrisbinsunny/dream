@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
@@ -17,22 +19,36 @@ class DropHere extends StatefulWidget {
 
 class _DropHereState extends State<DropHere> {
   late DropzoneViewController controller;
+  DroppedFile? file;
   @override
   Widget build(BuildContext context) {
+    file=Provider.of<ColorDetails>(context, listen: true).getFile;
     return Container(
-      color: Colors.greenAccent.withOpacity(0.2),
-      child: DropzoneView(
-        operation: DragOperation.copy,
-        onCreated: (DropzoneViewController ctrl) => controller = ctrl,
-        onLoaded: () => print('Zone loaded'),
-        onDrop: acceptFile,
-        onLeave: () {
-          Provider.of<ColorDetails>(context, listen: false).setHover(false);
+      decoration: BoxDecoration(
+        color: Colors.black,
+        image: DecorationImage(
+          image: (file!=null)?Image.network(file!.url).image:Image.asset("assets/img (1).jpg").image,
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+        child: Container(
+          decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
+          child: DropzoneView(
+            operation: DragOperation.copy,
+            onCreated: (DropzoneViewController ctrl) => controller = ctrl,
+            onLoaded: () => print('Zone loaded'),
+            onDrop: acceptFile,
+            onLeave: () {
+              Provider.of<ColorDetails>(context, listen: false).setHover(false);
 
-        },
-        onHover: (){
-          Provider.of<ColorDetails>(context, listen: false).setHover(true);
-        },
+            },
+            onHover: (){
+              Provider.of<ColorDetails>(context, listen: false).setHover(true);
+            },
+          ),
+        ),
       ),
     );
   }

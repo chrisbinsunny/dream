@@ -1,12 +1,12 @@
-import 'package:color_finder/colorCode.dart';
-import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/imageView.dart';
 import 'package:color_finder/sizes.dart';
+import 'package:color_finder/upload/uploadImage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'colorCodeViewer.dart';
 import 'colorDetails.dart';
-import 'dropFile/dropzoneWidget.dart';
+import 'upload/dropzoneWidget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,6 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  ScrollController controler= ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +49,24 @@ class _HomePageState extends State<HomePage> {
                 alignment: WrapAlignment.spaceEvenly,
                 runSpacing: 20,
                 spacing: 20,
-                children: const [
-                  ImageViewer(),
-                  ColorCodeViewer()
+                children:  [
+                  SingleChildScrollView(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const ImageViewer(),
+                      ],
+                    ),
+                  ),
+                  Column(
+                    children: const [
+                      ColorCodeViewer(),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      UploadImage()
+                    ],
+                  )
                 ],
               )
             ],

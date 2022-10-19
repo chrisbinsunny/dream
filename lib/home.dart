@@ -46,6 +46,8 @@ class _HomePageState extends State<HomePage> {
                 //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 direction: Axis.horizontal,
                 alignment: WrapAlignment.spaceEvenly,
+                runSpacing: 20,
+                spacing: 20,
                 children: const [
                   ImageViewer(),
                   ColorCode()

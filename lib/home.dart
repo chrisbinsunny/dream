@@ -19,12 +19,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   final ScrollController _scrollController= ScrollController();
-  double _opacity = 0;
 
   _scrollListener() {
-    setState(() {
-      _scrollPosition = _scrollController.position.pixels;
-    });
+    Provider.of<ScrollDetail>(context, listen: false).setPos(_scrollController.position.pixels);
   }
 
   @override
@@ -36,18 +33,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
-    _opacity = _scrollPosition < screenSize.height * 0.1
-        ? _scrollPosition / (screenSize.height * 0.1)
-        : 1;
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: Size(screenWidth(context), 1000),
-        child: TopBarContents(_opacity),
+        child: const AppBarCustom(),
       ),
       body: Stack(
         children: [
-          DropHere( ),
+          const DropHere( ),
           ListView(
             shrinkWrap: false,
             controller: _scrollController,
@@ -55,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                 alignment: Alignment.center,
                 height: screenHeight(context, mulBy: 0.3),
-                color: Colors.black,
+                //color: Colors.black,
                 child: const Text(
                   "Color Finder | Palette Finder",
                   style: TextStyle(

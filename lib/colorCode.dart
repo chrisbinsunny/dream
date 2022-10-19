@@ -1,9 +1,12 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:color_finder/colorDetails.dart';
+import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 
 import 'imagePixel.dart';
@@ -45,154 +48,159 @@ class _ColorCodeState extends State<ColorCode> {
 
               )
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                        color: color,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors.white,
-                            width: 0.2
-                        )
-                    ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 70,
+                        height: 70,
+                        decoration: BoxDecoration(
+                            color: color,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Colors.white,
+                                width: 0.2
+                            )
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: 70,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: colorTemp,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Colors.white,
+                              width: 0.2
+                            )
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: 70,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: colorTemp,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors.white,
-                          width: 0.2
-                        )
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: screenWidth(context, mulBy: 0.15),
-                    height: 55,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors.white,
-                            width: 0.2
-                        )
-                    ),
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 15
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Hex: #${color.value.toRadixString(16)}',
-                          style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: screenWidth(context, mulBy: 0.15),
+                        height: 55,
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Colors.white,
+                                width: 0.2
+                            )
+                        ),
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 15
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Hex: #${color.value.toRadixString(16)}',
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            IconButton(
+                                onPressed:  () async {
+                                  await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
+                                      .then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            "Text Copied to clipboard",
+                                            style: TextStyle(
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                          backgroundColor: Colors.blueAccent,
+                                          width: screenWidth(context, mulBy: 0.2),
+                                          behavior: SnackBarBehavior.floating,
+
+
+                                        )
+                                    );
+                                  });
+
+                                },
+                                icon: const Icon(Icons.copy, size: 22,)
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: screenWidth(context, mulBy: 0.15),
+                        height: 55,
+                        decoration: BoxDecoration(
+                            color: Colors.black,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Colors.white,
+                                width: 0.2
+                            )
+                        ),
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 15
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'RGB: rgba(${color.red},${color.green},${color.blue},${color.alpha})',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
                               ),
+                            ),
+                            IconButton(
+
+                                onPressed:  () async {
+                                  await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
+                                      .then((value) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: const Text(
+                                            "Text Copied to clipboard",
+                                            style: TextStyle(
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                          backgroundColor: Colors.blueAccent,
+                                          width: screenWidth(context, mulBy: 0.2),
+                                          behavior: SnackBarBehavior.floating,
+
+
+                                        )
+                                    );
+                                  });
+
+                                },
+                                icon: const Icon(Icons.copy, size: 22,)
+                            )
+                          ],
                         ),
-                        IconButton(
-                            onPressed:  () async {
-                              await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
-                                  .then((value) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: const Text(
-                                        "Text Copied to clipboard",
-                                        style: TextStyle(
-                                            color: Colors.white
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.blueAccent,
-                                      width: screenWidth(context, mulBy: 0.2),
-                                      behavior: SnackBarBehavior.floating,
-
-
-                                    )
-                                );
-                              });
-
-                            },
-                            icon: const Icon(Icons.copy, size: 22,)
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    width: screenWidth(context, mulBy: 0.15),
-                    height: 55,
-                    decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: Colors.white,
-                            width: 0.2
-                        )
-                    ),
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'RGB: rgba(${color.red},${color.green},${color.blue},${color.alpha})',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                        IconButton(
-
-                            onPressed:  () async {
-                              await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
-                                  .then((value) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: const Text(
-                                        "Text Copied to clipboard",
-                                        style: TextStyle(
-                                            color: Colors.white
-                                        ),
-                                      ),
-                                      backgroundColor: Colors.blueAccent,
-                                      width: screenWidth(context, mulBy: 0.2),
-                                      behavior: SnackBarBehavior.floating,
-
-
-                                    )
-                                );
-                              });
-
-                            },
-                            icon: const Icon(Icons.copy, size: 22,)
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
+
             ],
           ),
         ),

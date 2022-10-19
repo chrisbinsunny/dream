@@ -4,6 +4,7 @@ import 'package:color_finder/upload/uploadImage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'appBar.dart';
 import 'colorCodeViewer.dart';
 import 'colorDetails.dart';
 import 'upload/dropzoneWidget.dart';
@@ -17,21 +18,44 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  ScrollController controler= ScrollController();
+  final ScrollController _scrollController= ScrollController();
+  double _opacity = 0;
+
+  _scrollListener() {
+    setState(() {
+      _scrollPosition = _scrollController.position.pixels;
+    });
+  }
+
+  @override
+  void initState() {
+    _scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
+    _opacity = _scrollPosition < screenSize.height * 0.1
+        ? _scrollPosition / (screenSize.height * 0.1)
+        : 1;
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: Size(screenWidth(context), 1000),
+        child: TopBarContents(_opacity),
+      ),
       body: Stack(
-
         children: [
           DropHere( ),
           ListView(
             shrinkWrap: false,
+            controller: _scrollController,
             children: [
               Container(
                 alignment: Alignment.center,
-                height: screenHeight(context, mulBy: 0.2),
+                height: screenHeight(context, mulBy: 0.3),
+                color: Colors.black,
                 child: const Text(
                   "Color Finder | Palette Finder",
                   style: TextStyle(

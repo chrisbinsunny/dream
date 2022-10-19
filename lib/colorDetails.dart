@@ -3,7 +3,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'dropFile/dropFile.dart';
+import 'upload/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
   DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "Splash.jpg");

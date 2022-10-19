@@ -13,6 +13,9 @@ void main() {
     ChangeNotifierProvider<ColorDetails>(
       create: (context) => ColorDetails(),
     ),
+    ChangeNotifierProvider<ColorDetails>(
+      create: (context) => ColorDetails(),
+    ),
   ],
       child: const MyApp()));
 }

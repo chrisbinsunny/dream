@@ -1,4 +1,5 @@
 
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:color_finder/sizes.dart';
@@ -32,10 +33,10 @@ class AppBarCustomState extends State<AppBarCustom> {
     opacity = Provider.of<ScrollDetail>(context, listen: true).getPos < screenHeight(context, mulBy: 0.1)
         ? Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1)
         : 1;
-
+log(opacity.toString());
     return ClipRRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: opacity*40, sigmaY: opacity*100, tileMode: TileMode.decal),
+        filter: ImageFilter.blur(sigmaX: 100, sigmaY: 100, ),
         child: Container(
           color: Colors.black.withOpacity(opacity/3),
           child: Padding(

@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               Container(
                 alignment: Alignment.center,
-                height: screenHeight(context, mulBy: 0.3),
+                height: screenHeight(context, mulBy: 0.25),
                 //color: Colors.black,
                 child: const Text(
                   "Color Finder | Palette Finder",

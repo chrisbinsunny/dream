@@ -1,3 +1,4 @@
+import 'package:color_finder/appBar.dart';
 import 'package:color_finder/home.dart';
 import 'package:color_finder/test.dart';
 import 'package:color_finder/upload/dropFile.dart';
@@ -13,8 +14,8 @@ void main() {
     ChangeNotifierProvider<ColorDetails>(
       create: (context) => ColorDetails(),
     ),
-    ChangeNotifierProvider<ColorDetails>(
-      create: (context) => ColorDetails(),
+    ChangeNotifierProvider<ScrollDetail>(
+      create: (context) => ScrollDetail(),
     ),
   ],
       child: const MyApp()));

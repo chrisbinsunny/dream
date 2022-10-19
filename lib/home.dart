@@ -32,12 +32,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
-        preferredSize: Size(screenWidth(context), 1000),
+        preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),
       ),
       body: Stack(

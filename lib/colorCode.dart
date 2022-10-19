@@ -1,16 +1,10 @@
-
-import 'dart:developer';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:color_finder/colorDetails.dart';
-import 'package:color_finder/dropFile/dropFile.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:image/image.dart' as img;
-import 'package:http/http.dart' as http;
 
 import 'imagePixel.dart';
 

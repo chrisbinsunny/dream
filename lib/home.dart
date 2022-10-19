@@ -25,9 +25,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
 
         children: [
-          DropHere(
-            onDroppedFile: (file)=> Provider.of<ColorDetails>(context, listen: false).setFile(file),
-          ),
+          DropHere( ),
           ListView(
             shrinkWrap: false,
             children: [

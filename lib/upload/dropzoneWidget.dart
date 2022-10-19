@@ -9,16 +9,15 @@ import '../colorDetails.dart';
 import 'dropFile.dart';
 
 class DropHere extends StatefulWidget {
-  const DropHere({Key? key, required this.onDroppedFile}) : super(key: key);
+  const DropHere({Key? key, }) : super(key: key);
 
-  final ValueChanged<DroppedFile> onDroppedFile;
 
   @override
   State<DropHere> createState() => _DropHereState();
 }
 
 class _DropHereState extends State<DropHere> {
-  late DropzoneViewController controller;
+
   DroppedFile? file;
   @override
   Widget build(BuildContext context) {
@@ -37,7 +36,7 @@ class _DropHereState extends State<DropHere> {
           decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
           child: DropzoneView(
             operation: DragOperation.copy,
-            onCreated: (DropzoneViewController ctrl) => controller = ctrl,
+            onCreated: (DropzoneViewController ctrl) =>controller=ctrl,
             onLoaded: () => print('Zone loaded'),
             onDrop: acceptFile,
             onLeave: () {
@@ -72,8 +71,7 @@ class _DropHereState extends State<DropHere> {
       mime: mime,
       bytes: bytes,
     );
-
-    widget.onDroppedFile(droppedFile);
+    Provider.of<ColorDetails>(context, listen: false).setFile(droppedFile);
   }
 
 }

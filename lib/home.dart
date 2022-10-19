@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                 spacing: 20,
                 children: const [
                   ImageViewer(),
-                  ColorCode()
+                  ColorCodeViewer()
                 ],
               )
             ],

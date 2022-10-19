@@ -41,7 +41,6 @@ class _DropHereState extends State<DropHere> {
             onDrop: acceptFile,
             onLeave: () {
               Provider.of<ColorDetails>(context, listen: false).setHover(false);
-
             },
             onHover: (){
               Provider.of<ColorDetails>(context, listen: false).setHover(true);

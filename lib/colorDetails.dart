@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'dropFile/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
-  DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "img");
+  DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "Splash.jpg");
   Color color =Colors.black;
   Color colorTemp =Color(0xff8540ec);
   bool hover= false;

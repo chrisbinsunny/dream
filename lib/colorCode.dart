@@ -22,6 +22,7 @@ class ColorCode extends StatefulWidget {
 class _ColorCodeState extends State<ColorCode> {
 
   late Color color, colorTemp;
+  late DroppedFile? file;
 
   @override
   void initState() {
@@ -33,12 +34,18 @@ class _ColorCodeState extends State<ColorCode> {
   Widget build(BuildContext context) {
     color=Provider.of<ColorDetails>(context, listen: true).getColor;
     colorTemp=Provider.of<ColorDetails>(context, listen: true).getColorTemp;
+    file=Provider.of<ColorDetails>(context, listen: true).getFile;
     return ClipRRect(
+      borderRadius: BorderRadius.circular(10),
+
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+        filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
         child: Container(
-          width: screenWidth(context, mulBy: 0.35),
+          width: screenWidth(context, mulBy: 0.3),
           height: screenHeight(context, mulBy: 0.4),
+          constraints: const BoxConstraints(
+              minWidth: 400
+          ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
@@ -49,7 +56,37 @@ class _ColorCodeState extends State<ColorCode> {
               )
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.vertical(
+                  top: Radius.circular(10)
+                ),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0,),
+                  blendMode: BlendMode.srcATop,
+                  child: Container(
+                    width: screenWidth(context, mulBy: 0.3),
+                    constraints: const BoxConstraints(
+                        minWidth: 400,
+                      minHeight: 60
+                    ),
+                    height: screenHeight(context, mulBy: 0.065),
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.05),
+                        border: const Border(
+                          bottom: BorderSide(
+                              color: Colors.white,
+                            width: 0.5
+                          )
+                        )
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -91,6 +128,9 @@ class _ColorCodeState extends State<ColorCode> {
                       Container(
                         width: screenWidth(context, mulBy: 0.15),
                         height: 55,
+                        constraints: const BoxConstraints(
+                            minWidth: 250
+                        ),
                         decoration: BoxDecoration(
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(10),
@@ -146,6 +186,9 @@ class _ColorCodeState extends State<ColorCode> {
                       Container(
                         width: screenWidth(context, mulBy: 0.15),
                         height: 55,
+                        constraints: const BoxConstraints(
+                            minWidth: 250
+                        ),
                         decoration: BoxDecoration(
                             color: Colors.black,
                             borderRadius: BorderRadius.circular(10),

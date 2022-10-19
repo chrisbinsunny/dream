@@ -1,3 +1,6 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
+
 class DroppedFile {
   final String url;
   final String name;
@@ -18,3 +21,5 @@ class DroppedFile {
         : '${kb.toStringAsFixed(2)} KB';
   }
 }
+
+late DropzoneViewController controller;

@@ -12,49 +12,61 @@ class MyApp1 extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      home: HomePage1(),
     );
   }
 }
 
-class HomePage extends StatefulWidget {
+class HomePage1 extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomePage1State createState() => _HomePage1State();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePage1State extends State<HomePage1> {
   final String images = 'https://storage.googleapis.com/cms-storage-bucket/ed2e069ee37807f5975a.jpg';
   late List<PaletteColor> bgColors;
-  late int _currentIndex;
   String a="Nepal, The 8th Wonder";
+  late PaletteGenerator palette;
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = 0;
     _updatePalette();
   }
 
-  _updatePalette() async {
-    try{
-    bgColors = [];
-    PaletteGenerator palette = await PaletteGenerator.fromImageProvider(
-      NetworkImage(images),
-      //size: const Size(200, 100),
-    );
-
-    bgColors= palette.paletteColors;
-    a=      bgColors.length.toString();
-    // palette.darkMutedColor != null ? bgColors.add(
-    //     palette.darkMutedColor!
-    //
-    // ) : bgColors.add(PaletteColor(Colors.red,3));
-
-    setState(() {});
-    }catch(e){
+  Future _updatePalette() async {
+    try {
+      palette = await PaletteGenerator.fromImageProvider(
+          const AssetImage("assets/img (1).jpg"));
+    } catch (e) {
+      a=e.toString();
       log(e.toString());
     }
+    setState(() {
+
+    });
+    return palette.paletteColors;
   }
+  // _updatePalette() async {
+  //   try{
+  //   bgColors = [];
+  //   PaletteGenerator palette = await PaletteGenerator.fromImageProvider(
+  //     NetworkImage(images),
+  //     //size: const Size(200, 100),
+  //   );
+  //
+  //   bgColors= palette.paletteColors;
+  //   a=      bgColors.length.toString();
+  //   // palette.darkMutedColor != null ? bgColors.add(
+  //   //     palette.darkMutedColor!
+  //   //
+  //   // ) : bgColors.add(PaletteColor(Colors.red,3));
+  //
+  //   setState(() {});
+  //   }catch(e){
+  //     log(e.toString());
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +97,33 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: bgColors.length,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-              return Container(
-                width: 30,
-                height: 30,
-                color: bgColors[index].color,
-              );
-            },
+          SizedBox(
+            height: 40,
+            child: FutureBuilder(
+              future: _updatePalette(),
+              builder: (context, snapshot) {
+                try{
+                  if(snapshot.hasData){
+                    return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          color: snapshot.data[index],
+                          width: 40,
+                          height: 40,
+                        );
+                      },
+                    );
+                  }
+                }catch(e){
+                  a=e.toString();
+                  setState(() {
+
+                  });
+                }
+                return CircularProgressIndicator();
+              },
             ),
           ),
           Expanded(

@@ -91,28 +91,32 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                         SizedBox(
                           width: 10,
                         ),
-                        RichText(
-                            text: TextSpan(
-                              text: "${file!.name}\n",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17
+                        Expanded(
+                          child: RichText(
+                            maxLines: 2,
+                              text: TextSpan(
+                                text: "${file!.name}\n",
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17,
+                                  overflow: TextOverflow.clip,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: file!.mime,
+                                    style: TextStyle(
+                                        color: Colors.white.withOpacity(0.7),
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 13
+                                    ),
+                                  )
+                                ]
                               ),
-                              children: [
-                                TextSpan(
-                                  text: file!.mime,
-                                  style: TextStyle(
-                                      color: Colors.white.withOpacity(0.7),
-                                      fontWeight: FontWeight.normal,
 
-                                      fontSize: 13
-                                  ),
-                                )
-                              ]
-                            ),
+                          ),
                         ),
-                        Spacer(),
+                        //Spacer(),
                         Text(
                           "${file!.size}",
                           style: const TextStyle(

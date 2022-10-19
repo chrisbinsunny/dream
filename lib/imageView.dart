@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'aa.dart';
 import 'colorDetails.dart';
 import 'dart:ui' as ui;
-import 'dropFile/dropFile.dart';
+import 'upload/dropFile.dart';
 
 class ImageViewer extends StatefulWidget {
   const ImageViewer({Key? key,}) : super(key: key);

@@ -64,22 +64,65 @@ class _ColorCodeState extends State<ColorCode> {
                 ),
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0,),
-                  blendMode: BlendMode.srcATop,
                   child: Container(
                     width: screenWidth(context, mulBy: 0.3),
                     constraints: const BoxConstraints(
                         minWidth: 400,
-                      minHeight: 60
+                      minHeight: 70
                     ),
-                    height: screenHeight(context, mulBy: 0.065),
+                    height: screenHeight(context, mulBy: 0.07),
                     decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.05),
+                        color: Colors.black.withOpacity(0.55),
                         border: const Border(
                           bottom: BorderSide(
                               color: Colors.white,
                             width: 0.5
                           )
                         )
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                      horizontal: 15
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          "assets/imgIcon.png",
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        RichText(
+                            text: TextSpan(
+                              text: "${file!.name}\n",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: file!.mime,
+                                  style: TextStyle(
+                                      color: Colors.white.withOpacity(0.7),
+                                      fontWeight: FontWeight.normal,
+
+                                      fontSize: 13
+                                  ),
+                                )
+                              ]
+                            ),
+                        ),
+                        Spacer(),
+                        Text(
+                          "${file!.size}",
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15
+                          ),
+                        )
+                      ],
                     ),
                   ),
                 ),

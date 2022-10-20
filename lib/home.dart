@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
          const DropHere( ),
 
           ListView(
-            shrinkWrap: false,
+            shrinkWrap: true,
             controller: _scrollController,
             children: [
               Container(
@@ -61,26 +61,33 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Wrap(
-                //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                direction: Axis.horizontal,
-                alignment: WrapAlignment.spaceEvenly,
-                runSpacing: 20,
-                spacing: 20,
-                children:  [
-                  const ImageViewer(),
-                  Column(
-                    children: const [
-                      ColorCodeViewer(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      UploadImage(),
-                    ],
-                  ),
-                  const HowToUse()
-                ],
+              // Wrap(
+              //   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //   direction: Axis.horizontal,
+              //   alignment: WrapAlignment.spaceEvenly,
+              //   runSpacing: 20,
+              //   spacing: 20,
+              //   children:  [
+              //     const ImageViewer(),
+              //     Column(
+              //       children: const [
+              //         ColorCodeViewer(),
+              //         SizedBox(
+              //           height: 20,
+              //         ),
+              //         UploadImage(),
+              //       ],
+              //     ),
+              //   ],
+              // ),
+              SizedBox(
+
+              ),
+              Align(
+                alignment: Alignment.center,
+                  child: const HowToUse(),
               )
+
             ],
           ),
 

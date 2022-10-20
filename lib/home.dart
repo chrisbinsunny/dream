@@ -40,101 +40,116 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),
       ),
-      body: Stack(
-        children: [
-         const DropHere( ),
+      body: Scrollbar(
+        controller: _scrollController,
+        thickness: 11,
+        interactive: true,
+        radius: Radius.circular(0),
+        trackVisibility: false,
+        thumbVisibility: true,
+        child: Stack(
+          children: [
+           const DropHere( ),
 
-          ListView(
-            shrinkWrap: true,
-            controller: _scrollController,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                height: screenHeight(context, mulBy: 0.25),
-                //color: Colors.black,
-                child: const Text(
-                  "Color Finder | Palette Finder",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold
+            ScrollConfiguration(
+              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: ListView(
+                shrinkWrap: false,
+                cacheExtent: 10000,
+                controller: _scrollController,
+                physics: BouncingScrollPhysics(),
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: screenHeight(context, mulBy: 0.25),
+                    //color: Colors.black,
+                    child: const Text(
+                      "Color Finder | Palette Finder",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              // Wrap(
-              //   //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //   direction: Axis.horizontal,
-              //   alignment: WrapAlignment.spaceEvenly,
-              //   runSpacing: 20,
-              //   spacing: 20,
-              //   children:  [
-              //     const ImageViewer(),
-              //     Column(
-              //       children: const [
-              //         ColorCodeViewer(),
-              //         SizedBox(
-              //           height: 20,
-              //         ),
-              //         UploadImage(),
-              //       ],
-              //     ),
-              //   ],
-              // ),
-              SizedBox(
-
-              ),
-              Align(
-                alignment: Alignment.center,
-                  child: const HowToUse(),
-              )
-
-            ],
-          ),
-
-          Visibility(
-            visible: Provider.of<ColorDetails>(context, listen: true).getHover,
-            child: Container(
-              color: Colors.black.withOpacity(0.9),
-              height: screenHeight(context),
-              width: screenWidth(context),
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.cloud_upload,
-                    size: 140,
-                    color: Colors.white,
+                  Wrap(
+                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    direction: Axis.horizontal,
+                    alignment: WrapAlignment.spaceEvenly,
+                    runSpacing: 20,
+                    spacing: 20,
+                    children:  [
+                      const ImageViewer(),
+                      Column(
+                        children: const [
+                          ColorCodeViewer(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          UploadImage(),
+                        ],
+                      ),
+                    ],
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 100,
                   ),
-                  Text.rich(
-                    textAlign: TextAlign.center,
-                    TextSpan(
-                      text: "We strongly support data privacy. ",
-                      children: [
-                        TextSpan(
-                          text: "No data is being sent to our servers. ",
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline
-                          )
-                        ),
-                        TextSpan(
-                          text: "Your browser handles everything.",
-                        )
-                      ]
-                    ),
-                    style: TextStyle(
-                      fontSize: 17
-                    ),
-                  )
+                  Align(
+                    alignment: Alignment.center,
+                      child: const HowToUse(),
+                  ),
+                  SizedBox(
+                    height: 60,
+                  ),
                 ],
               ),
             ),
-          )
-        ],
+
+            Visibility(
+              visible: Provider.of<ColorDetails>(context, listen: true).getHover,
+              child: Container(
+                color: Colors.black.withOpacity(0.9),
+                height: screenHeight(context),
+                width: screenWidth(context),
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.cloud_upload,
+                      size: 140,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text.rich(
+                      textAlign: TextAlign.center,
+                      TextSpan(
+                        text: "We strongly support data privacy. ",
+                        children: [
+                          TextSpan(
+                            text: "No data is being sent to our servers. ",
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              decoration: TextDecoration.underline
+                            )
+                          ),
+                          TextSpan(
+                            text: "Your browser handles everything.",
+                          )
+                        ]
+                      ),
+                      style: TextStyle(
+                        fontSize: 17
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

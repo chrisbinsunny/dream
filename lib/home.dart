@@ -1,3 +1,4 @@
+import 'package:color_finder/howToUse.dart';
 import 'package:color_finder/imageView.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:color_finder/upload/uploadImage.dart';
@@ -41,7 +42,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
         children: [
-          const DropHere( ),
+         const DropHere( ),
+
           ListView(
             shrinkWrap: false,
             controller: _scrollController,
@@ -66,23 +68,17 @@ class _HomePageState extends State<HomePage> {
                 runSpacing: 20,
                 spacing: 20,
                 children:  [
-                  SingleChildScrollView(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const ImageViewer(),
-                      ],
-                    ),
-                  ),
+                  const ImageViewer(),
                   Column(
                     children: const [
                       ColorCodeViewer(),
                       SizedBox(
                         height: 20,
                       ),
-                      UploadImage()
+                      UploadImage(),
                     ],
-                  )
+                  ),
+                  const HowToUse()
                 ],
               )
             ],
@@ -107,6 +103,7 @@ class _HomePageState extends State<HomePage> {
                     height: 20,
                   ),
                   Text.rich(
+                    textAlign: TextAlign.center,
                     TextSpan(
                       text: "We strongly support data privacy. ",
                       children: [

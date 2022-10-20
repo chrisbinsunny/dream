@@ -59,7 +59,7 @@ class _ImageViewerState extends State<ImageViewer> {
             Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
           }
           catch(e){
-            log(e.toString());
+            log("1) ${e}");
           }
         },
         child: GestureDetector(

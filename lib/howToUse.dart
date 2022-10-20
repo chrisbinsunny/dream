@@ -18,7 +18,7 @@ class HowToUse extends StatelessWidget {
           height: screenHeight(context, mulBy: 0.35),
           constraints: const BoxConstraints(
               minWidth: 400,
-              minHeight: 340
+              minHeight: 370
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -83,15 +83,57 @@ class HowToUse extends StatelessWidget {
                 ),
               ),
 
-              const Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15,
-                    horizontal: 20
+              Expanded(
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: 20
+                    ),
+                    child: Text.rich(
+                      textAlign: TextAlign.start,
+                      TextSpan(
+                          text: "Use your cursor on the image to find the color. \n\nUse",
+                          children: [
+                            TextSpan(
+                              text: " \'DREAM\' ",
+                              style: TextStyle(
+                                color: Colors.blueGrey[100],
+                                fontFamily: 'Montserrat',
+                                fontWeight: FontWeight.w600,
+                                letterSpacing: 5,
+                              ),
+                            ),
+                            const TextSpan(
+                              text: "by Chrisbin to find the color from your image and get the HTML Color Code of the point. "
+                                  "Also you get the HEX color code value, and the RGB value. "
+                                  "Under 'Choose Your Image' you can upload your own image (for example, a screenshot from figma), paste an image from clipboard, or put an image's local address in the textbox. "
+                                  "Also, you could always use the old and easier drag and drop to choose image.\n\n"
+                            ),
+                            const TextSpan(
+                                text: "We strongly support data privacy. ",
+                                children: [
+                                  TextSpan(
+                                      text: "No data is being sent to our servers. ",
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          decoration: TextDecoration.underline,
+                                        color: Colors.red
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: "Your browser handles everything.",
+                                  )
+                                ]
+                            ),
+                          ]
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
-                  child: Text(
-                    "Use your cursor on the image to find the color."
-                      "Use the online image color picker above to select a color and get the HTML Color Code of this pixel. Also you get the HEX color code value, RGB value and HSV value. Under 'Use Your Image' You can upload your own image (for example an screenshot of your desktop), paste an image from clipboard, put a picture url in the textbox below. Or use an website url, you will see a thumbnail on the left side." ),
                 ),
               ),
 

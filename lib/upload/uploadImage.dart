@@ -150,7 +150,7 @@ class _UploadImageState extends State<UploadImage> {
               const Spacer(),
               const Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 7
+                  horizontal: 15
                 ),
                 child: Text.rich(
                   textAlign: TextAlign.center,

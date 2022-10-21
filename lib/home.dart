@@ -1,5 +1,5 @@
 import 'package:color_finder/footer.dart';
-import 'package:color_finder/howToUse.dart';
+import 'package:color_finder/colorFinder/howToUse.dart';
 import 'package:color_finder/colorFinder/imageView.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:color_finder/upload/uploadImage.dart';
@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'appBar.dart';
-import 'colorCodeViewer.dart';
+import 'colorFinder/colorCodeViewer.dart';
 import 'colorDetails.dart';
 import 'upload/dropzoneWidget.dart';
 

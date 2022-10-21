@@ -58,7 +58,7 @@ class Footer extends StatelessWidget {
                     child: Text(
                       "Made using Flutter with 💙",
                       style: GoogleFonts.montserrat(
-                          color: Colors.blueGrey[100],
+                        color: Colors.white,
                           fontSize: 15
                       ),
                     ),
@@ -82,7 +82,7 @@ class Footer extends StatelessWidget {
                             Text(
                               "“Dream is not that which you see while sleeping it is something that does not let you sleep.”",
                               style: TextStyle(
-                                color: Colors.blueGrey[100],
+                                color: Colors.white
                               ),
                             ),
                             const SizedBox(height: 5,),
@@ -90,8 +90,7 @@ class Footer extends StatelessWidget {
                               "- APJ Abdul Kalam",
                               textAlign: TextAlign.end,
                               style: TextStyle(
-                                color: Colors.blueGrey[100],
-                                fontFamily: 'Montserrat',
+                                  color: Colors.white
                               ),
                             ),
                           ],

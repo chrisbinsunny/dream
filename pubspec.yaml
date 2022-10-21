@@ -41,6 +41,8 @@ dependencies:
   image: ^3.2.2
   palette_generator: ^0.3.3+2
   http: ^0.13.5
+  font_awesome_flutter: ^10.2.1
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,6 @@
 import 'package:color_finder/footer.dart';
 import 'package:color_finder/howToUse.dart';
-import 'package:color_finder/imageView.dart';
+import 'package:color_finder/colorFinder/imageView.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:color_finder/upload/uploadImage.dart';
 import 'package:flutter/material.dart';

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
@@ -28,7 +29,7 @@ class Footer extends StatelessWidget {
               border: Border(
                 top: BorderSide(
                   color: Colors.white,
-                  width: 0.5
+                  width: 0.25
                 )
               )
           ),
@@ -52,7 +53,90 @@ class Footer extends StatelessWidget {
                   fontFamily: 'Montserrat',
                 ),
               ),
-              
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: (){
+                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                      },
+                      style: ButtonStyle(
+                          alignment: Alignment.centerLeft
+                      ),
+
+                      child:  RichText(
+                          text: const TextSpan(
+                              text: "⭐ Find the code ",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.white
+                              ),
+                              children: [
+                                TextSpan(
+                                    text:"here",
+                                    style: TextStyle(
+                                        color: Colors.blueGrey,
+                                        decoration: TextDecoration.underline
+                                    )
+                                ),
+                              ]
+                          )),
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                      },
+                      style: ButtonStyle(
+                          alignment: Alignment.centerLeft
+                      ),
+
+                      child:  Text(
+                        "Twitter",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                      },
+                      style: ButtonStyle(
+                          alignment: Alignment.centerLeft
+                      ),
+
+                      child:  Text(
+                        "Twitter",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: (){
+                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                      },
+                      style: ButtonStyle(
+                          alignment: Alignment.centerLeft
+                      ),
+
+                      child:  Text(
+                        "Twitter",
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

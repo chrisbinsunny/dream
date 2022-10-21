@@ -1,6 +1,7 @@
 import 'package:color_finder/appBar.dart';
 import 'package:color_finder/home.dart';
 import 'package:color_finder/test.dart';
+import 'package:color_finder/test1.dart';
 import 'package:color_finder/upload/dropFile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +19,7 @@ void main() {
       create: (context) => ScrollDetail(),
     ),
   ],
-      child: const MyApp()));
+      child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

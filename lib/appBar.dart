@@ -44,7 +44,7 @@ class AppBarCustomState extends State<AppBarCustom> {
             Text(
               'DREAM',
               style: GoogleFonts.montserrat(
-                color: Colors.blueGrey[100],
+                color: Colors.blueGrey[300],
                 fontSize: 25,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 5,

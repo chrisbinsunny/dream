@@ -1,15 +1,14 @@
-import 'dart:ui' as ui;
-import 'package:flutter/material.dart';
+///
+/// Live demo at:
+///
+/// https://roi-gradient-picker.surge.sh/
+///
+///
+import 'dart:ui';
+import 'package:flutter/material.dart' hide Image;
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 class ColorPickerSample extends StatefulWidget {
-  // static void init() {
-  //   runApp(MaterialApp(
-  //     home: ColorPickerSample(),
-  //     title: 'playground',
-  //   ));
-  // }
 
   const ColorPickerSample({Key? key}) : super(key: key);
 
@@ -22,7 +21,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
 
   final onColorPicked = ValueNotifier<Color>(Colors.black);
   List<int> imageDataList = List<int>.empty(growable: false);
-  late ui.Image image;
+  late Image image;
   int _gradientIdx = 0;
 
   GradientData get gradient => gradientData[_gradientIdx];
@@ -58,13 +57,18 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(colors: gradient.colors),
                   ),
-
                   child: Center(
-                    child: Container(
-                      height: 1000,
-                      width: 1000,
-                      child: Image.network(
-                          "https://storage.googleapis.com/cms-storage-bucket/65361d7e1dfa118aa63b.png"
+                    child: Text(
+                      gradient.name,
+                      style: TextStyle(
+                        foreground: Paint()
+                          ..color = Colors.white
+                          ..blendMode = BlendMode.overlay,
+                        fontWeight: FontWeight.w200,
+                        fontSize: 80,
+                        shadows: [
+                          Shadow(color: Colors.black26, blurRadius: 20)
+                        ],
                       ),
                     ),
                   ),
@@ -170,7 +174,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
     final ro =
     imageKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
     image = await ro.toImage();
-    final bytes = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;
+    final bytes = (await image.toByteData(format: ImageByteFormat.rawRgba))!;
     return bytes.buffer.asUint8List().toList(growable: false);
   }
 }
@@ -211,51 +215,3 @@ final gradientData = <GradientData>[
   GradientData.string('Ohhappiness', ['#00b09b', '#96c93d']),
   GradientData.string('Delicate', ['#D3CCE3', '#E9E4F0']),
 ];
-
-
-class DrawImage extends StatefulWidget {
-  const DrawImage({Key? key}) : super(key: key);
-
-  @override
-  State<DrawImage> createState() => _DrawImageState();
-}
-
-class _DrawImageState extends State<DrawImage> {
-  ui.Image? _image;
-
-  void loadImage() async {
-    final data = await rootBundle.load('assets/img.png');
-    _image= await decodeImageFromList(data.buffer.asUint8List());
-  }
-
-  @override
-  void initState() {
-    loadImage();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: ImageEditor(_image),
-    );
-  }
-}
-
-class ImageEditor extends CustomPainter {
-  ui.Image? image;
-
-  ImageEditor(this.image) : super();
-
-  @override
-  Future paint(Canvas canvas, Size size) async {
-    if (image != null) {
-      canvas.drawImage(image!, Offset(0.0, 0.0), Paint());
-    }
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return image != (oldDelegate as ImageEditor).image;
-  }
-}

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:color_finder/paletteViewer.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -25,14 +26,24 @@ class _ImageViewerState extends State<ImageViewer> {
   late ui.Image image;
   String _lastUrl= "", b="";
   Size _lastWindowSize = Size.zero;
-  late Future a;
+  late Future<List<PaletteColor>> a;
 
 @override
   void initState() {
-    a= generatePalette("imagePath");
-    super.initState();
+  //file= Provider.of<ColorDetails>(context, listen: true).getFile;
+
+  super.initState();
   }
 
+
+  @override
+  void didChangeDependencies() {
+    //file= Provider.of<ColorDetails>(context, listen: true).getFile;
+
+    //a= generatePalette("imagePath");
+
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,17 +114,41 @@ class _ImageViewerState extends State<ImageViewer> {
               ),
             ),
           ),
-          FutureBuilder(
-            future: a,
-              builder: (context, snapshot){
-              if(snapshot.hasData){
-                return Text(
-                  snapshot.data!
+          ElevatedButton(
+              onPressed: (){
+                showDialog(
+                  context: context,
+                  builder: (_) => PaletteViewer1(file: file!,),
                 );
-              }
-              return LinearProgressIndicator();
               },
-          ),
+              child: Text("View Palette")),
+          // SizedBox(
+          //   height: 30,
+          //   child: FutureBuilder(
+          //     future: a,
+          //       builder: (context, snapshot){
+          //       try{
+          //         if(snapshot.hasData){
+          //           return ListView.builder(
+          //             itemCount: snapshot.data!.length,
+          //               scrollDirection: Axis.horizontal,
+          //               itemBuilder: (context, index){
+          //                 return Container(
+          //                   height: 30,
+          //                   width: 30,
+          //                   color: snapshot.data![index].color,
+          //                 );
+          //               });
+          //         }
+          //       }catch(e){
+          //         setState(() {
+          //           b=e.toString();
+          //         });
+          //       }
+          //       return LinearProgressIndicator();
+          //       },
+          //   ),
+          // ),
           Text(
              b
           )
@@ -157,34 +192,5 @@ class _ImageViewerState extends State<ImageViewer> {
     return bytes.buffer.asUint8List().toList(growable: false);
   }
 
-  Future<String?> generatePalette(String imagePath) async {
-    late PaletteGenerator paletteGenerator;
-    try{
-      if (file!.url.compareTo("#") == 0) {
-        setState(
-                (){
-              b="Poli poli";
-            }
-        );
-      }
 
-      paletteGenerator = await PaletteGenerator.fromImageProvider(
-          NetworkImage("https://storage.googleapis.com/cms-storage-bucket/ed2e069ee37807f5975a.jpg"),
-          maximumColorCount: 20);
-
-
-    }catch(e){
-      setState(
-          (){
-            b=e.toString();
-          }
-      );
-    }
-    // log(paletteGenerator.paletteColors.length.toString());
-    // setState((){
-    //   a=paletteGenerator.paletteColors.length.toString();
-    //
-    // });
-    return paletteGenerator.paletteColors.length.toString();
-  }
 }

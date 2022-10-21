@@ -4,9 +4,11 @@
 /// https://roi-gradient-picker.surge.sh/
 ///
 ///
-import 'dart:ui';
-import 'package:flutter/material.dart' hide Image;
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+
+import '../sizes.dart';
 
 class ColorPickerSample extends StatefulWidget {
 
@@ -21,7 +23,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
 
   final onColorPicked = ValueNotifier<Color>(Colors.black);
   List<int> imageDataList = List<int>.empty(growable: false);
-  late Image image;
+  late ui.Image image;
   int _gradientIdx = 0;
 
   GradientData get gradient => gradientData[_gradientIdx];
@@ -33,6 +35,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
       body: MouseRegion(
         cursor: SystemMouseCursors.precise,
         child: Stack(
+          alignment: Alignment.bottomCenter,
           children: [
             GestureDetector(
               onPanDown: (event) async {
@@ -67,7 +70,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                         fontWeight: FontWeight.w200,
                         fontSize: 80,
                         shadows: [
-                          Shadow(color: Colors.black26, blurRadius: 20)
+                          const Shadow(color: Colors.black26, blurRadius: 20)
                         ],
                       ),
                     ),
@@ -97,6 +100,126 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                 ],
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 10
+              ),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+
+                    child: BackdropFilter(
+                      filter: ui.ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+                      child: Container(
+                        width: screenWidth(context, mulBy: 0.16),
+                        height: screenHeight(context, mulBy: 0.20),
+                        constraints: const BoxConstraints(
+                            minWidth: 290,
+                            minHeight: 200
+                        ),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.white,
+                            )
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: const BorderRadius.vertical(
+                                  top: Radius.circular(10)
+                              ),
+                              child: BackdropFilter(
+                                filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0, tileMode: TileMode.decal),
+                                child: Container(
+                                  width: screenWidth(context, mulBy: 0.16),
+                                  height: screenHeight(context, mulBy: 0.00),
+                                  constraints: const BoxConstraints(
+                                      minWidth: 290,
+                                      minHeight: 50
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: Colors.black.withOpacity(0.1),
+                                      border: const Border(
+                                          bottom: BorderSide(
+                                              color: Colors.white,
+                                              width: 0.5
+                                          )
+                                      )
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10,
+                                      horizontal: 15
+                                  ),
+                                  child: const Text(
+                                    "Choose color #1",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 17,
+                                      overflow: TextOverflow.clip,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const Text(
+                                  "Hex: ",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: screenWidth(context, mulBy: 0.1),
+                                  child: const TextField(
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                    ),
+                                    cursorColor: Colors.white,
+                                    decoration: InputDecoration(
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.white
+                                        )
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.white
+                                          )
+                                      ),
+                                      hintText: "Hex Value",
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            ElevatedButton(
+                                onPressed: (){},
+                                child: Text("Color Palette")
+                            )
+
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -106,7 +229,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Row(
               children: [
-                Flexible(
+                const Flexible(
                     child: Text(
                       'picked color: ',
                       overflow: TextOverflow.ellipsis,
@@ -119,7 +242,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                         color: color,
                         fontWeight: FontWeight.w500,
                         shadows: [
-                          Shadow(
+                          const Shadow(
                             color: Colors.black26,
                             blurRadius: 1.5,
                           )
@@ -174,7 +297,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
     final ro =
     imageKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
     image = await ro.toImage();
-    final bytes = (await image.toByteData(format: ImageByteFormat.rawRgba))!;
+    final bytes = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;
     return bytes.buffer.asUint8List().toList(growable: false);
   }
 }
@@ -197,7 +320,7 @@ class GradientData {
 }
 
 final gradientData = <GradientData>[
-  GradientData(
+  const GradientData(
     name: 'Dark Skies',
     colors: [Color(0xff4B79A1), Color(0xff283E51)],
   ),

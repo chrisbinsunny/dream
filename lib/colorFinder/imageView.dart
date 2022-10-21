@@ -7,10 +7,10 @@ import 'package:flutter/rendering.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 
-import 'aa.dart';
-import 'colorDetails.dart';
+import '../aa.dart';
+import '../colorDetails.dart';
 import 'dart:ui' as ui;
-import 'upload/dropFile.dart';
+import '../upload/dropFile.dart';
 
 class ImageViewer extends StatefulWidget {
   const ImageViewer({Key? key,}) : super(key: key);

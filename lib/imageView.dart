@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:color_finder/paletteViewer.dart';
+import 'package:color_finder/palette/paletteViewer.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

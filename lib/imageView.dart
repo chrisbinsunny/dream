@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 
 import 'aa.dart';
@@ -22,8 +23,15 @@ class _ImageViewerState extends State<ImageViewer> {
 
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
-  String _lastUrl= "";
+  String _lastUrl= "", b="";
   Size _lastWindowSize = Size.zero;
+  late Future a;
+
+@override
+  void initState() {
+    a= generatePalette("imagePath");
+    super.initState();
+  }
 
 
   @override
@@ -45,53 +53,71 @@ class _ImageViewerState extends State<ImageViewer> {
         ),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.precise,
-        onHover: (event) async {
-          try{
-            final windowSize = MediaQuery.of(context).size;
-            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
-              print('capture image');
-              _lastWindowSize = windowSize;
-              _lastUrl=file!.url;
-              imageDataList = await captureImage();
-            }
-            Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
-          }
-          catch(e){
-            log("1) ${e}");
-          }
-        },
-        child: GestureDetector(
-          onPanDown: (event) async {
-            final windowSize = MediaQuery.of(context).size;
-            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
-              print('capture image');
-              _lastWindowSize = windowSize;
-              _lastUrl=file!.url;
-              imageDataList = await captureImage();
-            }
-            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
-          },
-          onPanUpdate: (event) {
-            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
-          },
-          child: RepaintBoundary(
-            key: imageKey,
-            child: Center(
-              child:
-              (file!.url!="#")?
-              Image.network(
-                  file!.url,
-                fit: BoxFit.fitWidth,
-              ):
-              Image.asset(
-                  "assets/img (1).jpg",
-                fit: BoxFit.fitWidth,
+      child: Column(
+        children: [
+          MouseRegion(
+            cursor: SystemMouseCursors.precise,
+            onHover: (event) async {
+              try{
+                final windowSize = MediaQuery.of(context).size;
+                if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+                  print('capture image');
+                  _lastWindowSize = windowSize;
+                  _lastUrl=file!.url;
+                  imageDataList = await captureImage();
+                }
+                Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
+              }
+              catch(e){
+                log("1) ${e}");
+              }
+            },
+            child: GestureDetector(
+              onPanDown: (event) async {
+                final windowSize = MediaQuery.of(context).size;
+                if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+                  print('capture image');
+                  _lastWindowSize = windowSize;
+                  _lastUrl=file!.url;
+                  imageDataList = await captureImage();
+                }
+                Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+              },
+              onPanUpdate: (event) {
+                Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+              },
+              child: RepaintBoundary(
+                key: imageKey,
+                child: Center(
+                  child:
+                  (file!.url!="#")?
+                  Image.network(
+                      file!.url,
+                    fit: BoxFit.fitWidth,
+                  ):
+                  Image.asset(
+                      "assets/img (1).jpg",
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+          FutureBuilder(
+            future: a,
+              builder: (context, snapshot){
+              if(snapshot.hasData){
+                return Text(
+                  snapshot.data!
+                );
+              }
+              return LinearProgressIndicator();
+              },
+          ),
+          Text(
+             b
+          )
+        ],
       ),
     );
 
@@ -129,5 +155,36 @@ class _ImageViewerState extends State<ImageViewer> {
     image = await ro.toImage();
     final bytes = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;
     return bytes.buffer.asUint8List().toList(growable: false);
+  }
+
+  Future<String?> generatePalette(String imagePath) async {
+    late PaletteGenerator paletteGenerator;
+    try{
+      if (file!.url.compareTo("#") == 0) {
+        setState(
+                (){
+              b="Poli poli";
+            }
+        );
+      }
+
+      paletteGenerator = await PaletteGenerator.fromImageProvider(
+          NetworkImage("https://storage.googleapis.com/cms-storage-bucket/ed2e069ee37807f5975a.jpg"),
+          maximumColorCount: 20);
+
+
+    }catch(e){
+      setState(
+          (){
+            b=e.toString();
+          }
+      );
+    }
+    // log(paletteGenerator.paletteColors.length.toString());
+    // setState((){
+    //   a=paletteGenerator.paletteColors.length.toString();
+    //
+    // });
+    return paletteGenerator.paletteColors.length.toString();
   }
 }

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HowToUse extends StatelessWidget {
   const HowToUse({Key? key}) : super(key: key);
@@ -64,13 +65,12 @@ class HowToUse extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: "\'DREAM\'",
-                              style: TextStyle(
-                                color: Colors.blueGrey[100],
-                                fontSize: 23,
-                                fontFamily: 'Montserrat',
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 5,
-                              ),
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.blueGrey[300],
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 5,
+                                ),
                             ),
                           ]
                       ),
@@ -97,9 +97,8 @@ class HowToUse extends StatelessWidget {
                           children: [
                             TextSpan(
                               text: " \'DREAM\' ",
-                              style: TextStyle(
-                                color: Colors.blueGrey[100],
-                                fontFamily: 'Montserrat',
+                              style: GoogleFonts.montserrat(
+                                color: Colors.blueGrey[300],
                                 fontWeight: FontWeight.w600,
                                 letterSpacing: 5,
                               ),
@@ -128,7 +127,7 @@ class HowToUse extends StatelessWidget {
                             ),
                           ]
                       ),
-                      style: const TextStyle(
+                      style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
                       ),

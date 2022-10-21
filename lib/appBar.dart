@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AppBarCustom extends StatefulWidget {
@@ -42,10 +43,9 @@ class AppBarCustomState extends State<AppBarCustom> {
           children: [
             Text(
               'DREAM',
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                 color: Colors.blueGrey[100],
-                fontSize: 20,
-                fontFamily: 'Montserrat',
+                fontSize: 25,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 5,
               ),

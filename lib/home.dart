@@ -1,3 +1,4 @@
+import 'package:color_finder/footer.dart';
 import 'package:color_finder/howToUse.dart';
 import 'package:color_finder/imageView.dart';
 import 'package:color_finder/sizes.dart';
@@ -44,7 +45,7 @@ class _HomePageState extends State<HomePage> {
         controller: _scrollController,
         thickness: 11,
         interactive: true,
-        radius: Radius.circular(0),
+        radius: const Radius.circular(0),
         trackVisibility: false,
         thumbVisibility: true,
         child: Stack(
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                 shrinkWrap: false,
                 cacheExtent: 10000,
                 controller: _scrollController,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: [
                   Container(
                     alignment: Alignment.center,
@@ -91,16 +92,17 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 100,
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.center,
-                      child: const HowToUse(),
+                      child: HowToUse(),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 60,
                   ),
+                  const Footer()
                 ],
               ),
             ),

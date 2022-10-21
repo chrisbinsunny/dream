@@ -38,7 +38,9 @@ dependencies:
   cupertino_icons: ^1.0.5
   flutter_dropzone: ^3.0.5
   provider: ^6.0.4
+  image: ^3.2.2
   palette_generator: ^0.3.3+2
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:

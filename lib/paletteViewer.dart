@@ -5,6 +5,9 @@ import 'package:color_finder/upload/dropFile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:http/http.dart' as http;
+
+import 'generator.dart';
 
 class PaletteViewer extends StatefulWidget {
   const PaletteViewer({Key? key, required this.file}) : super(key: key);
@@ -16,14 +19,23 @@ class PaletteViewer extends StatefulWidget {
 
 class _PaletteViewerState extends State<PaletteViewer> {
 
-  late Future<List<PaletteColor>> a;
+  late Future<List<Color>> a;
+  List<Color> colors = [];
+  List<Color> sortedColors = [];
+  List<Color> palette = [];
+  Uint8List? imageBytes;
 
-  String _lastUrl= "", b="";
+  Color primary = Colors.blueGrey;
+  Color primaryText = Colors.black;
+  Color background = Colors.white;
+
+
+  String _lastUrl= "", b="", photo="";
+
   @override
   void initState() {
-
-    //a= generatePalette("imagePath");
     super.initState();
+    a=extractColors();
   }
 
   @override
@@ -37,124 +49,39 @@ class _PaletteViewerState extends State<PaletteViewer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("Wait for it"),
-            SizedBox(
-                height: 30,
-                child: FutureBuilder(
-                  future: generatePalette(""),
-                    builder: (context, snapshot){
-                    try{
-                      if(snapshot.connectionState==ConnectionState.waiting)
-                        return LinearProgressIndicator();
-                      if(snapshot.hasData){
-                        return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index){
-                              return Container(
-                                height: 30,
-                                width: 30,
-                                color: snapshot.data![index].color,
-                              );
-                            });
-                      }
-                    }catch(e){
 
-                      setState(() {
-                        b=e.toString();
-                      });
-                      return Text(
-                          b
-                      );
-                    }
-                    return LinearProgressIndicator();
-                    },
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-
-  Future<List<PaletteColor>> generatePalette(String imagePath) async {
-    late PaletteGenerator paletteGenerator;
-
-    try{
-      if(widget.file.url=="#"){
-        paletteGenerator = await PaletteGenerator.fromImageProvider(
-            AssetImage("assets/img (1).jpg"),
-            maximumColorCount: 20);
-      }else{
-        paletteGenerator = await PaletteGenerator.fromImageProvider(
-            NetworkImage(widget.file.url),
-            maximumColorCount: 20);
-      }
-
-    }catch(e){
-      setState(
-              (){
-            b=e.toString();
-          }
-      );
-    }
-    // log(paletteGenerator.paletteColors.length.toString());
-    // setState((){
-    //   a=paletteGenerator.paletteColors.length.toString();
-    //
-    // });
-    return paletteGenerator.paletteColors;
-  }
-}
-
-
-class PaletteViewer1 extends StatelessWidget {
-   PaletteViewer1({Key? key, required this.file}) : super(key: key);
-  late Future<List<PaletteColor>> a;
-
-  String _lastUrl= "", b="";
-   final DroppedFile file;
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog(
-      child: Container(
-        height: screenHeight(context, mulBy: 0.5),
-        width: screenWidth(context, mulBy: 0.5),
-        color: Colors.red,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Wait for it"),
-            SizedBox(
-              height: 30,
+            Expanded(
               child: FutureBuilder(
-                future: start(),
-                builder: (context, snapshot){
+                future: a,
+                  builder: (context, snapshot){
                   try{
                     if(snapshot.connectionState==ConnectionState.waiting)
                       return LinearProgressIndicator();
                     if(snapshot.hasData){
-                      return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index){
-                            return Container(
-                              height: 30,
-                              width: 30,
-                              color: snapshot.data![index].color,
-                            );
-                          });
+                      return Container(
+                        color: Colors.white.withOpacity(0.5),
+                        padding: EdgeInsets.only(top: 6, bottom: 16),
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: [
+                            Text('Palette of 10 colors:'),
+                            SizedBox(height: 10),
+                            _getPalette()
+                          ],
+                        ),
+                      );
                     }
                   }catch(e){
 
-
+                    setState(() {
+                      b=e.toString();
+                    });
                     return Text(
                         b
                     );
                   }
                   return LinearProgressIndicator();
-                },
+                  },
               ),
             ),
           ],
@@ -164,33 +91,48 @@ class PaletteViewer1 extends StatelessWidget {
   }
 
 
-  Future<List<PaletteColor>> generatePalette(String imagePath) async {
-    late PaletteGenerator paletteGenerator;
+  Future<List<Color>> extractColors() async {
+    colors = [];
+    sortedColors = [];
+    palette = [];
+    imageBytes = null;
 
-    try{
-      if(file.url=="#"){
-        paletteGenerator = await PaletteGenerator.fromImageProvider(
-            AssetImage("assets/img (1).jpg"),
-            maximumColorCount: 20);
-      }else{
-        paletteGenerator = await PaletteGenerator.fromImageProvider(
-            NetworkImage(file.url),
-            maximumColorCount: 20);
-      }
+    photo = widget.file.url;
 
-    }catch(e){
+    imageBytes = (await http.get(Uri.parse(photo))).bodyBytes;
 
-    }
-    // log(paletteGenerator.paletteColors.length.toString());
-    // setState((){
-    //   a=paletteGenerator.paletteColors.length.toString();
-    //
-    // });
-    return paletteGenerator.paletteColors;
+    colors = await compute(extractPixelsColors, imageBytes);
+    sortedColors = await compute(sortColors, colors);
+    palette = await compute(
+        generatePalette, {keyPalette: colors, keyNoOfItems: 10});
+    primary = palette.last;
+    primaryText = palette.first;
+    background = palette.first.withOpacity(0.5);
+    return palette;
   }
 
-   Future<List<PaletteColor>> start() async {
-     return await compute(generatePalette, "");
-   }
 
+  Widget _getPalette() {
+    return SizedBox(
+      height: 50,
+      child: palette.isEmpty
+          ? Container(
+        child: CircularProgressIndicator(),
+        alignment: Alignment.center,
+        height: 100,
+      )
+          : ListView.builder(
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: palette.length,
+        itemBuilder: (BuildContext context, int index) => Container(
+          color: palette[index],
+          height: 50,
+          width: 50,
+        ),
+      ),
+    );
   }
+}
+
+

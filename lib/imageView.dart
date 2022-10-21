@@ -118,7 +118,7 @@ class _ImageViewerState extends State<ImageViewer> {
               onPressed: (){
                 showDialog(
                   context: context,
-                  builder: (_) => PaletteViewer1(file: file!,),
+                  builder: (_) => PaletteViewer(file: file!,),
                 );
               },
               child: Text("View Palette")),

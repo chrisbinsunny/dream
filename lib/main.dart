@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
       title: 'Color Finder',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.poppinsTextTheme()
+        textTheme: GoogleFonts.poppinsTextTheme(
+
+        ),
+
 
       ),
       home: const HomePage(),

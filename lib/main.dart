@@ -3,6 +3,7 @@ import 'package:color_finder/home.dart';
 import 'package:color_finder/palette/test.dart';
 import 'package:color_finder/upload/dropFile.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'colorDetails.dart';
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Color Finder',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData.dark().copyWith(
+        textTheme: GoogleFonts.poppinsTextTheme()
+
+      ),
       home: const HomePage(),
     );
   }

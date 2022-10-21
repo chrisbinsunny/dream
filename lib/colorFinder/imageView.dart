@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:provider/provider.dart';
 
-import '../aa.dart';
+import '../gradientFinder/aa.dart';
 import '../colorDetails.dart';
 import 'dart:ui' as ui;
 import '../upload/dropFile.dart';

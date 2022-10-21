@@ -56,7 +56,7 @@ class Footer extends StatelessWidget {
                   const SizedBox(height: 10,),
                   Center(
                     child: Text(
-                      "Made using Flutter with 💙",
+                      "Curated with 💙",
                       style: GoogleFonts.montserrat(
                         color: Colors.white,
                           fontSize: 15

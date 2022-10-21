@@ -64,95 +64,53 @@ class _ImageViewerState extends State<ImageViewer> {
         ),
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        children: [
-          MouseRegion(
-            cursor: SystemMouseCursors.precise,
-            onHover: (event) async {
-              try{
-                final windowSize = MediaQuery.of(context).size;
-                if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
-                  print('capture image');
-                  _lastWindowSize = windowSize;
-                  _lastUrl=file!.url;
-                  imageDataList = await captureImage();
-                }
-                Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
-              }
-              catch(e){
-                log("1) ${e}");
-              }
-            },
-            child: GestureDetector(
-              onPanDown: (event) async {
-                final windowSize = MediaQuery.of(context).size;
-                if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
-                  print('capture image');
-                  _lastWindowSize = windowSize;
-                  _lastUrl=file!.url;
-                  imageDataList = await captureImage();
-                }
-                Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
-              },
-              onPanUpdate: (event) {
-                Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
-              },
-              child: RepaintBoundary(
-                key: imageKey,
-                child: Center(
-                  child:
-                  (file!.url!="#")?
-                  Image.network(
-                      file!.url,
-                    fit: BoxFit.fitWidth,
-                  ):
-                  Image.asset(
-                      "assets/img (1).jpg",
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.precise,
+        onHover: (event) async {
+          try{
+            final windowSize = MediaQuery.of(context).size;
+            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+              print('capture image');
+              _lastWindowSize = windowSize;
+              _lastUrl=file!.url;
+              imageDataList = await captureImage();
+            }
+            Provider.of<ColorDetails>(context, listen: false).setColorTemp(getPixelColor(event.localPosition)!);
+          }
+          catch(e){
+            log("1) ${e}");
+          }
+        },
+        child: GestureDetector(
+          onPanDown: (event) async {
+            final windowSize = MediaQuery.of(context).size;
+            if ((_lastWindowSize != windowSize) || (_lastUrl != file!.url)) {
+              print('capture image');
+              _lastWindowSize = windowSize;
+              _lastUrl=file!.url;
+              imageDataList = await captureImage();
+            }
+            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+          },
+          onPanUpdate: (event) {
+            Provider.of<ColorDetails>(context, listen: false).setColor(getPixelColor(event.localPosition)!);
+          },
+          child: RepaintBoundary(
+            key: imageKey,
+            child: Center(
+              child:
+              (file!.url!="#")?
+              Image.network(
+                  file!.url,
+                fit: BoxFit.fitWidth,
+              ):
+              Image.asset(
+                  "assets/img (1).jpg",
+                fit: BoxFit.fitWidth,
               ),
             ),
           ),
-          ElevatedButton(
-              onPressed: (){
-                showDialog(
-                  context: context,
-                  builder: (_) => PaletteViewer(file: file!,),
-                );
-              },
-              child: Text("View Palette")),
-          // SizedBox(
-          //   height: 30,
-          //   child: FutureBuilder(
-          //     future: a,
-          //       builder: (context, snapshot){
-          //       try{
-          //         if(snapshot.hasData){
-          //           return ListView.builder(
-          //             itemCount: snapshot.data!.length,
-          //               scrollDirection: Axis.horizontal,
-          //               itemBuilder: (context, index){
-          //                 return Container(
-          //                   height: 30,
-          //                   width: 30,
-          //                   color: snapshot.data![index].color,
-          //                 );
-          //               });
-          //         }
-          //       }catch(e){
-          //         setState(() {
-          //           b=e.toString();
-          //         });
-          //       }
-          //       return LinearProgressIndicator();
-          //       },
-          //   ),
-          // ),
-          Text(
-             b
-          )
-        ],
+        ),
       ),
     );
 

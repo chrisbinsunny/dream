@@ -20,13 +20,13 @@ class Footer extends StatelessWidget {
               minHeight: 220
           ),
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             vertical: 20,
-            horizontal: 20
+            horizontal: 50
           ),
           decoration: BoxDecoration(
               color: Colors.black.withOpacity(0.4),
-              border: Border(
+              border: const Border(
                 top: BorderSide(
                   color: Colors.white,
                   width: 0.25
@@ -35,17 +35,121 @@ class Footer extends StatelessWidget {
           ),
           child: Column(
             children: [
-              Text(
-                'DREAM by Chrisbin',
-                style: TextStyle(
-                  color: Colors.blueGrey[100],
-                  fontSize: 20,
-                  fontFamily: 'Montserrat',
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 5,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'DREAM by Chrisbin',
+                        style: TextStyle(
+                          color: Colors.blueGrey[100],
+                          fontSize: 20,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 5,
+                        ),
+                      ),
+                      const SizedBox(height: 10,),
+                      SizedBox(
+                        width: 350,
+                        child:
+                        Text(
+                          "“Dream is not that which you see while sleeping it is something that does not let you sleep.”",
+                          style: TextStyle(
+                            color: Colors.blueGrey[100],
+                            fontFamily: 'Montserrat',
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        onPressed: (){
+                          html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                        },
+                        style: const ButtonStyle(
+                            alignment: Alignment.centerLeft
+                        ),
+
+                        child:  RichText(
+                            text: const TextSpan(
+                                text: "⭐ Find the code ",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.white
+                                ),
+                                children: [
+                                  TextSpan(
+                                      text:"here",
+                                      style: TextStyle(
+                                          color: Colors.blueGrey,
+                                          decoration: TextDecoration.underline
+                                      )
+                                  ),
+                                ]
+                            )),
+                      ),
+                      TextButton(
+                        onPressed: (){
+                          html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                        },
+                        style: const ButtonStyle(
+                            alignment: Alignment.centerLeft
+                        ),
+
+                        child:  const Text(
+                          "Twitter",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              decoration: TextDecoration.underline
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: (){
+                          html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                        },
+                        style: const ButtonStyle(
+                            alignment: Alignment.centerLeft
+                        ),
+
+                        child:  const Text(
+                          "Twitter",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              decoration: TextDecoration.underline
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: (){
+                          html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
+                        },
+                        style: const ButtonStyle(
+                            alignment: Alignment.centerLeft
+                        ),
+
+                        child:  const Text(
+                          "Twitter",
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white,
+                              decoration: TextDecoration.underline
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Text(
                 "Made using Flutter with 💙",
                 style: TextStyle(
@@ -53,90 +157,7 @@ class Footer extends StatelessWidget {
                   fontFamily: 'Montserrat',
                 ),
               ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                      onPressed: (){
-                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
-                      },
-                      style: ButtonStyle(
-                          alignment: Alignment.centerLeft
-                      ),
 
-                      child:  RichText(
-                          text: const TextSpan(
-                              text: "⭐ Find the code ",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white
-                              ),
-                              children: [
-                                TextSpan(
-                                    text:"here",
-                                    style: TextStyle(
-                                        color: Colors.blueGrey,
-                                        decoration: TextDecoration.underline
-                                    )
-                                ),
-                              ]
-                          )),
-                    ),
-                    TextButton(
-                      onPressed: (){
-                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
-                      },
-                      style: ButtonStyle(
-                          alignment: Alignment.centerLeft
-                      ),
-
-                      child:  Text(
-                        "Twitter",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            decoration: TextDecoration.underline
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: (){
-                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
-                      },
-                      style: ButtonStyle(
-                          alignment: Alignment.centerLeft
-                      ),
-
-                      child:  Text(
-                        "Twitter",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            decoration: TextDecoration.underline
-                        ),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: (){
-                        html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
-                      },
-                      style: ButtonStyle(
-                          alignment: Alignment.centerLeft
-                      ),
-
-                      child:  Text(
-                        "Twitter",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
-                            decoration: TextDecoration.underline
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
             ],
           ),
         ),

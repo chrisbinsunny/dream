@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 
 import 'generator.dart';
 
+
+///Using Image
 class PaletteViewer extends StatefulWidget {
   const PaletteViewer({Key? key, required this.file}) : super(key: key);
 
@@ -135,4 +137,104 @@ class _PaletteViewerState extends State<PaletteViewer> {
   }
 }
 
+/// Using FLutter's palette generator
+class PaletteViewerPaletteGenerator extends StatefulWidget {
+  const PaletteViewerPaletteGenerator({Key? key, required this.file}) : super(key: key);
 
+  final DroppedFile file;
+  @override
+  State<PaletteViewerPaletteGenerator> createState() => _PaletteViewerPaletteGeneratorState();
+}
+
+class _PaletteViewerPaletteGeneratorState extends State<PaletteViewerPaletteGenerator> {
+
+  late Future<List<PaletteColor>> a;
+
+  String _lastUrl= "", b="";
+  @override
+  void initState() {
+
+    //a= generatePalette("imagePath");
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        height: screenHeight(context, mulBy: 0.5),
+        width: screenWidth(context, mulBy: 0.5),
+        color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Wait for it"),
+            SizedBox(
+              height: 30,
+              child: FutureBuilder(
+                future: generatePalette(""),
+                builder: (context, snapshot){
+                  try{
+                    if(snapshot.connectionState==ConnectionState.waiting)
+                      return LinearProgressIndicator();
+                    if(snapshot.hasData){
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index){
+                            return Container(
+                              height: 30,
+                              width: 30,
+                              color: snapshot.data![index].color,
+                            );
+                          });
+                    }
+                  }catch(e){
+
+                    setState(() {
+                      b=e.toString();
+                    });
+                    return Text(
+                        b
+                    );
+                  }
+                  return LinearProgressIndicator();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+
+  Future<List<PaletteColor>> generatePalette(String imagePath) async {
+    late PaletteGenerator paletteGenerator;
+
+    try{
+      if(widget.file.url=="#"){
+        paletteGenerator = await PaletteGenerator.fromImageProvider(
+            AssetImage("assets/img (1).jpg"),
+            maximumColorCount: 20);
+      }else{
+        paletteGenerator = await PaletteGenerator.fromImageProvider(
+            NetworkImage(widget.file.url),
+            maximumColorCount: 20);
+      }
+
+    }catch(e){
+      setState(
+              (){
+            b=e.toString();
+          }
+      );
+    }
+    // log(paletteGenerator.paletteColors.length.toString());
+    // setState((){
+    //   a=paletteGenerator.paletteColors.length.toString();
+    //
+    // });
+    return paletteGenerator.paletteColors;
+  }
+}

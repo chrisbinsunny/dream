@@ -46,7 +46,7 @@ class Footer extends StatelessWidget {
                     child: Text(
                       'DREAM by Chrisbin',
                       style: GoogleFonts.montserrat(
-                        color: Colors.blueGrey[100],
+                        color: Colors.blueGrey[300],
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
                         letterSpacing: 5,
@@ -83,7 +83,6 @@ class Footer extends StatelessWidget {
                               "“Dream is not that which you see while sleeping it is something that does not let you sleep.”",
                               style: TextStyle(
                                 color: Colors.blueGrey[100],
-                                fontFamily: 'Montserrat',
                               ),
                             ),
                             const SizedBox(height: 5,),
@@ -105,7 +104,8 @@ class Footer extends StatelessWidget {
                               html.window.open('https://github.com/chrisbinsunny/color-finder', 'new tab');
                             },
                             style: const ButtonStyle(
-                                alignment: Alignment.centerLeft
+                                alignment: Alignment.center,
+                              textStyle: MaterialStatePropertyAll(TextStyle())
                             ),
 
                             child:  RichText(
@@ -125,9 +125,6 @@ class Footer extends StatelessWidget {
                                       ),
                                       TextSpan(
                                           text:" ✨",
-                                          style: TextStyle(
-                                            color: Colors.deepPurpleAccent,
-                                          )
                                       ),
                                     ]
                                 )),
@@ -173,7 +170,8 @@ class Footer extends StatelessWidget {
                               "Let's Chat!",
                               style: GoogleFonts.fuzzyBubbles(
                                   fontSize: 24,
-                                  fontWeight: FontWeight.w600
+                                  fontWeight: FontWeight.w600,
+                                color: Colors.white
                               ),
                             ),
                             const SizedBox(height: 10,),

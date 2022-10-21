@@ -4,6 +4,8 @@ import 'package:color_finder/imageView.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:color_finder/upload/uploadImage.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import 'appBar.dart';
@@ -74,7 +76,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Wrap(
-                    //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceEvenly,
                     runSpacing: 20,

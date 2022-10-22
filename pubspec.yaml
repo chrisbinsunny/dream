@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   font_awesome_flutter: ^10.2.1
   google_fonts: ^3.0.1
+  flutter_colorpicker: ^1.0.3
 
 dev_dependencies:
   flutter_test:

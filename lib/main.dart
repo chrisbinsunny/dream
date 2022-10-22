@@ -31,9 +31,21 @@ class MyApp extends StatelessWidget {
       title: 'Color Finder',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
-        textTheme: GoogleFonts.poppinsTextTheme(
-
-        ),
+          textTheme: TextTheme(
+            headline1: GoogleFonts.poppins(color: Colors.white),
+            headline2: GoogleFonts.poppins(color: Colors.white),
+            headline3: GoogleFonts.poppins(color: Colors.white),
+            headline4: GoogleFonts.poppins(color: Colors.white),
+            headline5: GoogleFonts.poppins(color: Colors.white),
+            headline6: GoogleFonts.poppins(color: Colors.white),
+            subtitle1: GoogleFonts.poppins(color: Colors.white),
+            subtitle2: GoogleFonts.poppins(color: Colors.white),
+            bodyText1: GoogleFonts.poppins(color: Colors.white),
+            bodyText2: GoogleFonts.poppins(color: Colors.white),
+            button: GoogleFonts.poppins(color: Colors.white),
+            caption: GoogleFonts.poppins(color: Colors.white),
+            overline: GoogleFonts.poppins(color: Colors.white),
+          )
 
 
       ),

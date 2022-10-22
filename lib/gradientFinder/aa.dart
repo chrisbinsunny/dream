@@ -32,7 +32,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
   int _gradientIdx = 0;
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller2 = TextEditingController(), controller1 = TextEditingController();
 
   GradientData get gradient => gradientData[_gradientIdx];
   Size _lastWindowSize = Size.zero;
@@ -221,9 +221,9 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return ColorPickerDialog(controller: controller, onSelect: (){
-                                                  log(controller.text);
-                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
+                                                return ColorPickerDialog(controller: controller1, onSelect: (){
+                                                  log(controller1.text);
+                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller1.text}", radix: 16)));
                                                 });
                                               },
                                             );
@@ -251,9 +251,9 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return ColorPickerDialog(controller: controller, onSelect: (){
-                                                  log(controller.text);
-                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
+                                                return ColorPickerDialog(controller: controller1, onSelect: (){
+                                                  log(controller1.text);
+                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller1.text}", radix: 16)));
                                                 });
                                               },
                                             );
@@ -382,9 +382,9 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return ColorPickerDialog(controller: controller, onSelect: (){
-                                                  log(controller.text);
-                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
+                                                return ColorPickerDialog(controller: controller2, onSelect: (){
+                                                  log(controller2.text);
+                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller2.text}", radix: 16)));
                                                 });
                                               },
                                             );
@@ -412,9 +412,8 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             showDialog(
                                               context: context,
                                               builder: (context) {
-                                                return ColorPickerDialog(controller: controller, onSelect: (){
-                                                  log(controller.text);
-                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
+                                                return ColorPickerDialog(controller: controller2, onSelect: (){
+                                                  Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller2.text}", radix: 16)));
                                                 });
                                               },
                                             );

@@ -7,7 +7,7 @@ import 'upload/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
   DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "Splash.jpg");
-  Color color =Colors.black;
+  Color color =Colors.black, grad1= Colors.orange, grad2= Colors.indigo;
   Color colorTemp =Color(0xff8540ec);
   bool hover= false;
 
@@ -45,6 +45,24 @@ class ColorDetails extends ChangeNotifier {
 
   void setHover(bool hover1){
     hover=hover1;
+    notifyListeners();
+  }
+
+  Color get getGrad1{
+    return grad1;
+  }
+
+  void setGrad1(Color grad11){
+    grad1=grad11;
+    notifyListeners();
+  }
+
+  Color get getGrad2{
+    return grad2;
+  }
+
+  void setGrad2(Color grad21){
+    grad2=grad21;
     notifyListeners();
   }
 }

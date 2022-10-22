@@ -6,12 +6,14 @@
 ///
 import 'dart:developer';
 import 'dart:ui' as ui;
+import 'package:color_finder/colorDetails.dart';
 import 'package:color_finder/gradientFinder/colorPickerDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../sizes.dart';
 
@@ -246,7 +248,8 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                     context: context,
                                     builder: (context) {
                                       return ColorPickerDialog(controller: controller, onSelect: (){
-                                        log("Hello Kutta");
+                                        log(controller.text);
+                                        Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
                                       });
                                     },
                                   );
@@ -341,6 +344,8 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
     return bytes.buffer.asUint8List().toList(growable: false);
   }
 }
+
+
 
 /// --- model
 

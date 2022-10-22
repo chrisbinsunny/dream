@@ -7,6 +7,9 @@
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../sizes.dart';
 
@@ -25,9 +28,18 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
   int _gradientIdx = 0;
+  TextEditingController controller= TextEditingController();
 
   GradientData get gradient => gradientData[_gradientIdx];
   Size _lastWindowSize = Size.zero;
+  // create some values
+  Color pickerColor = Color(0xffffffff);
+  Color currentColor = Color(0xffffffff);
+
+// ValueChanged<Color> callback
+  void changeColor(Color color) {
+    setState(() => pickerColor = color);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +220,175 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                             ),
 
                             ElevatedButton(
-                                onPressed: (){},
+                                onPressed: (){
+                                  showDialog(
+                                    context: context,
+                                    builder:  (context) {
+
+                                      return AlertDialog(
+                                        content: ClipRRect(
+                                          borderRadius: BorderRadius.circular(10),
+
+                                          child: BackdropFilter(
+                                            filter: ui.ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+                                            child: Container(
+                                              width: screenWidth(context, mulBy: 0.2),
+                                              height: screenHeight(context, mulBy: 0.7),
+                                              // constraints: const BoxConstraints(
+                                              //     minWidth: 320,
+                                              //     minHeight: 500
+                                              // ),
+                                              alignment: Alignment.center,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black.withOpacity(0.2),
+                                                  borderRadius: BorderRadius.circular(10),
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                  )
+                                              ),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius: const BorderRadius.vertical(
+                                                        top: Radius.circular(10)
+                                                    ),
+                                                    child: BackdropFilter(
+                                                      filter: ui.ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0, tileMode: TileMode.decal),
+                                                      child: Container(
+                                                        width: screenWidth(context, mulBy: 0.25),
+                                                        constraints: const BoxConstraints(
+                                                            minWidth: 400,
+                                                            minHeight: 70
+                                                        ),
+                                                        height: screenHeight(context, mulBy: 0.07),
+                                                        decoration: BoxDecoration(
+                                                            color: Colors.black.withOpacity(0.1),
+                                                            border: const Border(
+                                                                bottom: BorderSide(
+                                                                    color: Colors.white,
+                                                                    width: 0.5
+                                                                )
+                                                            )
+                                                        ),
+                                                        padding: const EdgeInsets.symmetric(
+                                                            vertical: 10,
+                                                            horizontal: 15
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  // const SizedBox(
+                                                  //   height: 20,
+                                                  // ),
+                                                  Expanded(
+                                                    child:SingleChildScrollView(
+                                                      child: Column(
+                                                        children: [
+                                                          ColorPicker(
+                                                            pickerColor: pickerColor,
+                                                            onColorChanged: changeColor,
+                                                            enableAlpha: false,
+                                                            hexInputController: controller,
+                                                            paletteType: PaletteType.hsvWithHue,
+                                                            portraitOnly: true,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                            children: [
+                                                              const Text(
+                                                                "Hex: ",
+                                                                style: TextStyle(
+                                                                    color: Colors.white,
+                                                                    fontSize: 17,
+                                                                    fontWeight: FontWeight.w500
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: screenWidth(context, mulBy: 0.1),
+                                                                child: TextField(
+                                                                  controller: controller,
+                                                                  style: TextStyle(
+                                                                    color: Colors.white,
+                                                                  ),
+                                                                  cursorColor: Colors.white,
+
+                                                                  inputFormatters: [
+                                                                    UpperCaseTextFormatter(),
+                                                                    FilteringTextInputFormatter.allow(RegExp(kValidHexPattern))
+                                                                  ],
+                                                                  decoration: InputDecoration(
+                                                                      enabledBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide(
+                                                                              color: Colors.white
+                                                                          )
+                                                                      ),
+                                                                      focusedBorder: OutlineInputBorder(
+                                                                          borderSide: BorderSide(
+                                                                              color: Colors.white
+                                                                          )
+                                                                      ),
+                                                                      hintText: "Hex Value",
+                                                                      prefix: Text(
+                                                                        "#",
+                                                                        style: TextStyle(
+                                                                          color: Colors.white,
+                                                                        ),
+                                                                      )
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              IconButton(
+                                                                padding: EdgeInsets.zero,
+                                                                icon: Icon(Icons.copy),
+                                                                onPressed: () async {
+                                                                  await Clipboard.setData(ClipboardData(text: controller.text))
+                                                                      .then((value) {
+                                                                    ScaffoldMessenger.of(context).showSnackBar(
+                                                                        SnackBar(
+                                                                          content: const Text(
+                                                                            "Text Copied to clipboard",
+                                                                            style: TextStyle(
+                                                                                color: Colors.white
+                                                                            ),
+                                                                          ),
+                                                                          backgroundColor: Colors.blueAccent,
+                                                                          width: screenWidth(context, mulBy: 0.2),
+                                                                          behavior: SnackBarBehavior.floating,
+                                                                        )
+                                                                    );
+                                                                  });
+
+                                                                },
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+
+                                                    ),
+                                                  ),
+
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                       // backgroundColor: Colors.transparent,
+                                        elevation: 0,
+                                        actions: <Widget>[
+                                          ElevatedButton(
+                                            child: const Text('Got it'),
+                                            onPressed: () {
+                                              setState(() => currentColor = pickerColor);
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                },
                                 child: Text("Color Palette")
                             )
 

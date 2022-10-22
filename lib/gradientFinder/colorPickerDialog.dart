@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 import '../sizes.dart';
 import 'dart:ui' as ui;
 
 class ColorPickerDialog extends StatelessWidget {
-  const ColorPickerDialog({Key? key}) : super(key: key);
+  ColorPickerDialog({Key? key, required this.controller, required this.onSelect}) : super(key: key);
+
+  final TextEditingController controller;
+  Color pickerColor = const Color(0xffffffff);
+  Color currentColor = const Color(0xffffffff);
+  Function onSelect;
+
+  void changeColor(Color color) {
+    pickerColor = color;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -226,9 +237,7 @@ class ColorPickerDialog extends StatelessWidget {
                             child: const Text(
                                 'Got it'),
                             onPressed: () {
-                              setState(() =>
-                              currentColor =
-                                  pickerColor);
+                              onSelect();
                               Navigator.of(
                                   context)
                                   .pop();

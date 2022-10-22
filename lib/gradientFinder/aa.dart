@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -147,9 +148,9 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                     tileMode: TileMode.decal),
                                 child: Container(
                                   width: screenWidth(context, mulBy: 0.16),
-                                  height: screenHeight(context, mulBy: 0.00),
+                                  height: screenHeight(context, mulBy: 0.05),
                                   constraints: const BoxConstraints(
-                                      minWidth: 290, minHeight: 50),
+                                      minWidth: 290, minHeight: 40),
                                   decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(0.1),
                                       border: const Border(
@@ -158,6 +159,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                               width: 0.5))),
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 15),
+                                  alignment: Alignment.centerLeft,
                                   child: const Text(
                                     "Choose color #1",
                                     style: TextStyle(
@@ -170,91 +172,85 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                const Text(
-                                  "Hex: ",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(
-                                  width: screenWidth(context, mulBy: 0.1),
-                                  child: const TextField(
-                                    style: TextStyle(
-                                      color: Colors.white,
+                           Expanded(
+                             child: SizedBox.expand(
+                               child: Wrap(
+                                 direction: Axis.horizontal,
+                                 alignment: WrapAlignment.spaceEvenly,
+                                 runAlignment: WrapAlignment.spaceEvenly,
+                                 crossAxisAlignment: WrapCrossAlignment.center,
+                                  children: [
+                                    const Text(
+                                      "Hex: ",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500),
                                     ),
-                                    cursorColor: Colors.white,
-                                    decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.white)),
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide:
-                                              BorderSide(color: Colors.white)),
-                                      hintText: "Hex Value",
+                                    SizedBox(
+                                      width: 170,
+                                      child: const TextField(
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        cursorColor: Colors.white,
+                                        decoration: InputDecoration(
+                                          enabledBorder: OutlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: Colors.white)),
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide:
+                                                  BorderSide(color: Colors.white)),
+                                          hintText: "Hex Value",
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    (screenWidth(context,)<550)?
+                                    IconButton(
+                                      onPressed: (){},
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.palette,
+                                      ),
+                                    ):
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return ColorPickerDialog(controller: controller, onSelect: (){
+                                              log(controller.text);
+                                              Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
+                                            });
+                                          },
+                                        );
+                                      },
+                                      style: ButtonStyle(
+                                        shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
+                                        padding: MaterialStateProperty.all(
+                                            const EdgeInsets.symmetric(
+                                                vertical: 15,
+                                                horizontal: 25
+                                            )),
+                                        enableFeedback: true,
+                                        backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3)),
+                                        overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
+                                        shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
+                                        elevation: MaterialStateProperty.all(0),
+                                        side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
+                                      ),
+                                      child: const Text(
+                                        "Choose Color",
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                    )
+
+                                  ],
                                 ),
-                              ],
-                            ),
-                            // ElevatedButton(
-                            //   onPressed: () async {
-                            //     final events= await controller.pickFiles(
-                            //         multiple: false,
-                            //         mime: [
-                            //           "image/apng",
-                            //           "image/avif",
-                            //           "image/jpeg",
-                            //           "image/png",
-                            //           "image/webp",
-                            //         ]
-                            //     );
-                            //
-                            //     if(events.isEmpty) return;
-                            //     acceptFile(events.first);
-                            //   },
-                            //
-                            //   style: ButtonStyle(
-                            //     shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                            //     padding: MaterialStateProperty.all(
-                            //         const EdgeInsets.symmetric(
-                            //             vertical: 20,
-                            //             horizontal: 40
-                            //         )),
-                            //     enableFeedback: true,
-                            //     backgroundColor: MaterialStateProperty.all(Colors.black),
-                            //     overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                            //     shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
-                            //     elevation: MaterialStateProperty.all(20),
-                            //     side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
-                            //   ),
-                            //   child: const Text(
-                            //     "Upload Image",
-                            //     style: TextStyle(
-                            //         fontSize: 18,
-                            //         color: Colors.white
-                            //     ),
-                            //   ),
-                            // ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return ColorPickerDialog(controller: controller, onSelect: (){
-                                        log(controller.text);
-                                        Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller.text}", radix: 16)));
-                                      });
-                                    },
-                                  );
-                                },
-                                child: const Text("Color Palette"))
+                             ),
+                           ),
                           ],
                         ),
                       ),
@@ -364,6 +360,10 @@ class GradientData {
 }
 
 final gradientData = <GradientData>[
+  //const GradientData(
+  //   name: 'Dream Now',
+  //   colors: [Color(0xff000000), Colors.indigo,   Colors.black],
+  // ),
   const GradientData(
     name: 'Dark Skies',
     colors: [Color(0xff4B79A1), Color(0xff283E51)],

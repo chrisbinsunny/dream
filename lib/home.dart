@@ -3,6 +3,7 @@ import 'package:color_finder/footer.dart';
 import 'package:color_finder/colorFinder/howToUse.dart';
 import 'package:color_finder/colorFinder/imageView.dart';
 import 'package:color_finder/gradientFinder/aa.dart';
+import 'package:color_finder/gradientMaker/gradientMakerHome.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:color_finder/upload/uploadImage.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),
       ),
-      body: ColorPickerSample(),
+      body: GradientMakerHome(scrollController: scrollController,),
     );
   }
 }

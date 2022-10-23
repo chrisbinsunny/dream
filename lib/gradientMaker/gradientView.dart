@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:color_finder/gradientMaker/gradientMakerDetails.dart';
 import 'package:color_finder/palette/paletteViewer.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class GradientViewer extends StatefulWidget {
 }
 
 class _GradientViewerState extends State<GradientViewer> {
-  DroppedFile? file;
+  List<Color> grads=[];
   final imageKey = GlobalKey();
 
   List<int> imageDataList = List<int>.empty(growable: false);
@@ -36,18 +37,10 @@ class _GradientViewerState extends State<GradientViewer> {
   }
 
 
-  @override
-  void didChangeDependencies() {
-    //file= Provider.of<ColorDetails>(context, listen: true).getFile;
-
-    //a= generatePalette("imagePath");
-
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
-    file= Provider.of<ColorDetails>(context, listen: true).getFile;
+    grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
     return Container(
       width: screenWidth(context, mulBy: 0.28),
       height: screenHeight(context, mulBy: 0.64),
@@ -64,10 +57,8 @@ class _GradientViewerState extends State<GradientViewer> {
         ),
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
-          colors: [
-            Color(0xff000000),
-            Color(0xff394CB6),
-          ]
+
+          colors: grads
         )
       ),
     );

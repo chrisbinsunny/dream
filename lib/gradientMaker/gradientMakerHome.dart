@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:color_finder/gradientMaker/bgGradView.dart';
+import 'package:color_finder/gradientMaker/colorsView.dart';
 import 'package:color_finder/gradientMaker/gradientView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +30,7 @@ class GradientMakerHome extends StatelessWidget {
       thumbVisibility: true,
       child: Stack(
         children: [
-
+          BgGradient(),
           ScrollConfiguration(
             behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView(
@@ -59,7 +61,7 @@ class GradientMakerHome extends StatelessWidget {
                     const GradientViewer(),
                     Column(
                       children: const [
-                        ColorCodeViewer(),
+                        ColorsView(),
                         SizedBox(
                           height: 20,
                         ),

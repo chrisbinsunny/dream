@@ -38,36 +38,35 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
   GradientData get gradient => gradientData[_gradientIdx];
   Size _lastWindowSize = Size.zero;
 
-
-
-@override
+  @override
   void initState() {
-    controller1=TextEditingController(
-      text: "FF000000"
-    )
-    ..addListener(() {
-      Provider.of<ColorDetails>(context, listen: false).setGrad1(
-       Color(int.parse( controller1.text, radix: 16))
-      );
-    });
-    controller2=TextEditingController(
-        text: "FF394CB6"
-    )
+    controller1 = TextEditingController(text: "FFEE950F")
       ..addListener(() {
-        Provider.of<ColorDetails>(context, listen: false).setGrad2(
-            Color(int.parse( controller2.text, radix: 16))
-        );
+        Provider.of<ColorDetails>(context, listen: false)
+            .setGrad1(Color(int.parse(controller1.text, radix: 16)));
+      });
+    controller2 = TextEditingController(text: "FF3F51B5")
+      ..addListener(() {
+        Provider.of<ColorDetails>(context, listen: false)
+            .setGrad2(Color(int.parse(controller2.text, radix: 16)));
       });
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    gradColor1=Provider.of<ColorDetails>(context, listen: true).getGrad1;
-    gradColor2=Provider.of<ColorDetails>(context, listen: true).getGrad2;
+    gradColor1 = Provider.of<ColorDetails>(context, listen: true).getGrad1;
+    gradColor2 = Provider.of<ColorDetails>(context, listen: true).getGrad2;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){},
+        shape: StadiumBorder(
+          side: BorderSide.none
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBody: true,
       body: MouseRegion(
         cursor: SystemMouseCursors.precise,
         child: Stack(
@@ -137,7 +136,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
               child: SizedBox.expand(
                 child: Wrap(
                   direction: Axis.horizontal,
@@ -146,17 +145,19 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                   runAlignment: WrapAlignment.end,
                   spacing: 20,
                   runSpacing: 20,
-
                   children: [
+                    ///Choose Color 1 Box
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: BackdropFilter(
                         filter: ui.ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
                         child: Container(
                           width: screenWidth(context, mulBy: 0.16),
-                          height: (screenWidth(context)>650)?screenHeight(context, mulBy: 0.20):130,
-                          constraints:
-                              const BoxConstraints(minWidth: 290, minHeight: 000),
+                          height: (screenWidth(context) > 650)
+                              ? screenHeight(context, mulBy: 0.20)
+                              : 130,
+                          constraints: const BoxConstraints(
+                              minWidth: 290, minHeight: 000),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.2),
@@ -201,13 +202,14 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                   ),
                                 ),
                               ),
-                             Expanded(
-                               child: SizedBox.expand(
-                                 child: Wrap(
-                                   direction: Axis.horizontal,
-                                   alignment: WrapAlignment.spaceEvenly,
-                                   runAlignment: WrapAlignment.spaceEvenly,
-                                   crossAxisAlignment: WrapCrossAlignment.center,
+                              Expanded(
+                                child: SizedBox.expand(
+                                  child: Wrap(
+                                    direction: Axis.horizontal,
+                                    alignment: WrapAlignment.spaceEvenly,
+                                    runAlignment: WrapAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
                                     children: [
                                       const Text(
                                         "Hex: ",
@@ -226,105 +228,159 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                           cursorColor: Colors.white,
                                           decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(color: Colors.white)),
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
                                             focusedBorder: OutlineInputBorder(
-                                                borderSide:
-                                                    BorderSide(color: Colors.white)),
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
                                             hintText: "Hex Value",
                                           ),
                                           inputFormatters: [
                                             UpperCaseTextFormatter(),
-                                            FilteringTextInputFormatter
-                                                .allow(
+                                            FilteringTextInputFormatter.allow(
                                                 RegExp(kValidHexPattern))
                                           ],
                                         ),
                                       ),
-                                      (screenWidth(context,)<650)?
-                                      IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return ColorPickerDialog(controller: controller1, onSelect: (){
-                                                log(controller1.text);
-                                                Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller1.text}", radix: 16)));
-                                              });
-                                            },
-                                          );
-                                        },
-                                        icon: const FaIcon(
-                                          FontAwesomeIcons.palette,
-                                        ),
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 15,
-                                                  horizontal: 25
-                                              )),
-                                          enableFeedback: true,
-                                          backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3)),
-                                          overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                                          shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
-                                          elevation: MaterialStateProperty.all(0),
-                                          side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
-                                        ),
-                                      ):
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return ColorPickerDialog(controller: controller1, onSelect: (){
-                                                log(controller1.text);
-                                                Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller1.text}", radix: 16)));
-                                              });
-                                            },
-                                          );
-                                        },
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 15,
-                                                  horizontal: 25
-                                              )),
-                                          enableFeedback: true,
-                                          backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3)),
-                                          overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                                          shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
-                                          elevation: MaterialStateProperty.all(0),
-                                          side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
-                                        ),
-                                        child: const Text(
-                                          "Choose Color",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white
-                                          ),
-                                        ),
-                                      )
-
+                                      (screenWidth(
+                                                context,
+                                              ) <
+                                              650)
+                                          ? IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return ColorPickerDialog(
+                                                        controller: controller1,
+                                                        onSelect: () {
+                                                          log(controller1.text);
+                                                          Provider.of<ColorDetails>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .setGrad1(Color(
+                                                                  int.parse(
+                                                                      "FF${controller1.text}",
+                                                                      radix:
+                                                                          16)));
+                                                        });
+                                                  },
+                                                );
+                                              },
+                                              icon: const FaIcon(
+                                                FontAwesomeIcons.palette,
+                                              ),
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty
+                                                    .all(const StadiumBorder(
+                                                        side: BorderSide.none)),
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 15,
+                                                            horizontal: 25)),
+                                                enableFeedback: true,
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black
+                                                            .withOpacity(0.3)),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.deepPurpleAccent
+                                                            .withOpacity(0.3)),
+                                                shadowColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors
+                                                            .deepPurpleAccent),
+                                                elevation:
+                                                    MaterialStateProperty.all(
+                                                        0),
+                                                side: MaterialStateProperty.all(
+                                                    const BorderSide(
+                                                        color: Colors.white)),
+                                              ),
+                                            )
+                                          : ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return ColorPickerDialog(
+                                                        controller: controller1,
+                                                        onSelect: () {
+                                                          log(controller1.text);
+                                                          Provider.of<ColorDetails>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .setGrad1(Color(
+                                                                  int.parse(
+                                                                      "FF${controller1.text}",
+                                                                      radix:
+                                                                          16)));
+                                                        });
+                                                  },
+                                                );
+                                              },
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty
+                                                    .all(const StadiumBorder(
+                                                        side: BorderSide.none)),
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 15,
+                                                            horizontal: 25)),
+                                                enableFeedback: true,
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black
+                                                            .withOpacity(0.3)),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.deepPurpleAccent
+                                                            .withOpacity(0.3)),
+                                                shadowColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors
+                                                            .deepPurpleAccent),
+                                                elevation:
+                                                    MaterialStateProperty.all(
+                                                        0),
+                                                side: MaterialStateProperty.all(
+                                                    const BorderSide(
+                                                        color: Colors.white)),
+                                              ),
+                                              child: const Text(
+                                                "Choose Color",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            )
                                     ],
                                   ),
-                               ),
-                             ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
                       ),
                     ),
+
+                    ///Choose Color 2 Box
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: BackdropFilter(
                         filter: ui.ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
                         child: Container(
                           width: screenWidth(context, mulBy: 0.16),
-                          height: (screenWidth(context)>650)?screenHeight(context, mulBy: 0.20):130,
-                          constraints:
-                          const BoxConstraints(minWidth: 290, minHeight: 000),
+                          height: (screenWidth(context) > 650)
+                              ? screenHeight(context, mulBy: 0.20)
+                              : 130,
+                          constraints: const BoxConstraints(
+                              minWidth: 290, minHeight: 000),
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.2),
@@ -375,7 +431,8 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                     direction: Axis.horizontal,
                                     alignment: WrapAlignment.spaceEvenly,
                                     runAlignment: WrapAlignment.spaceEvenly,
-                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.center,
                                     children: [
                                       const Text(
                                         "Hex: ",
@@ -394,87 +451,136 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                           cursorColor: Colors.white,
                                           decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
-                                                borderSide:
-                                                BorderSide(color: Colors.white)),
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
                                             focusedBorder: OutlineInputBorder(
-                                                borderSide:
-                                                BorderSide(color: Colors.white)),
+                                                borderSide: BorderSide(
+                                                    color: Colors.white)),
                                             hintText: "Hex Value",
                                           ),
                                           inputFormatters: [
                                             UpperCaseTextFormatter(),
-                                            FilteringTextInputFormatter
-                                                .allow(
+                                            FilteringTextInputFormatter.allow(
                                                 RegExp(kValidHexPattern))
                                           ],
                                         ),
-
                                       ),
-                                      (screenWidth(context,)<650)?
-                                      IconButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return ColorPickerDialog(controller: controller2, onSelect: (){
-                                                log(controller2.text);
-                                                Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller2.text}", radix: 16)));
-                                              });
-                                            },
-                                          );
-                                        },
-                                        icon: const FaIcon(
-                                          FontAwesomeIcons.palette,
-                                        ),
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 15,
-                                                  horizontal: 25
-                                              )),
-                                          enableFeedback: true,
-                                          backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3)),
-                                          overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                                          shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
-                                          elevation: MaterialStateProperty.all(0),
-                                          side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
-                                        ),
-                                      ):
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) {
-                                              return ColorPickerDialog(controller: controller2, onSelect: (){
-                                                Provider.of<ColorDetails>(context, listen: false).setGrad1(Color(int.parse("FF${controller2.text}", radix: 16)));
-                                              });
-                                            },
-                                          );
-                                        },
-                                        style: ButtonStyle(
-                                          shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
-                                          padding: MaterialStateProperty.all(
-                                              const EdgeInsets.symmetric(
-                                                  vertical: 15,
-                                                  horizontal: 25
-                                              )),
-                                          enableFeedback: true,
-                                          backgroundColor: MaterialStateProperty.all(Colors.black.withOpacity(0.3)),
-                                          overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
-                                          shadowColor: MaterialStateProperty.all(Colors.deepPurpleAccent),
-                                          elevation: MaterialStateProperty.all(0),
-                                          side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
-                                        ),
-                                        child: const Text(
-                                          "Choose Color",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.white
-                                          ),
-                                        ),
-                                      )
-
+                                      (screenWidth(
+                                                context,
+                                              ) <
+                                              650)
+                                          ? IconButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return ColorPickerDialog(
+                                                        controller: controller2,
+                                                        onSelect: () {
+                                                          log(controller2.text);
+                                                          Provider.of<ColorDetails>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .setGrad2(Color(
+                                                                  int.parse(
+                                                                      "FF${controller2.text}",
+                                                                      radix:
+                                                                          16)));
+                                                        });
+                                                  },
+                                                );
+                                              },
+                                              icon: const FaIcon(
+                                                FontAwesomeIcons.palette,
+                                              ),
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty
+                                                    .all(const StadiumBorder(
+                                                        side: BorderSide.none)),
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 15,
+                                                            horizontal: 25)),
+                                                enableFeedback: true,
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black
+                                                            .withOpacity(0.3)),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.deepPurpleAccent
+                                                            .withOpacity(0.3)),
+                                                shadowColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors
+                                                            .deepPurpleAccent),
+                                                elevation:
+                                                    MaterialStateProperty.all(
+                                                        0),
+                                                side: MaterialStateProperty.all(
+                                                    const BorderSide(
+                                                        color: Colors.white)),
+                                              ),
+                                            )
+                                          : ElevatedButton(
+                                              onPressed: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return ColorPickerDialog(
+                                                        controller: controller2,
+                                                        onSelect: () {
+                                                          Provider.of<ColorDetails>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .setGrad2(Color(
+                                                                  int.parse(
+                                                                      "FF${controller2.text}",
+                                                                      radix:
+                                                                          16)));
+                                                        });
+                                                  },
+                                                );
+                                              },
+                                              style: ButtonStyle(
+                                                shape: MaterialStateProperty
+                                                    .all(const StadiumBorder(
+                                                        side: BorderSide.none)),
+                                                padding:
+                                                    MaterialStateProperty.all(
+                                                        const EdgeInsets
+                                                                .symmetric(
+                                                            vertical: 15,
+                                                            horizontal: 25)),
+                                                enableFeedback: true,
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.black
+                                                            .withOpacity(0.3)),
+                                                overlayColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors.deepPurpleAccent
+                                                            .withOpacity(0.3)),
+                                                shadowColor:
+                                                    MaterialStateProperty.all(
+                                                        Colors
+                                                            .deepPurpleAccent),
+                                                elevation:
+                                                    MaterialStateProperty.all(
+                                                        0),
+                                                side: MaterialStateProperty.all(
+                                                    const BorderSide(
+                                                        color: Colors.white)),
+                                              ),
+                                              child: const Text(
+                                                "Choose Color",
+                                                style: TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.white),
+                                              ),
+                                            )
                                     ],
                                   ),
                                 ),
@@ -491,35 +597,38 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(
-          height: 50,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Row(
-              children: [
-                const Flexible(
-                    child: Text(
-                  'picked color: ',
-                  overflow: TextOverflow.ellipsis,
-                )),
-                ValueListenableBuilder<Color>(
-                  valueListenable: onColorPicked,
-                  builder: (_, color, child) => Text(
-                    '#${color.value.toRadixString(16)}',
-                    style: TextStyle(
-                        color: color,
-                        fontWeight: FontWeight.w500,
-                        shadows: [
-                          const Shadow(
-                            color: Colors.black26,
-                            blurRadius: 1.5,
-                          )
-                        ]),
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: SizedBox(
+            height: 50,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: [
+                  const Flexible(
+                      child: Text(
+                    'picked color: ',
+                    overflow: TextOverflow.ellipsis,
+                  )),
+                  ValueListenableBuilder<Color>(
+                    valueListenable: onColorPicked,
+                    builder: (_, color, child) => Text(
+                      '#${color.value.toRadixString(16)}',
+                      style: TextStyle(
+                          color: color,
+                          fontWeight: FontWeight.w500,
+                          shadows: [
+                            const Shadow(
+                              color: Colors.black26,
+                              blurRadius: 1.5,
+                            )
+                          ]),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )),
+                ],
+              ),
+            )),
+      ),
     );
   }
 
@@ -570,8 +679,6 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
   }
 }
 
-
-
 /// --- model
 
 class GradientData {
@@ -591,7 +698,10 @@ class GradientData {
 final gradientData = <GradientData>[
   const GradientData(
     name: 'Dream Now',
-    colors: [Color(0xff000000), Color(0xff394CB6),   Colors.black],
+    colors: [
+      Color(0xff000000),
+      Color(0xff394CB6),
+    ],
   ),
   const GradientData(
     name: 'Dark Skies',

@@ -129,7 +129,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 90),
               child: SizedBox.expand(
                 child: Wrap(
                   direction: Axis.horizontal,

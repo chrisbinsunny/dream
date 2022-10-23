@@ -590,13 +590,74 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
-        label: const Text("Copy Hex"),
-        icon: const Icon(Icons.copy),
-        elevation: 5,
-        backgroundColor: Colors.indigo[200],
-        isExtended: true,
+      floatingActionButton: ElevatedButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ColorPickerDialog(
+                  controller: controller2,
+                  onSelect: () {
+                    Provider.of<ColorDetails>(
+                        context,
+                        listen: false)
+                        .setGrad2(Color(
+                        int.parse(
+                            "FF${controller2.text}",
+                            radix:
+                            16)));
+                  });
+            },
+          );
+        },
+        style: ButtonStyle(
+          shape: MaterialStateProperty
+              .all(const StadiumBorder(
+              side: BorderSide.none)),
+          padding:
+          MaterialStateProperty.all(
+              const EdgeInsets
+                  .symmetric(
+                  vertical: 20,
+                  horizontal: 25)),
+          enableFeedback: true,
+          backgroundColor:
+          MaterialStateProperty.all(
+              Colors.black
+                  .withOpacity(0.3)),
+          overlayColor:
+          MaterialStateProperty.all(
+              Colors.deepPurpleAccent
+                  .withOpacity(0.3)),
+          shadowColor:
+          MaterialStateProperty.all(
+              Colors
+                  .deepPurpleAccent),
+          elevation:
+          MaterialStateProperty.all(
+              0),
+          side: MaterialStateProperty.all(
+              const BorderSide(
+                  color: Colors.white)),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              Icons.copy,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: 7,
+            ),
+            const Text(
+              "Copy HEX",
+              style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.white),
+            ),
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
@@ -611,9 +672,13 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
           filter: ui.ImageFilter.blur(
             sigmaX: 60,
             sigmaY: 60,
+            tileMode: TileMode.decal
           ),
           child: Container(
             height: 50,
+            decoration: BoxDecoration(
+
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(

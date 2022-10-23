@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../sizes.dart';
+import 'colorPickerDialog.dart';
 import 'gradientMakerDetails.dart';
 
 class ColorsView extends StatefulWidget {
@@ -95,40 +96,53 @@ class _ColorsViewState extends State<ColorsView> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           return Align(
-                            child: Container(
-                              height: screenWidth(context, mulBy: 0.05),
-                              width: screenWidth(context, mulBy: 0.05),
-                              constraints: const BoxConstraints(
-                                  minHeight: 90,
-                                  minWidth: 90
-                              ),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.white.withOpacity(0.5),
-                                    width: 2.5
-                                ),
+                            child: InkWell(
+                              onTap: (){
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return ColorPickerDialog(
+                                        onSelect: () {
 
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              alignment: Alignment.center,
-                              margin: const EdgeInsets.only(
-                                right: 10
-                              ),
+                                        });
+                                  },
+                                );
+                              },
                               child: Container(
-                                height: screenWidth(context, mulBy: 0.05)-9,
-                                width: screenWidth(context, mulBy: 0.05)-9,
+                                height: screenWidth(context, mulBy: 0.05),
+                                width: screenWidth(context, mulBy: 0.05),
                                 constraints: const BoxConstraints(
-                                  minHeight: 81,
-                                  minWidth: 81
+                                    minHeight: 90,
+                                    minWidth: 90
                                 ),
-                                alignment: Alignment.center,
                                 decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: Colors.transparent,
-                                    width: 2.5
+                                      color: Colors.white.withOpacity(0.5),
+                                      width: 2.5
                                   ),
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: grads[index]
+
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                alignment: Alignment.center,
+                                margin: const EdgeInsets.only(
+                                  right: 10
+                                ),
+                                child: Container(
+                                  height: screenWidth(context, mulBy: 0.05)-9,
+                                  width: screenWidth(context, mulBy: 0.05)-9,
+                                  constraints: const BoxConstraints(
+                                    minHeight: 81,
+                                    minWidth: 81
+                                  ),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.transparent,
+                                      width: 2.5
+                                    ),
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: grads[index]
+                                  ),
                                 ),
                               ),
                             ),

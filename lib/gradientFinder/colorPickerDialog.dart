@@ -9,13 +9,9 @@ class ColorPickerDialog extends StatelessWidget {
   ColorPickerDialog({Key? key, required this.controller, required this.onSelect}) : super(key: key);
 
   final TextEditingController controller;
-  Color pickerColor = const Color(0xffffffff);
-  Color currentColor = const Color(0xffffffff);
   Function onSelect;
 
-  void changeColor(Color color) {
-    pickerColor = color;
-  }
+
 
 
   @override
@@ -125,10 +121,12 @@ class ColorPickerDialog extends StatelessWidget {
                             height: 20,
                           ),
                           ColorPicker(
-                            pickerColor:
-                            pickerColor,
-                            onColorChanged:
-                            changeColor,
+                            pickerColor:Color(
+                                int.parse(
+                                    "FF${controller.text}",
+                                    radix:
+                                    16)),
+                            onColorChanged:(c){},
                             enableAlpha:
                             false,
                             hexInputController:

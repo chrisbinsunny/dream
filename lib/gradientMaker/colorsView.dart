@@ -99,12 +99,12 @@ class _ColorsViewState extends State<ColorsView> {
                             child: InkWell(
                               onTap: (){
                                 showDialog(
+                                  barrierColor: Colors.black.withOpacity(0.1),
                                   context: context,
                                   builder: (context) {
                                     return ColorPickerDialog(
-                                        onSelect: () {
-
-                                        });
+                                    index: index,
+                                    );
                                   },
                                 );
                               },

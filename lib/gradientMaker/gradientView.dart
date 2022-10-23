@@ -50,7 +50,7 @@ class _GradientViewerState extends State<GradientViewer> {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
-        color: Colors.black,
+        //color: grads[0],
         border: Border.all(
             color: Colors.white,
           width: 5
@@ -58,8 +58,10 @@ class _GradientViewerState extends State<GradientViewer> {
         borderRadius: BorderRadius.circular(10),
         gradient: LinearGradient(
 
-          colors: grads
-        )
+          colors: grads.toList(),
+
+        ),
+
       ),
     );
 

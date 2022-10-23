@@ -3,12 +3,12 @@
 
 import 'package:flutter/material.dart';
 
-import 'dropFile/dropFile.dart';
+import 'upload/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
-  DroppedFile? file;
-  Offset coordinates=const Offset(0, 0);
-  Color color =Colors.black;
+  DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "Splash.jpg");
+  Color color =Colors.black, grad1= const Color(0xFFEE950F), grad2= Color(0xFF3F51B5);
+  Color colorTemp =Color(0xff8540ec);
   bool hover= false;
 
   DroppedFile? get getFile {
@@ -20,14 +20,6 @@ class ColorDetails extends ChangeNotifier {
     notifyListeners();
   }
 
-  Offset get getCoordinates{
-    return coordinates;
-  }
-
-  void setCoordinates(Offset coordinates1){
-    coordinates= coordinates1;
-    notifyListeners();
-  }
 
   Color get getColor{
     return color;
@@ -38,12 +30,39 @@ class ColorDetails extends ChangeNotifier {
     notifyListeners();
   }
 
+  Color get getColorTemp{
+    return colorTemp;
+  }
+
+  void setColorTemp(Color colorTemp1){
+    colorTemp= colorTemp1;
+    notifyListeners();
+  }
+
   bool get getHover{
     return hover;
   }
 
   void setHover(bool hover1){
     hover=hover1;
+    notifyListeners();
+  }
+
+  Color get getGrad1{
+    return grad1;
+  }
+
+  void setGrad1(Color grad11){
+    grad1=grad11;
+    notifyListeners();
+  }
+
+  Color get getGrad2{
+    return grad2;
+  }
+
+  void setGrad2(Color grad21){
+    grad2=grad21;
     notifyListeners();
   }
 }

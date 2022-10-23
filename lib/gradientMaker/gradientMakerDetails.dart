@@ -20,4 +20,14 @@ List<Color> get getGrads{
     notifyListeners();
   }
 
+void addGrad(){
+  grads.add(Colors.white);
+  notifyListeners();
+}
+
+void removeGrad(int index){
+  grads.removeAt(index);
+  notifyListeners();
+}
+
 }

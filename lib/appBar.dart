@@ -35,7 +35,7 @@ class AppBarCustomState extends State<AppBarCustom> {
         ? Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1)
         : 1;
     return Container(
-      color: Colors.black.withOpacity(0.8), ///303030
+      color: Colors.black.withOpacity(opacity), ///303030
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Row(

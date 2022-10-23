@@ -28,17 +28,7 @@ class GradientMakerHome extends StatelessWidget {
       thumbVisibility: true,
       child: Stack(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Colors.black,
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
-              ),
-            ),
-          ),
+
           ScrollConfiguration(
             behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView(

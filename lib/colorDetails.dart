@@ -7,7 +7,7 @@ import 'upload/dropFile.dart';
 
 class ColorDetails extends ChangeNotifier {
   DroppedFile? file= DroppedFile(url: "#", mime: "image/jpeg", bytes: 171941, name: "Splash.jpg");
-  Color color =Colors.black, grad1= Colors.orange, grad2= Colors.indigo;
+  Color color =Colors.black, grad1= const Color(0xFFEE950F), grad2= Color(0xFF3F51B5);
   Color colorTemp =Color(0xff8540ec);
   bool hover= false;
 

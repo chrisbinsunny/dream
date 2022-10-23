@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ class ColorsView extends StatefulWidget {
 class _ColorsViewState extends State<ColorsView> {
 
   List<Color> grads=[];
+  final hovered=ValueNotifier<int>(-1);
 
   @override
   Widget build(BuildContext context) {
@@ -108,93 +110,144 @@ class _ColorsViewState extends State<ColorsView> {
                                   },
                                 );
                               },
-                              child: Container(
-                                height: screenWidth(context, mulBy: 0.05),
-                                width: screenWidth(context, mulBy: 0.05),
-                                constraints: const BoxConstraints(
-                                    minHeight: 90,
-                                    minWidth: 90
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.white.withOpacity(0.5),
-                                      width: 2.5
-                                  ),
-
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(
-                                  right: 10
-                                ),
-                                child: Container(
-                                  height: screenWidth(context, mulBy: 0.05)-9,
-                                  width: screenWidth(context, mulBy: 0.05)-9,
-                                  constraints: const BoxConstraints(
-                                    minHeight: 81,
-                                    minWidth: 81
-                                  ),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.transparent,
-                                      width: 2.5
+                              onHover: (hover){
+                                if(hover&& (grads.length>2)){
+                                  hovered.value=index;
+                                }else{
+                                  hovered.value=-1;
+                                }
+                              },
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  Container(
+                                    height: screenWidth(context, mulBy: 0.05),
+                                    width: screenWidth(context, mulBy: 0.05),
+                                    constraints: const BoxConstraints(
+                                        minHeight: 90,
+                                        minWidth: 90
                                     ),
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: grads[index]
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.white.withOpacity(0.5),
+                                          width: 2.5
+                                      ),
+
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    alignment: Alignment.center,
+                                    margin: const EdgeInsets.only(
+                                      right: 10
+                                    ),
+                                    child: Container(
+                                      height: screenWidth(context, mulBy: 0.05)-9,
+                                      width: screenWidth(context, mulBy: 0.05)-9,
+                                      constraints: const BoxConstraints(
+                                        minHeight: 81,
+                                        minWidth: 81
+                                      ),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: Colors.transparent,
+                                          width: 2.5
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: grads[index]
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  ValueListenableBuilder<int>(
+                                    valueListenable: hovered,
+                                    builder: (_, hover, child) => Visibility(
+                                      visible: hover==index,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Provider.of<GradientMakerDetails>(context, listen: false).removeGrad(index);
+                                        },
+                                        child: const CircleAvatar(
+                                          key: Key('closeIconKey'),
+                                          radius: 13,
+
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.close,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  )
+
+                                ],
                               ),
                             ),
                           );
                         },
                     ),
-                    Align(
-                      child: Container(
-                        height: screenWidth(context, mulBy: 0.05),
-                        width: screenWidth(context, mulBy: 0.05),
-                        constraints: const BoxConstraints(
-                            minHeight: 90,
-                            minWidth: 90
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.white.withOpacity(0.5),
-                              width: 2.5
-                          ),
-
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.only(
-                            right: 10
-                        ),
-                        child: Container(
-                          height: screenWidth(context, mulBy: 0.05)-9,
-                          width: screenWidth(context, mulBy: 0.05)-9,
-                          constraints: const BoxConstraints(
-                              minHeight: 81,
-                              minWidth: 81
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
+                    Visibility(
+                      visible: grads.length<5,
+                      child: Align(
+                        child: InkWell(
+                          onTap: (){
+                            Provider.of<GradientMakerDetails>(context, listen: false).addGrad();
+                            showDialog(
+                              barrierColor: Colors.black.withOpacity(0.1),
+                              context: context,
+                              builder: (context) {
+                                return ColorPickerDialog(
+                                  index: grads.length-1,
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            height: screenWidth(context, mulBy: 0.05),
+                            width: screenWidth(context, mulBy: 0.05),
+                            constraints: const BoxConstraints(
+                                minHeight: 90,
+                                minWidth: 90
+                            ),
+                            decoration: BoxDecoration(
                               border: Border.all(
-                                  color: Colors.transparent,
+                                  color: Colors.white.withOpacity(0.5),
                                   width: 2.5
                               ),
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.white.withOpacity(0.15)
+
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            alignment: Alignment.center,
+                            margin: const EdgeInsets.only(
+                                right: 10
+                            ),
+                            child: Container(
+                              height: screenWidth(context, mulBy: 0.05)-9,
+                              width: screenWidth(context, mulBy: 0.05)-9,
+                              constraints: const BoxConstraints(
+                                  minHeight: 81,
+                                  minWidth: 81
+                              ),
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.transparent,
+                                      width: 2.5
+                                  ),
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white.withOpacity(0.15)
+                              ),
+                            child: const Icon(
+                              CupertinoIcons.plus,
+                              color: Colors.white,
+                              size: 30,
+                            ),
+                            ),
                           ),
-                        child: Icon(
-                          CupertinoIcons.plus,
-                          color: Colors.white,
-                          size: 30,
-                        ),
                         ),
                       ),
                     ),
                     ListView.builder(
-                      itemCount:4-grads.length,
+                      itemCount:(grads.length==5)?0:4-grads.length,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

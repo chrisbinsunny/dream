@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 
 
-class ColorDetails extends ChangeNotifier {
+class GradientMakerDetails extends ChangeNotifier {
 
 List<Color> grads= [
   Color(0xFFEE950F),

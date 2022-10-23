@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
 
 import '../sizes.dart';
 import 'dart:ui' as ui;
 
+import 'gradientMakerDetails.dart';
+
 class ColorPickerDialog extends StatelessWidget {
-  ColorPickerDialog({Key? key,  required this.onSelect}) : super(key: key);
+  ColorPickerDialog({Key? key,   required this.index}) : super(key: key);
 
   final TextEditingController controller=TextEditingController();
-  Function onSelect;
-
+  int index;
+  late Color color;
 
 
 
   @override
   Widget build(BuildContext context) {
+    color= Provider.of<GradientMakerDetails>(context, listen: true).getGrads[index];
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -121,12 +125,10 @@ class ColorPickerDialog extends StatelessWidget {
                             height: 20,
                           ),
                           ColorPicker(
-                            pickerColor:Color(
-                                int.parse(
-                                    "FF${controller.text}",
-                                    radix:
-                                    16)),
-                            onColorChanged:(c){},
+                            pickerColor: color,
+                            onColorChanged:(c){
+                              Provider.of<GradientMakerDetails>(context, listen: false).setGrads(c, index);
+                            },
                             enableAlpha:
                             false,
                             hexInputController:
@@ -232,14 +234,29 @@ class ColorPickerDialog extends StatelessWidget {
                             height: 20,
                           ),
                           ElevatedButton(
-                            child: const Text(
-                                'Got it'),
                             onPressed: () {
-                              onSelect();
-                              Navigator.of(
-                                  context)
-                                  .pop();
+                              Navigator.pop(context);
                             },
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 17,
+                                      horizontal: 30
+                                  )),
+                              enableFeedback: true,
+                              backgroundColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
+                              overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
+                              elevation: MaterialStateProperty.all(0),
+                              side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
+                            ),
+                            child: const Text(
+                              "Done",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white
+                              ),
+                            ),
                           ),
                         ],
                       ),

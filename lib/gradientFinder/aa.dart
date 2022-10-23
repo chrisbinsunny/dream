@@ -59,13 +59,6 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
     gradColor2 = Provider.of<ColorDetails>(context, listen: true).getGrad2;
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        shape: StadiumBorder(
-          side: BorderSide.none
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBody: true,
       body: MouseRegion(
         cursor: SystemMouseCursors.precise,
@@ -597,9 +590,29 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        label: const Text("Copy Hex"),
+        icon: const Icon(Icons.copy),
+        elevation: 5,
+        backgroundColor: Colors.indigo[200],
+        isExtended: true,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: SizedBox(
+        shape: const AutomaticNotchedShape(
+            RoundedRectangleBorder(), StadiumBorder()),
+        elevation: 0,
+        notchMargin: 8,
+        clipBehavior: Clip.antiAlias,
+        color: Colors.white.withOpacity(0.2),
+
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+            sigmaX: 60,
+            sigmaY: 60,
+          ),
+          child: Container(
             height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -627,7 +640,9 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                   ),
                 ],
               ),
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -32,17 +32,13 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
   int _gradientIdx = 0;
-  TextEditingController controller2 = TextEditingController(), controller1 = TextEditingController();
+  late TextEditingController controller2, controller1;
+  late Color gradColor1, gradColor2;
 
   GradientData get gradient => gradientData[_gradientIdx];
   Size _lastWindowSize = Size.zero;
-  // create some values
-  Color pickerColor = const Color(0xffffffff);
-  Color currentColor = const Color(0xffffffff);
 
-  void changeColor(Color color) {
-    pickerColor = color;
-  }
+
 
 @override
   void initState() {
@@ -68,8 +64,10 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
 
   @override
   Widget build(BuildContext context) {
+    gradColor1=Provider.of<ColorDetails>(context, listen: true).getGrad1;
+    gradColor2=Provider.of<ColorDetails>(context, listen: true).getGrad2;
 
-      return Scaffold(
+    return Scaffold(
       body: MouseRegion(
         cursor: SystemMouseCursors.precise,
         child: Stack(
@@ -96,7 +94,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                 key: imageKey,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [Color(int.parse("FF${controller1.text}", radix: 16)), Color(int.parse("FF${controller2.text}", radix: 16))]),
+                    gradient: LinearGradient(colors: [gradColor1, gradColor2]),
                   ),
                   child: Center(
                     child: Text(

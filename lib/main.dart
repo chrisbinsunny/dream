@@ -1,4 +1,5 @@
 import 'package:color_finder/appBar.dart';
+import 'package:color_finder/gradientMaker/gradientMakerDetails.dart';
 import 'package:color_finder/home.dart';
 import 'package:color_finder/palette/test.dart';
 import 'package:color_finder/upload/dropFile.dart';
@@ -17,6 +18,9 @@ void main() {
     ),
     ChangeNotifierProvider<ScrollDetail>(
       create: (context) => ScrollDetail(),
+    ),
+    ChangeNotifierProvider<GradientMakerDetails>(
+      create: (context) => GradientMakerDetails(),
     ),
   ],
       child: MyApp()));

@@ -15,7 +15,7 @@ List<Color> get getGrads{
     return grads;
   }
 
-  void setGrad1(Color grad, int index){
+  void setGrads(Color grad, int index){
     grads[index]=grad;
     notifyListeners();
   }

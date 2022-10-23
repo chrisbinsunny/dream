@@ -16,7 +16,7 @@ class BgGradient extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: grads)
+          gradient: LinearGradient(colors: grads.toList())
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),

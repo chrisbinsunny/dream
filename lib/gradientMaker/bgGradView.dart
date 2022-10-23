@@ -1,15 +1,22 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'gradientMakerDetails.dart';
 
 class BgGradient extends StatelessWidget {
-  const BgGradient({Key? key}) : super(key: key);
+  BgGradient({Key? key}) : super(key: key);
+
+  List<Color> grads=[];
 
   @override
   Widget build(BuildContext context) {
+    grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
+
     return Container(
-      decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [])
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: grads)
       ),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
@@ -17,6 +24,6 @@ class BgGradient extends StatelessWidget {
           decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
         ),
       ),
-    ),;
+    );
   }
 }

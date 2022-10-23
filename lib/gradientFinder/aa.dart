@@ -44,9 +44,32 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
     pickerColor = color;
   }
 
+@override
+  void initState() {
+    controller1=TextEditingController(
+      text: "FF000000"
+    )
+    ..addListener(() {
+      Provider.of<ColorDetails>(context, listen: false).setGrad1(
+       Color(int.parse( controller1.text, radix: 16))
+      );
+    });
+    controller2=TextEditingController(
+        text: "FF394CB6"
+    )
+      ..addListener(() {
+        Provider.of<ColorDetails>(context, listen: false).setGrad2(
+            Color(int.parse( controller2.text, radix: 16))
+        );
+      });
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+
+      return Scaffold(
       body: MouseRegion(
         cursor: SystemMouseCursors.precise,
         child: Stack(
@@ -197,12 +220,13 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                       ),
                                       SizedBox(
                                         width: 170,
-                                        child: const TextField(
-                                          style: TextStyle(
+                                        child: TextField(
+                                          controller: controller1,
+                                          style: const TextStyle(
                                             color: Colors.white,
                                           ),
                                           cursorColor: Colors.white,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                                 borderSide:
                                                     BorderSide(color: Colors.white)),
@@ -211,6 +235,12 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                                     BorderSide(color: Colors.white)),
                                             hintText: "Hex Value",
                                           ),
+                                          inputFormatters: [
+                                            UpperCaseTextFormatter(),
+                                            FilteringTextInputFormatter
+                                                .allow(
+                                                RegExp(kValidHexPattern))
+                                          ],
                                         ),
                                       ),
                                       (screenWidth(context,)<650)?
@@ -226,7 +256,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             },
                                           );
                                         },
-                                        icon: FaIcon(
+                                        icon: const FaIcon(
                                           FontAwesomeIcons.palette,
                                         ),
                                         style: ButtonStyle(
@@ -358,12 +388,13 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                       ),
                                       SizedBox(
                                         width: 170,
-                                        child: const TextField(
-                                          style: TextStyle(
+                                        child: TextField(
+                                          controller: controller2,
+                                          style: const TextStyle(
                                             color: Colors.white,
                                           ),
                                           cursorColor: Colors.white,
-                                          decoration: InputDecoration(
+                                          decoration: const InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                                 borderSide:
                                                 BorderSide(color: Colors.white)),
@@ -372,7 +403,14 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                                 BorderSide(color: Colors.white)),
                                             hintText: "Hex Value",
                                           ),
+                                          inputFormatters: [
+                                            UpperCaseTextFormatter(),
+                                            FilteringTextInputFormatter
+                                                .allow(
+                                                RegExp(kValidHexPattern))
+                                          ],
                                         ),
+
                                       ),
                                       (screenWidth(context,)<650)?
                                       IconButton(
@@ -387,7 +425,7 @@ class _ColorPickerSampleState extends State<ColorPickerSample> {
                                             },
                                           );
                                         },
-                                        icon: FaIcon(
+                                        icon: const FaIcon(
                                           FontAwesomeIcons.palette,
                                         ),
                                         style: ButtonStyle(
@@ -555,7 +593,7 @@ class GradientData {
 final gradientData = <GradientData>[
   const GradientData(
     name: 'Dream Now',
-    colors: [Color(0xff000000), Colors.indigo,   Colors.black],
+    colors: [Color(0xff000000), Color(0xff394CB6),   Colors.black],
   ),
   const GradientData(
     name: 'Dark Skies',

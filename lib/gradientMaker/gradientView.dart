@@ -27,8 +27,7 @@ class _GradientViewerState extends State<GradientViewer> {
 
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
-  String _lastUrl= "", b="";
-  Size _lastWindowSize = Size.zero;
+  late int gradType;
   late Future<List<PaletteColor>> a;
 
 @override
@@ -44,6 +43,7 @@ class _GradientViewerState extends State<GradientViewer> {
   Widget build(BuildContext context) {
     grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
+    gradType= Provider.of<GradientMakerDetails>(context, listen: true).getGradType;
     return Container(
       width: screenWidth(context, mulBy: 0.28),
       height: screenHeight(context, mulBy: 0.64),
@@ -58,11 +58,7 @@ class _GradientViewerState extends State<GradientViewer> {
           width: 5
         ),
         borderRadius: BorderRadius.circular(10),
-        gradient: LinearGradient(
-
-          colors: grads.toList(),
-          transform: GradientRotation((-(angle-360))*math.pi/180
-        ),)
+        gradient: getGradient()
 
       ),
     );
@@ -70,37 +66,26 @@ class _GradientViewerState extends State<GradientViewer> {
   }
 
 
+  Gradient getGradient(){
+  late Gradient gradient;
+  switch(gradType){
+    case 0: gradient= LinearGradient(
 
-
-  Color? getPixelColor(Offset position) {
-    /// no process if we in a race condition while image is being captured
-    /// and mouse/touch dragged around the screen.
-    if (imageDataList.isEmpty) return null;
-    final w = image.width;
-    final h = image.height;
-    final x = position.dx.round().clamp(0, w - 1);
-
-    /// -1: index is 0 based.
-    final y = position.dy.round().clamp(0, h - 1);
-
-    final list = imageDataList;
-    var i = y * (w * 4) + x * 4;
-
-    /// pixels are encoded in `RGBA` in the List.
-    return Color.fromARGB(
-      list[i + 3],
-      list[i],
-      list[i + 1],
-      list[i + 2],
+      colors: grads.toList(),
+      transform: GradientRotation((-(angle-360))*math.pi/180
+      ),);
+    break;
+    case 1: gradient= RadialGradient(
+      colors: grads.toList(),
+      );
+    break;
+    case 2: gradient= SweepGradient(
+      colors: grads.toList(),
+      transform: GradientRotation((-(angle-360))*math.pi/180),
     );
+    break;
   }
-
-  Future<List<int>> captureImage() async {
-    final ro =
-    imageKey.currentContext?.findRenderObject() as RenderRepaintBoundary;
-    image = await ro.toImage();
-    final bytes = (await image.toByteData(format: ui.ImageByteFormat.rawRgba))!;
-    return bytes.buffer.asUint8List().toList(growable: false);
+  return gradient;
   }
 
 

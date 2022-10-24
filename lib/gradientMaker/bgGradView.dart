@@ -9,17 +9,18 @@ class BgGradient extends StatelessWidget {
   BgGradient({Key? key}) : super(key: key);
   late double angle;
   List<Color> grads=[];
+  late int gradType;
+
 
   @override
   Widget build(BuildContext context) {
     grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
+    gradType= Provider.of<GradientMakerDetails>(context, listen: true).getGradType;
+
     return Container(
       decoration: BoxDecoration(
-          gradient: LinearGradient(colors: grads.toList(),
-              transform: GradientRotation((-(angle-360))*math.pi/180
-              )
-          ),
+          gradient: getGradient()
 
       ),
       child: BackdropFilter(
@@ -29,5 +30,27 @@ class BgGradient extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Gradient getGradient(){
+    late Gradient gradient;
+    switch(gradType){
+      case 0: gradient= LinearGradient(
+
+        colors: grads.toList(),
+        transform: GradientRotation((-(angle-360))*math.pi/180
+        ),);
+      break;
+      case 1: gradient= RadialGradient(
+        colors: grads.toList(),
+      );
+      break;
+      case 2: gradient= SweepGradient(
+        colors: grads.toList(),
+        transform: GradientRotation((-(angle-360))*math.pi/180),
+      );
+      break;
+    }
+    return gradient;
   }
 }

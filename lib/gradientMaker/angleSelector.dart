@@ -15,23 +15,26 @@ class AngleSelector extends StatefulWidget {
 }
 
 class _AngleSelectorState extends State<AngleSelector> {
-  double radius= 110;
+  double radius= 70;
   double angle = 0;
 
   @override
   Widget build(BuildContext context) {
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
 
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
         child: Container(
-          width: screenWidth(context, mulBy: 0.15),
-          height: screenHeight(context, mulBy: 0.32),
+          width: screenWidth(context, mulBy: 0.135
+          ),
+          height: screenHeight(context, mulBy: 0.28
+          ),
           constraints: const BoxConstraints(
-              // minWidth: 400,
-              // minHeight: 220
+             minWidth: 240,
+              minHeight: 250
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -51,12 +54,11 @@ class _AngleSelectorState extends State<AngleSelector> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0, tileMode: TileMode.decal),
                   child: Container(
-                    width: screenWidth(context, mulBy: 0.3),
+                    width: screenWidth(context, mulBy: 0.135),
                     height: screenHeight(context, mulBy: 0.06),
-
                     alignment: Alignment.centerLeft,
                     constraints: const BoxConstraints(
-                        minWidth: 400,
+                        minWidth: 240,
                         minHeight: 50
                     ),
                     decoration: BoxDecoration(
@@ -71,14 +73,28 @@ class _AngleSelectorState extends State<AngleSelector> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15
                     ),
-                    child: const Text(
-                      "Colors",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w400,
-                        fontSize: 17,
-                        overflow: TextOverflow.clip,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Angle",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 17,
+                            overflow: TextOverflow.clip,
+                          ),
+                        ),
+                        Text(
+                          "${-(angle-360)}°",
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 17,
+                            overflow: TextOverflow.clip,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -91,8 +107,8 @@ class _AngleSelectorState extends State<AngleSelector> {
                     child: GestureDetector(
                       onPanUpdate: onPanUpdate,
                       child: Container(
-                        height: 220,
-                        width: 220,
+                        height: radius*2,
+                        width: radius*2,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.white.withOpacity(0.1),
@@ -103,12 +119,44 @@ class _AngleSelectorState extends State<AngleSelector> {
                           )
                         ),
                         alignment: const Alignment(1,0),
-                        child: Container(
-                          height: 2,
-                          width: 110,
-                          color: Colors.white,
+                        child: Transform(
+                          ///Whole container is rotated here to the correct visual angle.
+                          ///Angle can be accessed by [(-(angle-360)]
+
                           transform: Matrix4.translationValues(0, 0, 0.0)
                             ..rotateZ(-angle * math.pi /180),
+                          alignment: FractionalOffset.centerLeft,
+                          origin: Offset(15,0),
+                          child: Stack(
+                            alignment: FractionalOffset.centerLeft,
+                            children: [
+                              ///Conatiner for dial
+                              Container(
+                                height: 3,
+                                width: radius+15,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                              ),
+
+                              ///Conatiner for round centre
+                              ///Margin is passed insted of offset to move the round to centre of rotation
+                              Container(
+                                height: 10,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black,
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 2
+                                  )
+                                ),
+                                margin: EdgeInsets.all(10),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -127,7 +175,7 @@ class _AngleSelectorState extends State<AngleSelector> {
   void onPanUpdate(DragUpdateDetails details) {
     Offset coordinates = details.localPosition;
 
-    var center = (radius * 2) / 2;
+    var center = radius;
     Offset pureCoordinates = Offset(((coordinates.dx - center) / center),
         ((coordinates.dy - center) / center) * -1);
     var angleTan = (pureCoordinates.dy.abs()) / (pureCoordinates.dx.abs());
@@ -151,7 +199,6 @@ class _AngleSelectorState extends State<AngleSelector> {
       }
     }
 
-    log((-(angle-360)).toString());
     Provider.of<GradientMakerDetails>(context, listen: false).setAngle(angle);
   }
 

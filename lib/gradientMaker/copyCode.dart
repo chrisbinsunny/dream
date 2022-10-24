@@ -345,7 +345,11 @@ class GradientCode extends StatelessWidget {
       break;
     }
 
-    degree= "${-angle-360}";
+    if(gradType==1){
+      degree= "circle";
+    }else{
+      degree= "${-(angle-360)}deg";
+    }
     return [
       ///Do here Grad type
       TextSpan(
@@ -356,22 +360,22 @@ class GradientCode extends StatelessWidget {
         text: "(",
         children: [
           TextSpan(
-            text: "${degree}deg",
-            style: TextStyle(
+            text: degree,
+            style: const TextStyle(
                 color: Color(0xffd0782a)
             ),
           ),
-          TextSpan(
+          const TextSpan(
             text: ", ",
           ),
-          TextSpan(
+          const TextSpan(
               text: "rgba",
               style: TextStyle(
                   color: Color(0xffddca7e)
               )
           ),
           ///Do here
-          TextSpan(
+          const TextSpan(
             text: "(",
             children: [
               TextSpan(
@@ -415,23 +419,23 @@ class GradientCode extends StatelessWidget {
                 color: Colors.white
             ),
           ), ///Do here
-          TextSpan(
+          const TextSpan(
             text: "0%",
             style: TextStyle(
                 color: Color(0xffd0782a)
             ),
           ),
-          TextSpan(
+          const TextSpan(
             text: ",",
           ),
-          TextSpan(
+          const TextSpan(
               text: " rgba",
               style: TextStyle(
                   color: Color(0xffddca7e)
               )
           ),
           ///Do here
-          TextSpan(
+          const TextSpan(
             text: "(",
             children: [
               TextSpan(
@@ -475,18 +479,18 @@ class GradientCode extends StatelessWidget {
                 color: Colors.white
             ),
           ), ///Do here
-          TextSpan(
+          const TextSpan(
             text: "100%",
             style: TextStyle(
                 color: Color(0xffd0782a)
             ),
           ),
-          TextSpan(
+          const TextSpan(
             text: ");\n",
           ),
 
         ],
-        style: TextStyle(
+        style: const TextStyle(
             color: Colors.white
         ),
       ),

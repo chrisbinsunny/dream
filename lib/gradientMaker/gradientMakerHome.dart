@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:color_finder/gradientMaker/angleSelector.dart';
 import 'package:color_finder/gradientMaker/bgGradView.dart';
 import 'package:color_finder/gradientMaker/colorsView.dart';
 import 'package:color_finder/gradientMaker/gradientView.dart';
@@ -65,7 +66,7 @@ class GradientMakerHome extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        UploadImage(),
+                        AngleSelector()
                       ],
                     ),
                   ],

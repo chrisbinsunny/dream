@@ -40,13 +40,13 @@ class GradientType extends StatelessWidget {
               GradientTypeButton(
                 hovered: hovered,
                 selected: selected,
-                itemNo: 2,
+                itemNo: 1,
                 name: "Radial Gradient",
               ),
               GradientTypeButton(
                 hovered: hovered,
                 selected: selected,
-                itemNo: 3,
+                itemNo: 2,
                 name: "Sweep Gradient",
               ),
             ],

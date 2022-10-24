@@ -13,6 +13,11 @@ List<Color> grads= [
 
 double angle=315;
 
+///0= Linear Gradient
+///1= Radial Gradient
+///2= Sweep Gradient
+int gradientType=0;
+
 List<Color> get getGrads{
     return grads;
   }
@@ -39,6 +44,15 @@ double get getAngle{
 
 void setAngle(double angle1){
   angle=angle1;
+  notifyListeners();
+}
+
+int get getGradType{
+  return gradientType;
+}
+
+void setGradType(int gradientType1){
+  gradientType=gradientType1;
   notifyListeners();
 }
 

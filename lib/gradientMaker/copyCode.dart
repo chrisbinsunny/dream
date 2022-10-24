@@ -68,7 +68,7 @@ class GradientCode extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15
                     ),
-                    child: Text(
+                    child: const Text(
                       "Your Gradient Code",
                       style: TextStyle(
                         color: Colors.white,
@@ -86,13 +86,13 @@ class GradientCode extends StatelessWidget {
                   children: [
                     Container(
                       width: 35,
-                      decoration: BoxDecoration(
-                        color: Color(0xff252526).withOpacity(0.8),
+                      decoration: const BoxDecoration(
+                        color: Color(0xff252526),
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(10)
                         ),
                       ),
-                      padding: EdgeInsets.only(top: 15, right: 5),
+                      padding: const EdgeInsets.only(top: 15, right: 5),
                       child: Text(
                         "1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19",
                         textAlign: TextAlign.end,
@@ -106,26 +106,217 @@ class GradientCode extends StatelessWidget {
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.only(top: 15, left: 5),
+                        padding: const EdgeInsets.only(top: 15, left: 10),
                       decoration: BoxDecoration(
-                        color: Color(0xff1e1e1e).withOpacity(0.8),
+                        color: const Color(0xff1d1e22).withOpacity(1),
 
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                             bottomRight: Radius.circular(10)
                         ),
                       ),
                         alignment: Alignment.topLeft,
-                        child: Text(
-                          "background: rgb(0,0,102);\n"
-                            "background: -moz-linear-gradient(42deg, rgba(0,0,102,1) 0%, rgba(255,234,0,1) 100%);\n"
-                          "background: -webkit-linear-gradient(42deg, rgba(0,0,102,1) 0%, rgba(255,234,0,1) 100%);\n"
-                        "background: linear-gradient(42deg, rgba(0,0,102,1) 0%, rgba(255,234,0,1) 100%);\n"
-                  'filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000066",endColorstr="#ffea00",GradientType=1);\n',
-                          style: TextStyle(
+                        child: Text.rich(
+                          TextSpan(
+                            text: "",
+                            children: [
+                              const TextSpan(
+                                text: "background",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              const TextSpan(
+                                text: ":",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " rgb",
+                              ),
+                              ///Do here
+                              const TextSpan(
+                                text: "(",
+                                children: [
+                                  TextSpan(
+                                    text: "0",
+                                    style: TextStyle(
+                                        color: Color(0xffd0782a)
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ",",
+                                  ),
+                                  TextSpan(
+                                    text: "0",
+                                    style: TextStyle(
+                                        color: Color(0xffd0782a)
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ",",
+                                  ),
+                                  TextSpan(
+                                    text: "102",
+                                    style: TextStyle(
+                                        color: Color(0xffd0782a)
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ");\n",
+                                  ),
+                                ],
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ), ///Do here
+                              ///
+                              ///New Line
+                              ///
+                              ///
+                              const TextSpan(
+                                text: "background",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              const TextSpan(
+                                text: ":",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " -moz-",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              ...getValueSpan(),
+                              ///
+                              ///New Line
+                              ///
+                              ///
+                              const TextSpan(
+                                text: "background",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              const TextSpan(
+                                text: ":",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              const TextSpan(
+                                text: " -webkit-",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              ...getValueSpan(),
+                              ///
+                              ///New Line
+                              ///
+                              ///
+                              const TextSpan(
+                                text: "background",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              const TextSpan(
+                                text: ": ",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              ...getValueSpan(),
+                              ///
+                              ///New Line
+                              ///
+                              ///
+                              const TextSpan(
+                                text: "filter",
+                                style: TextStyle(
+                                    color: Color(0xff9a8297)
+                                ),),
+                              const TextSpan(
+                                text: ": ",
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                              const TextSpan(
+                                text: "progid:DXImageTransform.Microsoft.gradient",
+                              ),
+                              ///Do here
+                              const TextSpan(
+                                text: "(",
+                                children: [
+                                  TextSpan(
+                                      text: "startColorstr",
+                                      style: TextStyle(
+                                          color: Color(0xffddca7e)
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: "=",
+                                  ),
+                                  ///Do here Start color
+                                  TextSpan(
+                                      text: '"#000066"',
+                                      style: TextStyle(
+                                          color: Color(0xff96b38a)
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: ",",
+                                  ),
+                                  TextSpan(
+                                      text: "endColorstr",
+                                      style: TextStyle(
+                                          color: Color(0xffddca7e)
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: "=",
+                                  ),
+                                  ///Do here End color
+                                  TextSpan(
+                                      text: '"#ffea00"',
+                                      style: TextStyle(
+                                          color: Color(0xff96b38a)
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: ",",
+                                  ),
+                                  TextSpan(
+                                      text: "GradientType",
+                                      style: TextStyle(
+                                          color: Color(0xffddca7e)
+                                      )
+                                  ),
+                                  TextSpan(
+                                    text: "=",
+                                  ),
+                                  TextSpan(
+                                    text: "1",
+                                    style: TextStyle(
+                                        color: Color(0xffd0782a)
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ");",
+                                  ),
+                                ],
+                                style: TextStyle(
+                                    color: Colors.white
+                                ),
+                              ),
+                            ]
+                          ),
+                            style: const TextStyle(
                               fontFamily: "techFont",
                               height: 1.5,
                               fontSize: 15,
-                              color: Colors.white.withOpacity(0.9)
+                              color: Color(0xffddca7e)
                           ),
                         ),
                     ),
@@ -140,4 +331,192 @@ class GradientCode extends StatelessWidget {
       ),
     );
   }
+
+  List<TextSpan> getValueSpan(){
+
+    String gradient="", degree="";
+
+    switch(gradType){
+      case 0: gradient= "linear-gradient";
+      break;
+      case 1: gradient= "radial-gradient";
+      break;
+      case 2: gradient= "NOT-SUPPORTED";
+      break;
+    }
+
+    degree= "${-angle-360}";
+    return [
+      ///Do here Grad type
+      TextSpan(
+        text: gradient,
+      ),
+      ///Do here
+      TextSpan(
+        text: "(",
+        children: [
+          TextSpan(
+            text: "${degree}deg",
+            style: TextStyle(
+                color: Color(0xffd0782a)
+            ),
+          ),
+          TextSpan(
+            text: ", ",
+          ),
+          TextSpan(
+              text: "rgba",
+              style: TextStyle(
+                  color: Color(0xffddca7e)
+              )
+          ),
+          ///Do here
+          TextSpan(
+            text: "(",
+            children: [
+              TextSpan(
+                text: "0",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "0",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "102",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "1",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ") ",
+              ),
+            ],
+            style: TextStyle(
+                color: Colors.white
+            ),
+          ), ///Do here
+          TextSpan(
+            text: "0%",
+            style: TextStyle(
+                color: Color(0xffd0782a)
+            ),
+          ),
+          TextSpan(
+            text: ",",
+          ),
+          TextSpan(
+              text: " rgba",
+              style: TextStyle(
+                  color: Color(0xffddca7e)
+              )
+          ),
+          ///Do here
+          TextSpan(
+            text: "(",
+            children: [
+              TextSpan(
+                text: "255",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "234",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "0",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ",",
+              ),
+              TextSpan(
+                text: "1",
+                style: TextStyle(
+                    color: Color(0xffd0782a)
+                ),
+              ),
+              TextSpan(
+                text: ") ",
+              ),
+            ],
+            style: TextStyle(
+                color: Colors.white
+            ),
+          ), ///Do here
+          TextSpan(
+            text: "100%",
+            style: TextStyle(
+                color: Color(0xffd0782a)
+            ),
+          ),
+          TextSpan(
+            text: ");\n",
+          ),
+
+        ],
+        style: TextStyle(
+            color: Colors.white
+        ),
+      ),
+    ];
+  }
+
+
 }
+
+///grey
+// style: TextStyle(
+// color: Color(0xff9a8297)
+// ),
+
+///White
+// style: TextStyle(
+// color: Colors.white
+// ),
+
+///Yellow
+// style: TextStyle(
+// color: Color(0xffddca7e)
+// ),
+
+///Green
+// style: TextStyle(
+// color: Color(0xff96b38a)
+// )
+
+///Orange
+// style: TextStyle(
+// color: Color(0xffd0782a)
+// ),

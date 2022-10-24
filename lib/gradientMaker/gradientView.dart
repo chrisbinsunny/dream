@@ -12,6 +12,7 @@ import '../gradientFinder/aa.dart';
 import '../colorDetails.dart';
 import 'dart:ui' as ui;
 import '../upload/dropFile.dart';
+import 'dart:math' as math;
 
 class GradientViewer extends StatefulWidget {
   const GradientViewer({Key? key,}) : super(key: key);
@@ -22,6 +23,7 @@ class GradientViewer extends StatefulWidget {
 class _GradientViewerState extends State<GradientViewer> {
   List<Color> grads=[];
   final imageKey = GlobalKey();
+  late double angle;
 
   List<int> imageDataList = List<int>.empty(growable: false);
   late ui.Image image;
@@ -41,6 +43,7 @@ class _GradientViewerState extends State<GradientViewer> {
   @override
   Widget build(BuildContext context) {
     grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
+    angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
     return Container(
       width: screenWidth(context, mulBy: 0.28),
       height: screenHeight(context, mulBy: 0.64),
@@ -50,7 +53,6 @@ class _GradientViewerState extends State<GradientViewer> {
       alignment: Alignment.center,
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
-        //color: grads[0],
         border: Border.all(
             color: Colors.white,
           width: 5
@@ -59,8 +61,8 @@ class _GradientViewerState extends State<GradientViewer> {
         gradient: LinearGradient(
 
           colors: grads.toList(),
-
-        ),
+          transform: GradientRotation((-(angle-360))*math.pi/180
+        ),)
 
       ),
     );

@@ -28,8 +28,26 @@ class GradientType extends StatelessWidget {
         valueListenable: hovered,
         builder: (context, hover, child) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GradientTypeButton(hovered: hovered, selected: selected, ),
+              GradientTypeButton(
+                hovered: hovered,
+                selected: selected,
+                itemNo: 0,
+                name: "Linear Gradient",
+              ),
+              GradientTypeButton(
+                hovered: hovered,
+                selected: selected,
+                itemNo: 2,
+                name: "Radial Gradient",
+              ),
+              GradientTypeButton(
+                hovered: hovered,
+                selected: selected,
+                itemNo: 3,
+                name: "Sweep Gradient",
+              ),
             ],
           );
         },
@@ -43,20 +61,24 @@ class GradientTypeButton extends StatelessWidget {
     Key? key,
     required this.hovered,
     required this.selected,
+    required this.itemNo,
+    required this.name
   }) : super(key: key);
 
   final ValueNotifier<int> hovered;
   final int selected;
+  final int itemNo;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Provider.of<GradientMakerDetails>(context, listen: false).setGradType(1);
+        Provider.of<GradientMakerDetails>(context, listen: false).setGradType(itemNo);
       },
       onHover: (hover1){
         if(hover1){
-          hovered.value=0;
+          hovered.value=itemNo;
         }else{
           hovered.value=-1;
         }
@@ -76,18 +98,18 @@ class GradientTypeButton extends StatelessWidget {
             ),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: hovered.value==0?Colors.white.withOpacity(0.1):Colors.black.withOpacity(0.2),
+              color: hovered.value==itemNo?Colors.white.withOpacity(0.1):Colors.black.withOpacity(0.2),
               borderRadius: BorderRadius.circular(15),
               border: Border.all(
                   color: Colors.white.withOpacity(
-                      selected==0?1:
-                      0.5
+                      selected==itemNo?1:
+                      0.3
                   ),
                   width: 2.5
               ),
             ),
-            child: const Text(
-              "Linear Gradient",
+            child: Text(
+              name,
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,

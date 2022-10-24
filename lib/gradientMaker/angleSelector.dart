@@ -2,9 +2,10 @@ import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:provider/provider.dart';
 import 'dart:math' as math;
 import '../sizes.dart';
+import 'gradientMakerDetails.dart';
 
 class AngleSelector extends StatefulWidget {
   const AngleSelector({Key? key}) : super(key: key);
@@ -14,9 +15,12 @@ class AngleSelector extends StatefulWidget {
 }
 
 class _AngleSelectorState extends State<AngleSelector> {
-  double radius= 125;
+  double radius= 110;
+  double angle = 0;
+
   @override
   Widget build(BuildContext context) {
+    angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
 
@@ -82,19 +86,30 @@ class _AngleSelectorState extends State<AngleSelector> {
               Expanded(
                 child: Align(
                   alignment: Alignment.center,
-                  child: GestureDetector(
-                    onPanUpdate: onPanUpdate,
-                    child: Container(
-                      height: 300,
-                      width: 300,
-                      color: Colors. black,
-                      alignment: Alignment(1,0),
+                  child: RotatedBox(
+                    quarterTurns: 3,
+                    child: GestureDetector(
+                      onPanUpdate: onPanUpdate,
                       child: Container(
-                        height: 2,
-                        width: 150,
-                        color: Colors.white,
-                        transform: Matrix4.translationValues(0, 0, 0.0)
-                          ..rotateZ(-angle * math.pi /180),
+                        height: 220,
+                        width: 220,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          //color: Colors. black,
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.5),
+                            width: 3,
+                            strokeAlign: StrokeAlign.outside
+                          )
+                        ),
+                        alignment: const Alignment(1,0),
+                        child: Container(
+                          height: 2,
+                          width: 110,
+                          color: Colors.white,
+                          transform: Matrix4.translationValues(0, 0, 0.0)
+                            ..rotateZ(-angle * math.pi /180),
+                        ),
                       ),
                     ),
                   ),
@@ -109,38 +124,35 @@ class _AngleSelectorState extends State<AngleSelector> {
   }
 
 
-  double angle = 0;
   void onPanUpdate(DragUpdateDetails details) {
     Offset coordinates = details.localPosition;
 
-    setState(() {
-      var center = (radius * 2) / 2;
-      Offset pureCoordinates = Offset(((coordinates.dx - center) / center),
-          ((coordinates.dy - center) / center) * -1);
-      var angleTan = (pureCoordinates.dy.abs()) / (pureCoordinates.dx.abs());
+    var center = (radius * 2) / 2;
+    Offset pureCoordinates = Offset(((coordinates.dx - center) / center),
+        ((coordinates.dy - center) / center) * -1);
+    var angleTan = (pureCoordinates.dy.abs()) / (pureCoordinates.dx.abs());
 
-      (pureCoordinates.toString());
-      double minValue =
-      math.sqrt((math.pow(pureCoordinates.dx, 2) + math.pow(pureCoordinates.dy, 2)));
+    double minValue =
+    math.sqrt((math.pow(pureCoordinates.dx, 2) + math.pow(pureCoordinates.dy, 2)));
 
-      if ((minValue > 0.6)) {
-        angle = math.atan(angleTan) * 180 / math.pi;
-        angle = angle.roundToDouble();
-        if (pureCoordinates.dx.isNegative && !pureCoordinates.dy.isNegative) {
-          angle = 90 - angle;
-          angle += 90;
-        }
-        if (pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
-          angle += 180;
-        }
-        if (!pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
-          angle = 90 - angle;
-          angle += 270;
-        }
+    if ((minValue > 0.6)) {
+      angle = math.atan(angleTan) * 180 / math.pi;
+      angle = angle.roundToDouble();
+      if (pureCoordinates.dx.isNegative && !pureCoordinates.dy.isNegative) {
+        angle = 90 - angle;
+        angle += 90;
       }
+      if (pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
+        angle += 180;
+      }
+      if (!pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
+        angle = 90 - angle;
+        angle += 270;
+      }
+    }
 
-      log((angle * 360 ~/ 360).toString());
-    });
+    log((-(angle-360)).toString());
+    Provider.of<GradientMakerDetails>(context, listen: false).setAngle(angle);
   }
 
 

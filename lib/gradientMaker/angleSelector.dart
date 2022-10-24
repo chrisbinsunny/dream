@@ -21,8 +21,7 @@ class _AngleSelectorState extends State<AngleSelector> {
   @override
   Widget build(BuildContext context) {
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
-log(screenHeight(context, mulBy: 0.25
-).toString());
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
 

@@ -30,8 +30,8 @@ class _AngleSelectorState extends State<AngleSelector> {
           width: screenWidth(context, mulBy: 0.15),
           height: screenHeight(context, mulBy: 0.32),
           constraints: const BoxConstraints(
-              minWidth: 400,
-              minHeight: 220
+              // minWidth: 400,
+              // minHeight: 220
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -95,7 +95,6 @@ class _AngleSelectorState extends State<AngleSelector> {
                         width: 220,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          //color: Colors. black,
                           border: Border.all(
                             color: Colors.white.withOpacity(0.5),
                             width: 3,

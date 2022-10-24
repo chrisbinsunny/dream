@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:color_finder/gradientMaker/angleSelector.dart';
 import 'package:color_finder/gradientMaker/bgGradView.dart';
 import 'package:color_finder/gradientMaker/colorsView.dart';
+import 'package:color_finder/gradientMaker/gradientType.dart';
 import 'package:color_finder/gradientMaker/gradientView.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -61,12 +62,29 @@ class GradientMakerHome extends StatelessWidget {
                   children:  [
                     const GradientViewer(),
                     Column(
-                      children: const [
+                      children: [
                         ColorsView(),
                         SizedBox(
                           height: 20,
                         ),
-                        AngleSelector()
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.3),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: 530,
+                            ),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              alignment: WrapAlignment.spaceEvenly,
+                              runSpacing: 20,
+                              spacing: 20,
+                              children: [
+                                AngleSelector(),
+                                GradientType()
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ],

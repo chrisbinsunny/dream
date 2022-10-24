@@ -34,7 +34,7 @@ class _ColorsViewState extends State<ColorsView> {
           width: screenWidth(context, mulBy: 0.3),
           height: screenHeight(context, mulBy: 0.23),
           constraints: const BoxConstraints(
-              minWidth: 400,
+              minWidth: 530,
               minHeight: 220
           ),
           alignment: Alignment.center,
@@ -60,7 +60,7 @@ class _ColorsViewState extends State<ColorsView> {
 
                     alignment: Alignment.centerLeft,
                     constraints: const BoxConstraints(
-                        minWidth: 400,
+                        minWidth: 530,
                         minHeight: 50
                     ),
                     decoration: BoxDecoration(
@@ -91,197 +91,201 @@ class _ColorsViewState extends State<ColorsView> {
                 child: ValueListenableBuilder<int>(
                   valueListenable: hovered,
                   builder: (context, hover, child) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ListView.builder(
-                          itemCount:grads.length,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Align(
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ListView.builder(
+                            itemCount:grads.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Align(
+                                child: InkWell(
+                                  onTap: (){
+                                    showDialog(
+                                      barrierColor: Colors.black.withOpacity(0.1),
+                                      context: context,
+                                      builder: (context) {
+                                        return ColorPickerDialog(
+                                          index: index,
+                                        );
+                                      },
+                                    );
+                                  },
+                                  onHover: (hover){
+                                    if(hover){
+                                      hovered.value=index;
+                                    }else{
+                                      hovered.value=-1;
+                                    }
+                                  },
+                                  child: Stack(
+                                    alignment: Alignment.topRight,
+                                    children: [
+                                      Container(
+                                        height: screenWidth(context, mulBy: 0.05),
+                                        width: screenWidth(context, mulBy: 0.05),
+                                        constraints: const BoxConstraints(
+                                            minHeight: 90,
+                                            minWidth: 90
+                                        ),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.white.withOpacity(
+                                                  hovered.value==index?1:
+                                                  0.5
+                                              ),
+                                              width: 2.5
+                                          ),
+
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        alignment: Alignment.center,
+                                        margin: const EdgeInsets.only(
+                                            right: 10
+                                        ),
+                                        child: Container(
+                                          height: screenWidth(context, mulBy: 0.05)-9,
+                                          width: screenWidth(context, mulBy: 0.05)-9,
+                                          constraints: const BoxConstraints(
+                                              minHeight: 81,
+                                              minWidth: 81
+                                          ),
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.transparent,
+                                                  width: 2.5
+                                              ),
+                                              borderRadius: BorderRadius.circular(5),
+                                              color: grads[index]
+                                          ),
+                                        ),
+                                      ),
+                                      Visibility(
+                                        visible: (hover==index)&&(grads.length>2),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            Provider.of<GradientMakerDetails>(context, listen: false).removeGrad(index);
+                                          },
+                                          child: const CircleAvatar(
+                                            key: Key('closeIconKey'),
+                                            radius: 13,
+
+                                            backgroundColor: Colors.white,
+                                            child: Icon(
+                                              Icons.close,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                          Visibility(
+                            visible: grads.length<5,
+                            child: Align(
                               child: InkWell(
                                 onTap: (){
+                                  Provider.of<GradientMakerDetails>(context, listen: false).addGrad();
                                   showDialog(
                                     barrierColor: Colors.black.withOpacity(0.1),
                                     context: context,
                                     builder: (context) {
                                       return ColorPickerDialog(
-                                        index: index,
+                                        index: grads.length-1,
                                       );
                                     },
                                   );
                                 },
                                 onHover: (hover){
                                   if(hover){
-                                    hovered.value=index;
+                                    hovered.value=grads.length;
                                   }else{
                                     hovered.value=-1;
                                   }
                                 },
-                                child: Stack(
-                                  alignment: Alignment.topRight,
-                                  children: [
-                                    Container(
-                                      height: screenWidth(context, mulBy: 0.05),
-                                      width: screenWidth(context, mulBy: 0.05),
-                                      constraints: const BoxConstraints(
-                                          minHeight: 90,
-                                          minWidth: 90
-                                      ),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                            color: Colors.white.withOpacity(
-                                                hovered.value==index?1:
-                                                0.5
-                                            ),
-                                            width: 2.5
-                                        ),
-
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      alignment: Alignment.center,
-                                      margin: const EdgeInsets.only(
-                                          right: 10
-                                      ),
-                                      child: Container(
-                                        height: screenWidth(context, mulBy: 0.05)-9,
-                                        width: screenWidth(context, mulBy: 0.05)-9,
-                                        constraints: const BoxConstraints(
-                                            minHeight: 81,
-                                            minWidth: 81
-                                        ),
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.transparent,
-                                                width: 2.5
-                                            ),
-                                            borderRadius: BorderRadius.circular(5),
-                                            color: grads[index]
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: (hover==index)&&(grads.length>2),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Provider.of<GradientMakerDetails>(context, listen: false).removeGrad(index);
-                                        },
-                                        child: const CircleAvatar(
-                                          key: Key('closeIconKey'),
-                                          radius: 13,
-
-                                          backgroundColor: Colors.white,
-                                          child: Icon(
-                                            Icons.close,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                        Visibility(
-                          visible: grads.length<5,
-                          child: Align(
-                            child: InkWell(
-                              onTap: (){
-                                Provider.of<GradientMakerDetails>(context, listen: false).addGrad();
-                                showDialog(
-                                  barrierColor: Colors.black.withOpacity(0.1),
-                                  context: context,
-                                  builder: (context) {
-                                    return ColorPickerDialog(
-                                      index: grads.length-1,
-                                    );
-                                  },
-                                );
-                              },
-                              onHover: (hover){
-                                if(hover){
-                                  hovered.value=grads.length;
-                                }else{
-                                  hovered.value=-1;
-                                }
-                              },
-                              child: Container(
-                                height: screenWidth(context, mulBy: 0.05),
-                                width: screenWidth(context, mulBy: 0.05),
-                                constraints: const BoxConstraints(
-                                    minHeight: 90,
-                                    minWidth: 90
-                                ),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Colors.white.withOpacity( hovered.value==grads.length?1:
-                                      0.5),
-                                      width: 2.5
-                                  ),
-
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(
-                                    right: 10
-                                ),
                                 child: Container(
-                                  height: screenWidth(context, mulBy: 0.05)-9,
-                                  width: screenWidth(context, mulBy: 0.05)-9,
+                                  height: screenWidth(context, mulBy: 0.05),
+                                  width: screenWidth(context, mulBy: 0.05),
                                   constraints: const BoxConstraints(
-                                      minHeight: 81,
-                                      minWidth: 81
+                                      minHeight: 90,
+                                      minWidth: 90
+                                  ),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Colors.white.withOpacity( hovered.value==grads.length?1:
+                                        0.5),
+                                        width: 2.5
+                                    ),
+
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.transparent,
-                                          width: 2.5
-                                      ),
-                                      borderRadius: BorderRadius.circular(5),
-                                      color: Colors.white.withOpacity(0.15)
+                                  margin: const EdgeInsets.only(
+                                      right: 10
                                   ),
-                                  child: const Icon(
-                                    CupertinoIcons.plus,
-                                    color: Colors.white,
-                                    size: 30,
+                                  child: Container(
+                                    height: screenWidth(context, mulBy: 0.05)-9,
+                                    width: screenWidth(context, mulBy: 0.05)-9,
+                                    constraints: const BoxConstraints(
+                                        minHeight: 81,
+                                        minWidth: 81
+                                    ),
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: Colors.transparent,
+                                            width: 2.5
+                                        ),
+                                        borderRadius: BorderRadius.circular(5),
+                                        color: Colors.white.withOpacity(0.15)
+                                    ),
+                                    child: const Icon(
+                                      CupertinoIcons.plus,
+                                      color: Colors.white,
+                                      size: 30,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        ListView.builder(
-                          itemCount:(grads.length==5)?0:4-grads.length,
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return Align(
-                              child: Container(
-                                height: screenWidth(context, mulBy: 0.05),
-                                width: screenWidth(context, mulBy: 0.05),
-                                constraints: const BoxConstraints(
-                                    minHeight: 90,
-                                    minWidth: 90
+                          ListView.builder(
+                            itemCount:(grads.length==5)?0:4-grads.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              return Align(
+                                child: Container(
+                                  height: screenWidth(context, mulBy: 0.05),
+                                  width: screenWidth(context, mulBy: 0.05),
+                                  constraints: const BoxConstraints(
+                                      minHeight: 90,
+                                      minWidth: 90
+                                  ),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: Colors.white.withOpacity(0.15)
+                                  ),
+                                  alignment: Alignment.center,
+                                  margin: const EdgeInsets.only(
+                                      right: 10
+                                  ),
                                 ),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.white.withOpacity(0.15)
-                                ),
-                                alignment: Alignment.center,
-                                margin: const EdgeInsets.only(
-                                    right: 10
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ],
+                              );
+                            },
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),

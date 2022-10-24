@@ -11,6 +11,8 @@ List<Color> grads= [
   Color(0xFF3F51B5)
 ];
 
+double angle=315;
+
 List<Color> get getGrads{
     return grads;
   }
@@ -27,6 +29,16 @@ void addGrad(){
 
 void removeGrad(int index){
   grads.removeAt(index);
+  notifyListeners();
+}
+
+
+double get getAngle{
+  return angle;
+}
+
+void setAngle(double angle1){
+  angle=angle1;
   notifyListeners();
 }
 

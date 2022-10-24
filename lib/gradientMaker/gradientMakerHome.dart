@@ -93,7 +93,7 @@ class GradientMakerHome extends StatelessWidget {
                 const SizedBox(
                   height: 100,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: GradientCode(),
                 ),

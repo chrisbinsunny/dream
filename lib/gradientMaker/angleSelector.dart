@@ -15,26 +15,27 @@ class AngleSelector extends StatefulWidget {
 }
 
 class _AngleSelectorState extends State<AngleSelector> {
-  double radius= 70;
+  double radius= 65;
   double angle = 0;
 
   @override
   Widget build(BuildContext context) {
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
-
+log(screenHeight(context, mulBy: 0.25
+).toString());
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
 
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
         child: Container(
-          width: screenWidth(context, mulBy: 0.135
+          width: screenWidth(context, mulBy: 0.115
           ),
-          height: screenHeight(context, mulBy: 0.28
+          height: screenHeight(context, mulBy: 0.25
           ),
           constraints: const BoxConstraints(
-             minWidth: 240,
-              minHeight: 250
+             minWidth: 210,
+              minHeight: 230
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(

@@ -136,7 +136,7 @@ class _ColorsViewState extends State<ColorsView> {
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                               color: Colors.white.withOpacity(
-                                                  hovered.value==index?1:
+                                                  hover==index?1:
                                                   0.5
                                               ),
                                               width: 2.5
@@ -222,7 +222,7 @@ class _ColorsViewState extends State<ColorsView> {
                                   ),
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                        color: Colors.white.withOpacity( hovered.value==grads.length?1:
+                                        color: Colors.white.withOpacity( hover==grads.length?1:
                                         0.5),
                                         width: 2.5
                                     ),

@@ -42,54 +42,54 @@ class GradientMakerHome extends StatelessWidget {
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
               children: [
-                // Container(
-                //   alignment: Alignment.center,
-                //   height: screenHeight(context, mulBy: 0.25),
-                //   //color: Colors.black,
-                //   child: const Text(
-                //     "Gradient Maker",
-                //     style: TextStyle(
-                //         color: Colors.white,
-                //         fontSize: 30,
-                //         fontWeight: FontWeight.bold
-                //     ),
-                //   ),
-                // ),
-                // Wrap(
-                //   direction: Axis.horizontal,
-                //   alignment: WrapAlignment.spaceEvenly,
-                //   runSpacing: 20,
-                //   spacing: 20,
-                //   children:  [
-                //     const GradientViewer(),
-                //     Column(
-                //       children: [
-                //         ColorsView(),
-                //         SizedBox(
-                //           height: 20,
-                //         ),
-                //         SizedBox(
-                //           width: screenWidth(context, mulBy: 0.3),
-                //           child: ConstrainedBox(
-                //             constraints: const BoxConstraints(
-                //                 minWidth: 530,
-                //             ),
-                //             child: Wrap(
-                //               direction: Axis.horizontal,
-                //               alignment: WrapAlignment.spaceEvenly,
-                //               runSpacing: 20,
-                //               spacing: 20,
-                //               children: [
-                //                 AngleSelector(),
-                //                 GradientType()
-                //               ],
-                //             ),
-                //           ),
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // ),
+                Container(
+                  alignment: Alignment.center,
+                  height: screenHeight(context, mulBy: 0.25),
+                  //color: Colors.black,
+                  child: const Text(
+                    "Gradient Maker",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+                Wrap(
+                  direction: Axis.horizontal,
+                  alignment: WrapAlignment.spaceEvenly,
+                  runSpacing: 20,
+                  spacing: 20,
+                  children:  [
+                    const GradientViewer(),
+                    Column(
+                      children: [
+                        ColorsView(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SizedBox(
+                          width: screenWidth(context, mulBy: 0.3),
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                                minWidth: 530,
+                            ),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              alignment: WrapAlignment.spaceEvenly,
+                              runSpacing: 20,
+                              spacing: 20,
+                              children: [
+                                AngleSelector(),
+                                GradientType()
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 100,
                 ),

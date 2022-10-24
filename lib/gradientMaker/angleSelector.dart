@@ -104,58 +104,62 @@ class _AngleSelectorState extends State<AngleSelector> {
                   alignment: Alignment.center,
                   child: RotatedBox(
                     quarterTurns: 3,
-                    child: GestureDetector(
-                      onPanUpdate: onPanUpdate,
-                      child: Container(
-                        height: radius*2,
-                        width: radius*2,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.white.withOpacity(0.1),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.5),
-                            width: 3,
-                            strokeAlign: StrokeAlign.outside
-                          )
-                        ),
-                        alignment: const Alignment(1,0),
-                        child: Transform(
-                          ///Whole container is rotated here to the correct visual angle.
-                          ///Angle can be accessed by [(-(angle-360)]
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onPanUpdate: onPanUpdate,
+                        onPanDown: onPanDown,
+                        child: Container(
+                          height: radius*2,
+                          width: radius*2,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.white.withOpacity(0.1),
+                            border: Border.all(
+                              color: Colors.white.withOpacity(0.5),
+                              width: 3,
+                              strokeAlign: StrokeAlign.outside
+                            )
+                          ),
+                          alignment: const Alignment(1,0),
+                          child: Transform(
+                            ///Whole container is rotated here to the correct visual angle.
+                            ///Angle can be accessed by [(-(angle-360)]
 
-                          transform: Matrix4.translationValues(0, 0, 0.0)
-                            ..rotateZ(-angle * math.pi /180),
-                          alignment: FractionalOffset.centerLeft,
-                          origin: Offset(15,0),
-                          child: Stack(
+                            transform: Matrix4.translationValues(0, 0, 0.0)
+                              ..rotateZ(-angle * math.pi /180),
                             alignment: FractionalOffset.centerLeft,
-                            children: [
-                              ///Conatiner for dial
-                              Container(
-                                height: 3,
-                                width: radius+15,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)
-                                ),
-                              ),
-
-                              ///Conatiner for round centre
-                              ///Margin is passed insted of offset to move the round to centre of rotation
-                              Container(
-                                height: 10,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.black,
-                                  border: Border.all(
+                            origin: Offset(15,0),
+                            child: Stack(
+                              alignment: FractionalOffset.centerLeft,
+                              children: [
+                                ///Conatiner for dial
+                                Container(
+                                  height: 3,
+                                  width: radius+15,
+                                  decoration: BoxDecoration(
                                     color: Colors.white,
-                                    width: 2
-                                  )
+                                    borderRadius: BorderRadius.circular(10)
+                                  ),
                                 ),
-                                margin: EdgeInsets.all(10),
-                              ),
-                            ],
+
+                                ///Conatiner for round centre
+                                ///Margin is passed insted of offset to move the round to centre of rotation
+                                Container(
+                                  height: 10,
+                                  width: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.black,
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 2
+                                    )
+                                  ),
+                                  margin: EdgeInsets.all(10),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -202,5 +206,33 @@ class _AngleSelectorState extends State<AngleSelector> {
     Provider.of<GradientMakerDetails>(context, listen: false).setAngle(angle);
   }
 
+  void onPanDown(DragDownDetails details) {
+    Offset coordinates = details.localPosition;
 
+    var center = radius;
+    Offset pureCoordinates = Offset(((coordinates.dx - center) / center),
+        ((coordinates.dy - center) / center) * -1);
+    var angleTan = (pureCoordinates.dy.abs()) / (pureCoordinates.dx.abs());
+
+    double minValue =
+    math.sqrt((math.pow(pureCoordinates.dx, 2) + math.pow(pureCoordinates.dy, 2)));
+
+    if ((minValue > 0.6)) {
+      angle = math.atan(angleTan) * 180 / math.pi;
+      angle = angle.roundToDouble();
+      if (pureCoordinates.dx.isNegative && !pureCoordinates.dy.isNegative) {
+        angle = 90 - angle;
+        angle += 90;
+      }
+      if (pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
+        angle += 180;
+      }
+      if (!pureCoordinates.dx.isNegative && pureCoordinates.dy.isNegative) {
+        angle = 90 - angle;
+        angle += 270;
+      }
+    }
+
+    Provider.of<GradientMakerDetails>(context, listen: false).setAngle(angle);
+  }
 }

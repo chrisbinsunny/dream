@@ -31,8 +31,10 @@ class AppBarCustomState extends State<AppBarCustom> {
 
   @override
   Widget build(BuildContext context) {
-    opacity = Provider.of<ScrollDetail>(context, listen: true).getPos < screenHeight(context, mulBy: 0.1)
-        ? Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1)
+    opacity = (Provider.of<ScrollDetail>(context, listen: true).getPos < screenHeight(context, mulBy: 0.1))
+        ? ((Provider.of<ScrollDetail>(context, listen: true).getPos > 0)?
+    Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1):0
+    )
         : 1;
     return Container(
       color: Colors.black.withOpacity(opacity), ///303030

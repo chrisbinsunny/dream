@@ -312,6 +312,8 @@ class GradientCode extends StatelessWidget {
                               ),
                             ]
                           ),
+                            showCursor: true,
+                            cursorColor: Colors.grey,
                             style: const TextStyle(
                               fontFamily: "techFont",
                               height: 1.5,

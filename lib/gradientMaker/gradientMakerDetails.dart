@@ -6,10 +6,15 @@ import 'package:flutter/material.dart';
 
 class GradientMakerDetails extends ChangeNotifier {
 
-List<Color> grads= [
-  Color(0xFFEE950F),
-  Color(0xFF3F51B5)
-];
+
+  GradientMakerDetails({
+    this.grads=const[Color(0xFFEE950F), Color(0xFF3F51B5)],
+    this.angle=315,
+    this.gradientType=0
+});
+
+
+List<Color> grads;
 
 double angle=315;
 

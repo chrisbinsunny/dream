@@ -115,7 +115,7 @@ class GradientCode extends StatelessWidget {
                         ),
                       ),
                         alignment: Alignment.topLeft,
-                        child: Text.rich(
+                        child: SelectableText.rich(
                           TextSpan(
                             text: "",
                             children: [
@@ -365,126 +365,7 @@ class GradientCode extends StatelessWidget {
                 color: Color(0xffd0782a)
             ),
           ),
-          const TextSpan(
-            text: ", ",
-          ),
-          const TextSpan(
-              text: "rgba",
-              style: TextStyle(
-                  color: Color(0xffddca7e)
-              )
-          ),
-          ///Do here
-          const TextSpan(
-            text: "(",
-            children: [
-              TextSpan(
-                text: "0",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "0",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "102",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "1",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ") ",
-              ),
-            ],
-            style: TextStyle(
-                color: Colors.white
-            ),
-          ), ///Do here
-          const TextSpan(
-            text: "0%",
-            style: TextStyle(
-                color: Color(0xffd0782a)
-            ),
-          ),
-          const TextSpan(
-            text: ",",
-          ),
-          const TextSpan(
-              text: " rgba",
-              style: TextStyle(
-                  color: Color(0xffddca7e)
-              )
-          ),
-          ///Do here
-          const TextSpan(
-            text: "(",
-            children: [
-              TextSpan(
-                text: "255",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "234",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "0",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ",",
-              ),
-              TextSpan(
-                text: "1",
-                style: TextStyle(
-                    color: Color(0xffd0782a)
-                ),
-              ),
-              TextSpan(
-                text: ") ",
-              ),
-            ],
-            style: TextStyle(
-                color: Colors.white
-            ),
-          ), ///Do here
-          const TextSpan(
-            text: "100%",
-            style: TextStyle(
-                color: Color(0xffd0782a)
-            ),
-          ),
+          ...getColorData(),
           const TextSpan(
             text: ");\n",
           ),
@@ -498,7 +379,89 @@ class GradientCode extends StatelessWidget {
   }
 
 
+  List<TextSpan> getColorData(){
+
+    List<TextSpan> colorData=[];
+
+    for(Color localColor in grads){
+      colorData.add(
+        TextSpan(
+          text: ", ",
+          children: [
+            const TextSpan(
+                text: "rgba",
+                style: TextStyle(
+                    color: Color(0xffddca7e)
+                )
+            ),
+            ///Do here
+            TextSpan(
+              text: "(",
+              children: [
+                TextSpan(
+                  text: "${localColor.red}",
+                  style: TextStyle(
+                      color: Color(0xffd0782a)
+                  ),
+                ),
+                TextSpan(
+                  text: ",",
+                ),
+                TextSpan(
+                  text: "${localColor.green}",
+                  style: TextStyle(
+                      color: Color(0xffd0782a)
+                  ),
+                ),
+                TextSpan(
+                  text: ",",
+                ),
+                TextSpan(
+                  text: "${localColor.blue}",
+                  style: TextStyle(
+                      color: Color(0xffd0782a)
+                  ),
+                ),
+                TextSpan(
+                  text: ",",
+                ),
+                TextSpan(
+                  text: "${localColor.alpha}",
+                  style: TextStyle(
+                      color: Color(0xffd0782a)
+                  ),
+                ),
+                TextSpan(
+                  text: ") ",
+                ),
+              ],
+              style: TextStyle(
+                  color: Colors.white
+              ),
+            ), ///Do here
+            const TextSpan(
+              text: "0%",
+              style: TextStyle(
+                  color: Color(0xffd0782a)
+              ),
+            ),
+          ],
+          style: const TextStyle(
+              color: Colors.white
+          ),
+        )
+      );
+    }
+
+    return colorData;
+  }
+
 }
+
+
+
+
+
 
 ///grey
 // style: TextStyle(

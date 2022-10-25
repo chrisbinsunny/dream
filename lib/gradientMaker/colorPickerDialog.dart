@@ -127,7 +127,7 @@ class ColorPickerDialog extends StatelessWidget {
                           ColorPicker(
                             pickerColor: color,
                             onColorChanged:(c){
-                              Provider.of<GradientMakerDetails>(context, listen: false).setGrads(c, index);
+                              Provider.of<GradientMakerDetails>(context, listen: false).setGrad(c, index);
                             },
                             enableAlpha:
                             false,

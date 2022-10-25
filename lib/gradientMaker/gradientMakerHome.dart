@@ -18,9 +18,10 @@ import '../upload/uploadImage.dart';
 import '../colorfinder/colorCodeViewer.dart';
 import '../colorfinder/howToUse.dart';
 import '../colorfinder/imageView.dart';
+import 'gradientMakerDetails.dart';
 
 class GradientMakerHome extends StatefulWidget {
-  GradientMakerHome({Key? key,}) : super(key: key);
+  const GradientMakerHome({Key? key,}) : super(key: key);
 
   @override
   State<GradientMakerHome> createState() => _GradientMakerHomeState();
@@ -35,6 +36,12 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
 
   @override
   void initState() {
+    // Provider.of<GradientMakerDetails>(context, listen: false).setAngle(
+    //     360-(double.tryParse(widget.uri.queryParameters["a"].toString())??45));
+    // Provider.of<GradientMakerDetails>(context, listen: false).setGradType(
+    //     int.tryParse(widget.uri.queryParameters["gt"].toString())??0);
+    // Provider.of<GradientMakerDetails>(context, listen: false).setGrads(
+    //     widget.uri.queryParametersAll["c"]??[]);
     scrollController.addListener(_scrollListener);
     super.initState();
   }

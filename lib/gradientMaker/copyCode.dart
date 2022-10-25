@@ -383,7 +383,8 @@ class GradientCode extends StatelessWidget {
 
     List<TextSpan> colorData=[];
 
-    for(Color localColor in grads){
+      for(var i = 0; i < grads.length; i++){
+
       colorData.add(
         TextSpan(
           text: ", ",
@@ -399,7 +400,7 @@ class GradientCode extends StatelessWidget {
               text: "(",
               children: [
                 TextSpan(
-                  text: "${localColor.red}",
+                  text: "${grads[i].red}",
                   style: TextStyle(
                       color: Color(0xffd0782a)
                   ),
@@ -408,7 +409,7 @@ class GradientCode extends StatelessWidget {
                   text: ",",
                 ),
                 TextSpan(
-                  text: "${localColor.green}",
+                  text: "${grads[i].green}",
                   style: TextStyle(
                       color: Color(0xffd0782a)
                   ),
@@ -417,7 +418,7 @@ class GradientCode extends StatelessWidget {
                   text: ",",
                 ),
                 TextSpan(
-                  text: "${localColor.blue}",
+                  text: "${grads[i].blue}",
                   style: TextStyle(
                       color: Color(0xffd0782a)
                   ),
@@ -426,7 +427,7 @@ class GradientCode extends StatelessWidget {
                   text: ",",
                 ),
                 TextSpan(
-                  text: "${localColor.alpha}",
+                  text: "${grads[i].alpha}",
                   style: TextStyle(
                       color: Color(0xffd0782a)
                   ),
@@ -439,8 +440,8 @@ class GradientCode extends StatelessWidget {
                   color: Colors.white
               ),
             ), ///Do here
-            const TextSpan(
-              text: "0%",
+            TextSpan(
+              text: "${((i/(grads.length-1))*100).toStringAsFixed(2)}%",
               style: TextStyle(
                   color: Color(0xffd0782a)
               ),

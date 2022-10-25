@@ -35,25 +35,48 @@ void main() {
     ),
     ChangeNotifierProvider<GradientMakerDetails>(
       create: (context) => GradientMakerDetails(
-        angle: 360-(double.tryParse(Uri.base.queryParameters["a"].toString())??45),
-        gradientType: int.tryParse(Uri.base.queryParameters["gt"].toString())??0,
-        //grads: Uri.base.queryParametersAll["c"]??[]
+        angle: fixAngle(),
+        gradientType: fixGradientType(),
+        grads: fixGrads()
       ),
     ),
   ],
-      child: MyApp( uri:  Uri.base,)));
+      child: const MyApp()));
 }
 
 
-fixGradientType
+fixGradientType(){
+  int? gt= int.tryParse(Uri.base.queryParameters["gt"].toString());
+  if(gt==null|| gt>2){
+    gt=0;
+  }
+  return gt;
+}
 
+fixAngle(){
+  double? a= double.tryParse(Uri.base.queryParameters["a"].toString());
+  if(a==null|| a>360 || a<0){
+    a=315;
+  }
+  return 360-a;
+}
 
+fixGrads(){
+  List<Color> grads;
+  if(Uri.base.queryParametersAll["c"]==null || Uri.base.queryParametersAll["c"]!.length<2){
+    grads=[Color(0xFFEE950F), Color(0xFF3F51B5)];
+  }
+  else{
+    grads= Uri.base.queryParametersAll["c"]!.map((e) => Color(int.tryParse(e, radix: 16)??int.parse("FF3F51B5", radix: 16))).toList();
+  }
+
+  return grads;
+}
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key, required this.uri});
+  const MyApp({super.key, });
 
 
-  final Uri uri;
   @override
   State<MyApp> createState() => _MyAppState();
 }
@@ -100,7 +123,9 @@ class _MyAppState extends State<MyApp> {
       routes: {
         "/": (context) => const HomePage(),
         "/color-finder": (context) => const HomePage(),
+        "/color-finder/": (context) => const HomePage(),
         "/gradient-maker": (context)=> const GradientMakerHome(),
+        "/gradient-maker/": (context)=> const GradientMakerHome(),
       },
     onGenerateRoute: (settings) {
         late Route route;
@@ -110,6 +135,7 @@ class _MyAppState extends State<MyApp> {
         });
         switch(Uri.base.path){
           case "/gradient-maker":
+          case "/gradient-maker/":
             // Provider.of<GradientMakerDetails>(context, listen: false).setAngle(
             //     360-(double.tryParse(Uri.base.queryParameters["a"].toString())??45));
             // Provider.of<GradientMakerDetails>(context, listen: false).setGradType(
@@ -119,6 +145,7 @@ class _MyAppState extends State<MyApp> {
             route=MaterialPageRoute(builder: (context) => const GradientMakerHome());
             break;
           case "/color-finder":
+          case "/color-finder/":
             route=MaterialPageRoute(builder: (context) => const HomePage());
             break;
         }

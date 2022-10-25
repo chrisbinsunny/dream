@@ -246,67 +246,67 @@ class GradientCode extends StatelessWidget {
                                 text: "progid:DXImageTransform.Microsoft.gradient",
                               ),
                               ///Do here
-                              const TextSpan(
+                              TextSpan(
                                 text: "(",
                                 children: [
-                                  TextSpan(
+                                  const TextSpan(
                                       text: "startColorstr",
                                       style: TextStyle(
                                           color: Color(0xffddca7e)
                                       )
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "=",
                                   ),
                                   ///Do here Start color
                                   TextSpan(
-                                      text: '"#000066"',
-                                      style: TextStyle(
+                                      text: '"#${grads.first.value.toRadixString(16)}"',
+                                      style: const TextStyle(
                                           color: Color(0xff96b38a)
                                       )
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: ",",
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                       text: "endColorstr",
                                       style: TextStyle(
                                           color: Color(0xffddca7e)
                                       )
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "=",
                                   ),
                                   ///Do here End color
                                   TextSpan(
-                                      text: '"#ffea00"',
-                                      style: TextStyle(
+                                      text: '"#${grads.last.value.toRadixString(16)}"',
+                                      style: const TextStyle(
                                           color: Color(0xff96b38a)
                                       )
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: ",",
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                       text: "GradientType",
                                       style: TextStyle(
                                           color: Color(0xffddca7e)
                                       )
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "=",
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: "1",
                                     style: TextStyle(
                                         color: Color(0xffd0782a)
                                     ),
                                   ),
-                                  TextSpan(
+                                  const TextSpan(
                                     text: ");",
                                   ),
                                 ],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white
                                 ),
                               ),
@@ -401,48 +401,48 @@ class GradientCode extends StatelessWidget {
               children: [
                 TextSpan(
                   text: "${grads[i].red}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xffd0782a)
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: ",",
                 ),
                 TextSpan(
                   text: "${grads[i].green}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xffd0782a)
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: ",",
                 ),
                 TextSpan(
                   text: "${grads[i].blue}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xffd0782a)
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: ",",
                 ),
                 TextSpan(
                   text: "${grads[i].alpha}",
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Color(0xffd0782a)
                   ),
                 ),
-                TextSpan(
+                const TextSpan(
                   text: ") ",
                 ),
               ],
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white
               ),
             ), ///Do here
             TextSpan(
               text: "${((i/(grads.length-1))*100).toStringAsFixed(2)}%",
-              style: TextStyle(
+              style: const TextStyle(
                   color: Color(0xffd0782a)
               ),
             ),

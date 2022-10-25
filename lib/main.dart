@@ -67,7 +67,7 @@ fixGrads(){
     grads=[Color(0xFFEE950F), Color(0xFF3F51B5)];
   }
   else{
-    grads= Uri.base.queryParametersAll["c"]!.map((e) => Color(int.tryParse(e, radix: 16)??int.parse("FF3F51B5", radix: 16))).toList();
+    grads= Uri.base.queryParametersAll["c"]!.map((e) => Color((int.tryParse(e, radix: 16)??int.parse("FF3F51B5", radix: 16))+ 0xFF000000)).toList();
   }
 
   return grads;

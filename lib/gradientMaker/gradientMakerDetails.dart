@@ -22,10 +22,19 @@ List<Color> get getGrads{
     return grads;
   }
 
-  void setGrads(Color grad, int index){
+  void setGrad(Color grad, int index){
     grads[index]=grad;
     notifyListeners();
   }
+
+void setGrads(List<String> gradsStr,){
+  List<Color>grads1=[];
+  for (var element in gradsStr) {
+    grads.add(Color(int.parse(element.substring(1, 7), radix: 16) + 0xFF000000));
+  }
+  grads=grads1;
+  notifyListeners();
+}
 
 void addGrad(){
   grads.add(Colors.white);

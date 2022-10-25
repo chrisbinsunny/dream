@@ -9,6 +9,7 @@ import 'package:color_finder/upload/dropFile.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'colorDetails.dart';
 
@@ -18,12 +19,12 @@ import 'colorDetails.dart';
 
 
 void main() {
-  String myurl = Uri.base.toString(); //get complete url
-  List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
-  para2.forEach((element) {
-    log(element);
-  });
-
+  // String myurl = Uri.base.toString(); //get complete url
+  // List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
+  // para2.forEach((element) {
+  //   log(element);
+  // });
+  usePathUrlStrategy();
   Paint.enableDithering = true;
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider<ColorDetails>(
@@ -91,9 +92,27 @@ class _MyAppState extends State<MyApp> {
         "/": (context) => const HomePage(),
         "/gradient-maker": (context)=> GradientMakerHome(),
       },
-
-
-
+    onGenerateRoute: (settings) {
+        log("Helloooooooooo");
+        List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
+        para2.forEach((element) {
+          log(element);
+        });
+        switch(Uri.base.path){
+          case "/gradient-maker":break;
+        }
+        log(Uri.base.path.toString());
+      // final settingsUri = Uri.parse(settings.name!);
+      // final postID = settingsUri.queryParameters['a'];
+      // log(postID!);
+      // if (settings.name == "/gradient-maker") {
+      //   final settingsUri = Uri.parse(settings.name!);
+      //   final postID = settingsUri.queryParameters['a'];
+      //   log(postID!);
+      //   return MaterialPageRoute(builder: (context)=> GradientMakerHome());
+      // }
+      return MaterialPageRoute(builder: (context) => const HomePage());
+    }
     );
   }
 }

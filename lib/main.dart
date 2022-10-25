@@ -34,11 +34,20 @@ void main() {
       create: (context) => ScrollDetail(),
     ),
     ChangeNotifierProvider<GradientMakerDetails>(
-      create: (context) => GradientMakerDetails(),
+      create: (context) => GradientMakerDetails(
+        angle: 360-(double.tryParse(Uri.base.queryParameters["a"].toString())??45),
+        gradientType: int.tryParse(Uri.base.queryParameters["gt"].toString())??0,
+        //grads: Uri.base.queryParametersAll["c"]??[]
+      ),
     ),
   ],
       child: MyApp( uri:  Uri.base,)));
 }
+
+
+fixGradientType
+
+
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key, required this.uri});
@@ -90,16 +99,28 @@ class _MyAppState extends State<MyApp> {
       initialRoute: "/",
       routes: {
         "/": (context) => const HomePage(),
-        "/gradient-maker": (context)=> GradientMakerHome(),
+        "/color-finder": (context) => const HomePage(),
+        "/gradient-maker": (context)=> const GradientMakerHome(),
       },
     onGenerateRoute: (settings) {
-        log("Helloooooooooo");
+        late Route route;
         List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
         para2.forEach((element) {
           log(element);
         });
         switch(Uri.base.path){
-          case "/gradient-maker":break;
+          case "/gradient-maker":
+            // Provider.of<GradientMakerDetails>(context, listen: false).setAngle(
+            //     360-(double.tryParse(Uri.base.queryParameters["a"].toString())??45));
+            // Provider.of<GradientMakerDetails>(context, listen: false).setGradType(
+            //     int.tryParse(widget.uri.queryParameters["gt"].toString())??0);
+            // Provider.of<GradientMakerDetails>(context, listen: false).setGrads(
+            //     widget.uri.queryParametersAll["c"]??[]);
+            route=MaterialPageRoute(builder: (context) => const GradientMakerHome());
+            break;
+          case "/color-finder":
+            route=MaterialPageRoute(builder: (context) => const HomePage());
+            break;
         }
         log(Uri.base.path.toString());
       // final settingsUri = Uri.parse(settings.name!);
@@ -111,7 +132,8 @@ class _MyAppState extends State<MyApp> {
       //   log(postID!);
       //   return MaterialPageRoute(builder: (context)=> GradientMakerHome());
       // }
-      return MaterialPageRoute(builder: (context) => const HomePage());
+        //route=MaterialPageRoute(builder: (context) => const HomePage());
+      return route;
     }
     );
   }

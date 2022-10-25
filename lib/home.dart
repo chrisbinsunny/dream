@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),
       ),
-      body: GradientMakerHome(scrollController: scrollController,),
+      body: ColorFinderHome(),
     );
   }
 }

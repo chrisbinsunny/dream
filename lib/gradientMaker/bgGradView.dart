@@ -36,7 +36,8 @@ class BgGradient extends StatelessWidget {
     late Gradient gradient;
     switch(gradType){
       case 0: gradient= LinearGradient(
-
+        end: Alignment.topCenter,
+        begin: Alignment.bottomCenter,
         colors: grads.toList(),
         transform: GradientRotation((-(angle-360))*math.pi/180
         ),);

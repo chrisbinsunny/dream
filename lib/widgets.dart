@@ -169,3 +169,15 @@ class DreamButton extends StatelessWidget {
     );
   }
 }
+
+
+SnackBar DreamSnackBar({required Widget content, required BuildContext context}){
+  return SnackBar(
+    content: content,
+    backgroundColor: Colors.blueAccent,
+    width: screenWidth(context, mulBy: 0.2),
+    behavior: SnackBarBehavior.floating,
+
+
+  );
+}

@@ -65,7 +65,7 @@ class AppBarCustomState extends State<AppBarCustom> {
                             : _isHovering[0] = false;
                       });
                     },
-                    onTap: () {},
+                    onTap: cfOnTap(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -101,12 +101,12 @@ class AppBarCustomState extends State<AppBarCustom> {
                             : _isHovering[1] = false;
                       });
                     },
-                    onTap: () {},
+                    onTap: gmOnTap(),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          'Gradient Finder',
+                          'Gradient Maker',
                           style: TextStyle(
                             color: _isHovering[1]
                                 ? Colors.blue[200]
@@ -135,6 +135,42 @@ class AppBarCustomState extends State<AppBarCustom> {
         ),
       ),
     );
+  }
+
+
+  VoidCallback? gmOnTap(){
+    switch(ModalRoute.of(context)!.settings.name){
+      case "/gradient-maker":
+      case "/gradient-maker/":
+        return null;
+        break;
+      case "/color-finder":
+      case "/color-finder/":
+      case "/":
+        return (){
+          Navigator.of(context).pushNamed("/gradient-maker");
+        };
+        break;
+    }
+    return null;
+  }
+
+  VoidCallback? cfOnTap(){
+    switch(ModalRoute.of(context)!.settings.name){
+      case "/gradient-maker":
+      case "/gradient-maker/":
+      return (){
+        Navigator.of(context).pushNamed("/color-finder");
+      };
+        break;
+      case "/color-finder":
+      case "/color-finder/":
+      case "/":
+      return null;
+
+      break;
+    }
+    return null;
   }
 }
 

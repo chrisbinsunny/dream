@@ -108,13 +108,17 @@ class DreamButton extends StatelessWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
               child: Container(
-                width: screenWidth(context, mulBy: 0.115
-                ),
-                height: screenHeight(context, mulBy: 0.06
-                ),
-                constraints: const BoxConstraints(
-                    minWidth: 210,
-                    minHeight: 50
+                // width: screenWidth(context, mulBy: 0.115
+                // ),
+                // height: screenHeight(context, mulBy: 0.06
+                // ),
+                // constraints: const BoxConstraints(
+                //     minWidth: 210,
+                //     minHeight: 50
+                // ),
+                padding: EdgeInsets.symmetric(
+                  vertical: 12,
+                  horizontal: 20
                 ),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -136,10 +140,9 @@ class DreamButton extends StatelessWidget {
                     overflow: TextOverflow.clip,
                   ),
                 ):Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                        icon
-                    ),
                     Text(
                       name,
                       style: const TextStyle(
@@ -148,6 +151,13 @@ class DreamButton extends StatelessWidget {
                         fontSize: 18,
                         overflow: TextOverflow.clip,
                       ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Icon(
+                        icon,
+                      size: 22,
                     ),
                   ],
                 ),

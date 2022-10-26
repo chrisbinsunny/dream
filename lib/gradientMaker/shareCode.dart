@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../sizes.dart';
 import 'gradientMakerDetails.dart';
 
 class ShareCode extends StatelessWidget {
@@ -43,22 +44,35 @@ class ShareCode extends StatelessWidget {
         DreamButton(
           name: "Copy CSS",
           onTap: () async{
-            String a="background: rgb(0,0,102);"
-            "background: -moz-$getValueCode"
-                "background: -webkit-$getValueCode"
-                "background: $getValueCode"
+            String a="background: rgb(${grads.first.red},${grads.first.green},${grads.first.blue},);\n"
+            "background: -moz-${getValueCode()}"
+                "background: -webkit-${getValueCode()}"
+                "background: ${getValueCode()}"
             'filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#${grads.first.value.toRadixString(16)}"'
                 ',endColorstr="#${grads.last.value.toRadixString(16)}",GradientType=1);';
-            log(a);
-            await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
+            await Clipboard.setData(ClipboardData(text: a))
                 .then((value) {
               ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: const Text(
-                      "Text Copied to clipboard",
-                      style: TextStyle(
-                          color: Colors.white
-                      ),
+                    content: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+
+                        Icon(
+                          FontAwesomeIcons.code,
+                          size: 22,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "Code Copied to clipboard",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
                     ),
                     backgroundColor: Colors.blueAccent,
                     width: screenWidth(context, mulBy: 0.2),

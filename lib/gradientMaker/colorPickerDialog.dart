@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../sizes.dart';
 import 'dart:ui' as ui;
 
+import '../widgets.dart';
 import 'gradientMakerDetails.dart';
 
 class ColorPickerDialog extends StatelessWidget {
@@ -129,8 +130,7 @@ class ColorPickerDialog extends StatelessWidget {
                             onColorChanged:(c){
                               Provider.of<GradientMakerDetails>(context, listen: false).setGrad(c, index);
                             },
-                            enableAlpha:
-                            false,
+                            enableAlpha:true,
                             hexInputController:
                             controller,
                             paletteType:
@@ -206,25 +206,16 @@ class ColorPickerDialog extends StatelessWidget {
                                           .text))
                                       .then(
                                           (value) {
-                                        ScaffoldMessenger.of(
+                                            ScaffoldMessenger.of(context).clearSnackBars();
+
+                                            ScaffoldMessenger.of(
                                             context)
                                             .showSnackBar(
-                                            SnackBar(
-                                              content:
-                                              const Text(
-                                                "Text Copied to clipboard",
-                                                style:
-                                                TextStyle(color: Colors.white),
-                                              ),
-                                              backgroundColor:
-                                              Colors.blueAccent,
-                                              width: screenWidth(
-                                                  context,
-                                                  mulBy:
-                                                  0.2),
-                                              behavior:
-                                              SnackBarBehavior.floating,
-                                            ));
+                                                DreamSnackBar(content: const Text(
+                                                  "Text Copied to clipboard",
+                                                  style:
+                                                  TextStyle(color: Colors.white),
+                                                ), context: context));
                                       });
                                 },
                               ),

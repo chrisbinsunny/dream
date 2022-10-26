@@ -143,33 +143,33 @@ class GradientCode extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: "${grads.first.red}",
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Color(0xffd0782a)
                                         ),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: ",",
                                       ),
                                       TextSpan(
-                                        text: "0",
-                                        style: TextStyle(
+                                        text: "${grads.first.green}",
+                                        style: const TextStyle(
                                             color: Color(0xffd0782a)
                                         ),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: ",",
                                       ),
                                       TextSpan(
-                                        text: "102",
-                                        style: TextStyle(
+                                        text: "${grads.first.blue}",
+                                        style: const TextStyle(
                                             color: Color(0xffd0782a)
                                         ),
                                       ),
-                                      TextSpan(
+                                      const TextSpan(
                                         text: ");\n",
                                       ),
                                     ],
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white
                                     ),
                                   ), ///Do here

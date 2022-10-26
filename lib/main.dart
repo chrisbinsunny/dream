@@ -56,7 +56,7 @@ fixGradientType(){
 fixAngle(){
   double? a= double.tryParse(Uri.base.queryParameters["a"].toString());
   if(a==null|| a>360 || a<0){
-    a=315;
+    a=45;
   }
   return 360-a;
 }
@@ -73,95 +73,59 @@ fixGrads(){
   return grads;
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key, });
-
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-
-  // @override
-  // void initState() {
-  //   Provider.of<GradientMakerDetails>(context, listen: false).setAngle(
-  //       360-(double.tryParse(widget.uri.queryParameters["a"].toString())??45));
-  //   Provider.of<GradientMakerDetails>(context, listen: false).setGradType(
-  //       int.tryParse(widget.uri.queryParameters["gt"].toString())??0);
-  //   Provider.of<GradientMakerDetails>(context, listen: false).setGrads(
-  //       widget.uri.queryParametersAll["c"]??[]);
-  //   widget.uri.queryParametersAll["c"]!.forEach((element) {
-  //     log(element);
-  //   });
-  //   super.initState();
-  // }
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Color Finder',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-          textTheme: TextTheme(
-            headline1: GoogleFonts.poppins(color: Colors.white),
-            headline2: GoogleFonts.poppins(color: Colors.white),
-            headline3: GoogleFonts.poppins(color: Colors.white),
-            headline4: GoogleFonts.poppins(color: Colors.white),
-            headline5: GoogleFonts.poppins(color: Colors.white),
-            headline6: GoogleFonts.poppins(color: Colors.white),
-            subtitle1: GoogleFonts.poppins(color: Colors.white),
-            subtitle2: GoogleFonts.poppins(color: Colors.white),
-            bodyText1: GoogleFonts.poppins(color: Colors.white),
-            bodyText2: GoogleFonts.poppins(color: Colors.white),
-            button: GoogleFonts.poppins(color: Colors.white),
-            caption: GoogleFonts.poppins(color: Colors.white),
-            overline: GoogleFonts.poppins(color: Colors.white),
-          )
-      ),
-      initialRoute: "/",
-      routes: {
-        "/": (context) => const HomePage(),
-        "/color-finder": (context) => const HomePage(),
-        "/color-finder/": (context) => const HomePage(),
-        "/gradient-maker": (context)=> const GradientMakerHome(),
-        "/gradient-maker/": (context)=> const GradientMakerHome(),
-      },
-    onGenerateRoute: (settings) {
-        late Route route;
-        List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
-        para2.forEach((element) {
-          log(element);
-        });
-        switch(Uri.base.path){
-          case "/gradient-maker":
-          case "/gradient-maker/":
-            // Provider.of<GradientMakerDetails>(context, listen: false).setAngle(
-            //     360-(double.tryParse(Uri.base.queryParameters["a"].toString())??45));
-            // Provider.of<GradientMakerDetails>(context, listen: false).setGradType(
-            //     int.tryParse(widget.uri.queryParameters["gt"].toString())??0);
-            // Provider.of<GradientMakerDetails>(context, listen: false).setGrads(
-            //     widget.uri.queryParametersAll["c"]??[]);
-            route=MaterialPageRoute(builder: (context) => const GradientMakerHome());
-            break;
-          case "/color-finder":
-          case "/color-finder/":
-            route=MaterialPageRoute(builder: (context) => const HomePage());
-            break;
+        title: 'Color Finder',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+            textTheme: TextTheme(
+              headline1: GoogleFonts.poppins(color: Colors.white),
+              headline2: GoogleFonts.poppins(color: Colors.white),
+              headline3: GoogleFonts.poppins(color: Colors.white),
+              headline4: GoogleFonts.poppins(color: Colors.white),
+              headline5: GoogleFonts.poppins(color: Colors.white),
+              headline6: GoogleFonts.poppins(color: Colors.white),
+              subtitle1: GoogleFonts.poppins(color: Colors.white),
+              subtitle2: GoogleFonts.poppins(color: Colors.white),
+              bodyText1: GoogleFonts.poppins(color: Colors.white),
+              bodyText2: GoogleFonts.poppins(color: Colors.white),
+              button: GoogleFonts.poppins(color: Colors.white),
+              caption: GoogleFonts.poppins(color: Colors.white),
+              overline: GoogleFonts.poppins(color: Colors.white),
+            )
+        ),
+        initialRoute: "/",
+        routes: {
+          "/": (context) => const HomePage(),
+          "/color-finder": (context) => const HomePage(),
+          "/color-finder/": (context) => const HomePage(),
+          "/gradient-maker": (context)=> const GradientMakerHome(),
+          "/gradient-maker/": (context)=> const GradientMakerHome(),
+        },
+        onGenerateRoute: (settings) {
+          late Route route;
+          List<String> para2 = Uri.base.queryParametersAll["c"]??[];
+          para2.forEach((element) {
+            log(element);
+          });
+          switch(Uri.base.path){
+            case "/gradient-maker":
+            case "/gradient-maker/":
+              route=MaterialPageRoute(builder: (context) => const GradientMakerHome());
+              break;
+            case "/color-finder":
+            case "/color-finder/":
+              route=MaterialPageRoute(builder: (context) => const HomePage());
+              break;
+          }
+          log(Uri.base.path.toString());
+          return route;
         }
-        log(Uri.base.path.toString());
-      // final settingsUri = Uri.parse(settings.name!);
-      // final postID = settingsUri.queryParameters['a'];
-      // log(postID!);
-      // if (settings.name == "/gradient-maker") {
-      //   final settingsUri = Uri.parse(settings.name!);
-      //   final postID = settingsUri.queryParameters['a'];
-      //   log(postID!);
-      //   return MaterialPageRoute(builder: (context)=> GradientMakerHome());
-      // }
-        //route=MaterialPageRoute(builder: (context) => const HomePage());
-      return route;
-    }
     );
   }
-}
+  }
+

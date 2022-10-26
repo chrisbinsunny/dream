@@ -28,13 +28,39 @@ class ShareCode extends StatelessWidget {
       children: [
         DreamButton(
             name: "Share design",
-            onTap: (){
+            onTap: ()async{
               String a= Uri.base.origin;
               a+="/gradient-maker?a=${360-angle}&gt=$gradType";
               grads.forEach((element) {
                 a+="&c=${element.value.toRadixString(16)}";
               });
               log(a);
+              await Clipboard.setData(ClipboardData(text: a))
+                  .then((value) {
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                ScaffoldMessenger.of(context).showSnackBar(
+                    DreamSnackBar(content: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+
+                        Icon(
+                          FontAwesomeIcons.solidPaperPlane,
+                          size: 22,
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          "Share URL copied to clipboard",
+                          style: TextStyle(
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
+                    ), context: context)
+                );
+              });
             },
           icon: FontAwesomeIcons.solidPaperPlane,
         ),
@@ -52,33 +78,30 @@ class ShareCode extends StatelessWidget {
                 ',endColorstr="#${grads.last.value.toRadixString(16)}",GradientType=1);';
             await Clipboard.setData(ClipboardData(text: a))
                 .then((value) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+
               ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
+                  DreamSnackBar(
+                      content: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
 
-                        Icon(
-                          FontAwesomeIcons.code,
-                          size: 22,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Code Copied to clipboard",
-                          style: TextStyle(
-                              color: Colors.white
+                          Icon(
+                            FontAwesomeIcons.code,
+                            size: 22,
                           ),
-                        ),
-                      ],
-                    ),
-                    backgroundColor: Colors.blueAccent,
-                    width: screenWidth(context, mulBy: 0.2),
-                    behavior: SnackBarBehavior.floating,
-
-
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            "Code copied to clipboard",
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
+                          ),
+                        ],
+                      ), context: context
                   )
               );
             });

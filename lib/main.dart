@@ -107,7 +107,7 @@ class MyApp extends StatelessWidget {
           "/gradient-maker/": (context)=> const GradientMakerHome(),
         },
         onGenerateRoute: (settings) {
-          late Route route;
+          late Route route=MaterialPageRoute(builder: (context) => const HomePage());
           List<String> para2 = Uri.base.queryParametersAll["c"]??[];
           para2.forEach((element) {
             log(element);

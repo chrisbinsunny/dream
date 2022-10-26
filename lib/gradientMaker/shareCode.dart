@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:color_finder/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -36,15 +37,79 @@ class ShareCode extends StatelessWidget {
             },
           icon: FontAwesomeIcons.solidPaperPlane,
         ),
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         DreamButton(
-          name: "Copy Code",
-          onTap: (){},
+          name: "Copy CSS",
+          onTap: () async{
+            String a="background: rgb(0,0,102);"
+            "background: -moz-$getValueCode"
+                "background: -webkit-$getValueCode"
+                "background: $getValueCode"
+            'filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#${grads.first.value.toRadixString(16)}"'
+                ',endColorstr="#${grads.last.value.toRadixString(16)}",GradientType=1);';
+            log(a);
+            await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
+                .then((value) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: const Text(
+                      "Text Copied to clipboard",
+                      style: TextStyle(
+                          color: Colors.white
+                      ),
+                    ),
+                    backgroundColor: Colors.blueAccent,
+                    width: screenWidth(context, mulBy: 0.2),
+                    behavior: SnackBarBehavior.floating,
+
+
+                  )
+              );
+            });
+          },
           icon: FontAwesomeIcons.code,
         )
       ],
     );
+  }
+
+  String getValueCode(){
+
+    String gradient="", degree="", a="";
+
+    switch(gradType){
+      case 0: gradient= "linear-gradient";
+      break;
+      case 1: gradient= "radial-gradient";
+      break;
+      case 2: gradient= "NOT-SUPPORTED";
+      break;
+    }
+
+    if(gradType==1){
+      degree= "circle";
+    }else{
+      degree= "${-(angle-360)}deg";
+    }
+    a+="$gradient($degree${getColorData()});\n";
+
+    return a;
+  }
+
+
+  String getColorData(){
+
+    String a="", sub="";
+
+    for(var i = 0; i < grads.length; i++){
+
+      sub= ", rgba(${grads[i].red},${grads[i].green},${grads[i].blue},"
+          "${grads[i].alpha}) ${((i/(grads.length-1))*100).toStringAsFixed(2)}%";
+      a+=sub;
+    }
+
+    return a;
   }
 }

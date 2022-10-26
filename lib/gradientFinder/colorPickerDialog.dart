@@ -1,3 +1,4 @@
+import 'package:color_finder/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -204,25 +205,17 @@ class ColorPickerDialog extends StatelessWidget {
                                           .text))
                                       .then(
                                           (value) {
-                                        ScaffoldMessenger.of(
+                                            ScaffoldMessenger.of(context).clearSnackBars();
+
+                                            ScaffoldMessenger.of(
                                             context)
                                             .showSnackBar(
-                                            SnackBar(
-                                              content:
-                                              const Text(
+                                              DreamSnackBar(content: const Text(
                                                 "Text Copied to clipboard",
                                                 style:
                                                 TextStyle(color: Colors.white),
-                                              ),
-                                              backgroundColor:
-                                              Colors.blueAccent,
-                                              width: screenWidth(
-                                                  context,
-                                                  mulBy:
-                                                  0.2),
-                                              behavior:
-                                              SnackBarBehavior.floating,
-                                            ));
+                                              ), context: context)
+                                           );
                                       });
                                 },
                               ),

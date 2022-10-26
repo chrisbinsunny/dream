@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:color_finder/colorDetails.dart';
 import 'package:color_finder/upload/dropFile.dart';
 import 'package:color_finder/sizes.dart';
+import 'package:color_finder/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -203,20 +204,15 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                   onPressed:  () async {
                                     await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
                                         .then((value) {
+                                      ScaffoldMessenger.of(context).clearSnackBars();
+
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: const Text(
-                                              "Text Copied to clipboard",
-                                              style: TextStyle(
-                                                  color: Colors.white
-                                              ),
-                                            ),
-                                            backgroundColor: Colors.blueAccent,
-                                            width: screenWidth(context, mulBy: 0.2),
-                                            behavior: SnackBarBehavior.floating,
-
-
-                                          )
+                                        DreamSnackBar(content:  const Text(
+                                          "Text Copied to clipboard",
+                                          style: TextStyle(
+                                              color: Colors.white
+                                          ),
+                                        ), context: context)
                                       );
                                     });
 
@@ -262,20 +258,14 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                   onPressed:  () async {
                                     await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
                                         .then((value) {
+                                      ScaffoldMessenger.of(context).clearSnackBars();
                                       ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(
-                                            content: const Text(
-                                              "Text Copied to clipboard",
-                                              style: TextStyle(
-                                                  color: Colors.white
-                                              ),
-                                            ),
-                                            backgroundColor: Colors.blueAccent,
-                                            width: screenWidth(context, mulBy: 0.2),
-                                            behavior: SnackBarBehavior.floating,
-
-
-                                          )
+                                        DreamSnackBar(content: const Text(
+                                          "Text Copied to clipboard",
+                                          style: TextStyle(
+                                              color: Colors.white
+                                          ),
+                                        ), context: context)
                                       );
                                     });
 

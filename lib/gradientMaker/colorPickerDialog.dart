@@ -96,7 +96,7 @@ class ColorPickerDialog extends StatelessWidget {
                           .symmetric(
                           vertical: 10,
                           horizontal: 15),
-                      child: Text(
+                      child: const Text(
                         "Choose your color..",
                         style: TextStyle(
                             fontSize: 20,
@@ -130,7 +130,7 @@ class ColorPickerDialog extends StatelessWidget {
                             onColorChanged:(c){
                               Provider.of<GradientMakerDetails>(context, listen: false).setGrad(c, index);
                             },
-                            enableAlpha:true,
+                            enableAlpha: true,
                             hexInputController:
                             controller,
                             paletteType:

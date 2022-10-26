@@ -138,11 +138,11 @@ class GradientCode extends StatelessWidget {
                                     text: " rgb",
                                   ),
                                   ///Do here
-                                  const TextSpan(
+                                  TextSpan(
                                     text: "(",
                                     children: [
                                       TextSpan(
-                                        text: "0",
+                                        text: "${grads.first.red}",
                                         style: TextStyle(
                                             color: Color(0xffd0782a)
                                         ),

@@ -34,7 +34,8 @@ class AppBarCustomState extends State<AppBarCustom> {
         padding: EdgeInsets.all(20),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            if(constraints.biggest.width<550){
+            ///Had to add a lesser width due to the padding of 40
+            if(constraints.biggest.width<510){
               return Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -98,7 +99,8 @@ class AppBarCustomState extends State<AppBarCustom> {
                                   style: TextStyle(
                                     color: ((hover==0)||
                                         ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
-                                            (ModalRoute.of(context)!.settings.name=="/color-finder")
+                                            (ModalRoute.of(context)!.settings.name=="/color-finder")||
+                                            (ModalRoute.of(context)!.settings.name=="/")
                                         ))
                                         ? Colors.blue[200]
                                         : Colors.white,

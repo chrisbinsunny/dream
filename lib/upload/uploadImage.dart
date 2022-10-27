@@ -31,7 +31,7 @@ class _UploadImageState extends State<UploadImage> {
           height: screenHeight(context, mulBy: 0.26),
           constraints: const BoxConstraints(
               minWidth: 400,
-              minHeight: 220
+              minHeight: 250
           ),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -192,10 +192,6 @@ class _UploadImageState extends State<UploadImage> {
     final mime = await controller.getFileMIME(event);
     final bytes = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
-    print('Name: $name');
-    print('Mime: $mime');
-    print('Bytes: $bytes');
-    print('Url: $url');
 
     final droppedFile = DroppedFile(
       url: url,

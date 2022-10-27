@@ -90,46 +90,48 @@ class HowToUse extends StatelessWidget {
                       vertical: 15,
                       horizontal: 20
                     ),
-                    child: Text.rich(
-                      textAlign: TextAlign.start,
-                      TextSpan(
-                          text: "Use your cursor on the image to find the color. \n\nUse",
-                          children: [
-                            TextSpan(
-                              text: " \'DREAM\' ",
-                              style: GoogleFonts.montserrat(
-                                color: Colors.blueGrey[300],
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 5,
+                    child: SingleChildScrollView(
+                      child: Text.rich(
+                        textAlign: TextAlign.start,
+                        TextSpan(
+                            text: "Use your cursor on the image to find the color. \n\nUse",
+                            children: [
+                              TextSpan(
+                                text: " \'DREAM\' ",
+                                style: GoogleFonts.montserrat(
+                                  color: Colors.blueGrey[300],
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 5,
+                                ),
                               ),
-                            ),
-                            const TextSpan(
-                              text: "by Chrisbin to find the color from your image and get the HTML Color Code of the point. "
-                                  "Also you get the HEX color code value, and the RGB value. "
-                                  "Under 'Choose Your Image' you can upload your own image (for example, a screenshot from figma), paste an image from clipboard, or put an image's local address in the textbox. "
-                                  "Also, you could always use the old and easier drag and drop to choose image.\n\n"
-                            ),
-                            const TextSpan(
-                                text: "We strongly support data privacy. ",
-                                children: [
-                                  TextSpan(
-                                      text: "No data is being sent to our servers. ",
-                                      style: TextStyle(
-                                          fontStyle: FontStyle.italic,
-                                          decoration: TextDecoration.underline,
-                                        color: Colors.red
-                                      )
-                                  ),
-                                  TextSpan(
-                                    text: "Your browser handles everything.",
-                                  )
-                                ]
-                            ),
-                          ]
-                      ),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
+                              const TextSpan(
+                                text: "by Chrisbin to find the color from your image and get the HTML Color Code of the point. "
+                                    "Also you get the HEX color code value, and the RGB value. "
+                                    "Under 'Choose Your Image' you can upload your own image (for example, a screenshot from figma), paste an image from clipboard, or put an image's local address in the textbox. "
+                                    "Also, you could always use the old and easier drag and drop to choose image.\n\n"
+                              ),
+                              const TextSpan(
+                                  text: "We strongly support data privacy. ",
+                                  children: [
+                                    TextSpan(
+                                        text: "No data is being sent to our servers. ",
+                                        style: TextStyle(
+                                            fontStyle: FontStyle.italic,
+                                            decoration: TextDecoration.underline,
+                                          color: Colors.red
+                                        )
+                                    ),
+                                    TextSpan(
+                                      text: "Your browser handles everything.",
+                                    )
+                                  ]
+                              ),
+                            ]
+                        ),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),

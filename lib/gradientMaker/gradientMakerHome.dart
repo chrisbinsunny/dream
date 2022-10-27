@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 import '../appBar.dart';
 import '../colorFinder/howToUse.dart';
+import '../drawer.dart';
 import '../footer.dart';
 import '../sizes.dart';
 import 'angleSelector.dart';
@@ -39,6 +40,8 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
+      drawer: const DreamDrawer(),
+
       appBar: PreferredSize(
         preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),

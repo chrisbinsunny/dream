@@ -40,11 +40,12 @@ class Footer extends StatelessWidget {
               ),
               child: ListView(
                 shrinkWrap: false,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 children: [
                   Center(
                     child: Text(
                       'DREAM by Chrisbin',
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.montserrat(
                         color: Colors.blueGrey[300],
                         fontSize: 25,

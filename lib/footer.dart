@@ -166,8 +166,8 @@ class Footer extends StatelessWidget {
                           children: [
 
                             Text(
-                              "Let's Chat!",
-                              style: GoogleFonts.fuzzyBubbles(
+                              "Let's Chat !",
+                              style: TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.w600,
                                 color: Colors.white

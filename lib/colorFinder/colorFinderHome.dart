@@ -11,9 +11,9 @@ import 'howToUse.dart';
 import 'imageView.dart';
 
 class ColorFinderHome extends StatelessWidget {
-  ColorFinderHome({Key? key, }) : super(key: key);
+  ColorFinderHome({Key? key, required this.scrollController}) : super(key: key);
 
-  final ScrollController scrollController= ScrollController();
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     return Scrollbar(

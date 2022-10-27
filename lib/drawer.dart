@@ -30,7 +30,7 @@ class DreamDrawer extends StatelessWidget {
 
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                     "Color Finder",
                 style: TextStyle(
                   color: Colors.white,
@@ -38,21 +38,21 @@ class DreamDrawer extends StatelessWidget {
                 ),
                 ),
                 onTap: cfOnTap(context),
-                hoverColor:Colors.blueGrey[300]!.withOpacity(0.1),
+                hoverColor:Colors.deepPurpleAccent.withOpacity(0.1),
                 focusColor: Colors.deepPurpleAccent.withOpacity(0.3),
                 enabled: true,
-                selectedTileColor: Colors.blueGrey[300]!.withOpacity(0.3),
+                selectedTileColor: Colors.deepPurpleAccent.withOpacity(0.3),
                 selected: ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
                     (ModalRoute.of(context)!.settings.name=="/color-finder")||
                     (ModalRoute.of(context)!.settings.name=="/")
                 ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.navigate_next,
                   color: Colors.white,
                 ),
               ),
               ListTile(
-                title: Text(
+                title: const Text(
                   "Gradient Maker",
                   style: TextStyle(
                       color: Colors.white,
@@ -60,14 +60,14 @@ class DreamDrawer extends StatelessWidget {
                   ),
                 ),
                 onTap: gmOnTap(context),
-                hoverColor: Colors.blueGrey[300]!.withOpacity(0.1),
+                hoverColor: Colors.deepPurpleAccent.withOpacity(0.1),
                 focusColor: Colors.deepPurpleAccent.withOpacity(0.3),
                 enabled: true,
                 selectedTileColor: Colors.deepPurpleAccent.withOpacity(0.3),
                 selected: ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||
         (ModalRoute.of(context)!.settings.name=="/gradient-maker")
         ),
-                trailing: Icon(
+                trailing: const Icon(
                   Icons.navigate_next,
                   color: Colors.white,
                 ),
@@ -76,7 +76,12 @@ class DreamDrawer extends StatelessWidget {
           ),
         );
       }
-      return SizedBox();
+      if(
+      Scaffold.of(context).isDrawerOpen
+      ){
+        Scaffold.of(context).closeDrawer();
+      }
+      return const SizedBox();
     },
     );
   }

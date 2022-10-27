@@ -16,18 +16,10 @@ class AppBarCustom extends StatefulWidget {
 }
 
 class AppBarCustomState extends State<AppBarCustom> {
-  final List _isHovering = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+
   double opacity=0.1;
 
+  final hovered=ValueNotifier<int>(-1);
 
   @override
   Widget build(BuildContext context) {
@@ -52,85 +44,129 @@ class AppBarCustomState extends State<AppBarCustom> {
                 letterSpacing: 5,
               ),
             ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(width: screenWidth(context, mulBy: 0.125)),
-                  InkWell(
-                    onHover: (value) {
-                      setState(() {
-                        value
-                            ? _isHovering[0] = true
-                            : _isHovering[0] = false;
-                      });
-                    },
-                    onTap: cfOnTap(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Color Finder',
-                          style: TextStyle(
-                            color: _isHovering[0]
-                                ? Colors.blue[200]
-                                : Colors.white,
+            ValueListenableBuilder<int>(
+              valueListenable: hovered,
+              builder: (context, hover, child) {
+              return Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(width: screenWidth(context, mulBy: 0.125)),
+                    InkWell(
+                      onHover: (value) {
+                        if(value){
+                          hovered.value=0;
+                        }else{
+                          hovered.value=-1;
+                        }
+                      },
+                      onTap: cfOnTap(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Color Finder',
+                            style: TextStyle(
+                              color: ((hover==0)&&
+                ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
+                    (ModalRoute.of(context)!.settings.name=="/color-finder")
+                ))
+                                  ? Colors.blue[200]
+                                  : Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 5),
-                        Visibility(
-                          maintainAnimation: true,
-                          maintainState: true,
-                          maintainSize: true,
-                          visible: _isHovering[0],
-                          child: Container(
+                          SizedBox(height: 5),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 100),
                             height: 2,
-                            width: 20,
-                            color: Colors.white,
+                            curve: Curves.bounceIn,
+                            width: hover==0?80:0,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10)
+                            ),
                           ),
-                        )
-                      ],
+                          Visibility(
+                            maintainAnimation: true,
+                            maintainState: true,
+                            maintainSize: true,
+                            visible:
+                                ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
+                                    (ModalRoute.of(context)!.settings.name=="/color-finder")||
+                                    (ModalRoute.of(context)!.settings.name=="/")
+                                ),
+                            child: Container(
+                              height: 2,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(width: screenWidth(context, mulBy: 0.05)),
-                  InkWell(
-                    onHover: (value) {
-                      setState(() {
-                        value
-                            ? _isHovering[1] = true
-                            : _isHovering[1] = false;
-                      });
-                    },
-                    onTap: gmOnTap(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Gradient Maker',
-                          style: TextStyle(
-                            color: _isHovering[1]
-                                ? Colors.blue[200]
-                                : Colors.white,
+                    SizedBox(width: screenWidth(context, mulBy: 0.05)),
+                    InkWell(
+                      onHover: (value) {
+                        if(value){
+                          hovered.value=1;
+                        }else{
+                          hovered.value=-1;
+                        }
+                      },
+                      onTap: gmOnTap(),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Gradient Maker',
+                            style: TextStyle(
+                              color: ((hover==1)&&
+                ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||
+                (ModalRoute.of(context)!.settings.name=="/gradient-maker")
+                ))
+                                  ? Colors.blue[200]
+                                  : Colors.white,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 5),
-                        Visibility(
-                          maintainAnimation: true,
-                          maintainState: true,
-                          maintainSize: true,
-                          visible: _isHovering[1],
-                          child: Container(
+                          SizedBox(height: 5),
+                          AnimatedContainer(
+                              duration: const Duration(milliseconds: 100),
                             height: 2,
-                            width: 20,
-                            color: Colors.white,
+                            curve: Curves.bounceIn,
+                            width: hover==1?100:0,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)
+                            ),
                           ),
-                        )
-                      ],
+                          Visibility(
+                            maintainAnimation: true,
+                            maintainState: true,
+                            maintainSize: true,
+                            visible:
+                                ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||
+                                    (ModalRoute.of(context)!.settings.name=="/gradient-maker")
+                                ),
+                            child: Container(
+                              height: 2,
+                              width: 20,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            },)
+
           ],
         ),
       ),

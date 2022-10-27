@@ -33,7 +33,7 @@ class _DropHereState extends State<DropHere> {
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
         child: Container(
-          decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
+          decoration: BoxDecoration(color: Colors.black.withOpacity(0.8)),
           child: DropzoneView(
             operation: DragOperation.copy,
             onCreated: (DropzoneViewController ctrl) =>controller=ctrl,
@@ -59,10 +59,6 @@ class _DropHereState extends State<DropHere> {
     final mime = await controller.getFileMIME(event);
     final bytes = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
-    print('Name: $name');
-    print('Mime: $mime');
-    print('Bytes: $bytes');
-    print('Url: $url');
 
     final droppedFile = DroppedFile(
       url: url,

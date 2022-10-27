@@ -1,4 +1,5 @@
 import 'package:color_finder/colorFinder/colorFinderHome.dart';
+import 'package:color_finder/drawer.dart';
 import 'package:color_finder/footer.dart';
 import 'package:color_finder/colorFinder/howToUse.dart';
 import 'package:color_finder/colorFinder/imageView.dart';
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      drawer: const DreamDrawer(),
       appBar: PreferredSize(
         preferredSize: Size(screenWidth(context), 70),
         child: const AppBarCustom(),

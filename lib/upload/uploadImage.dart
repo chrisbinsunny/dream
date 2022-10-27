@@ -170,7 +170,7 @@ class _UploadImageState extends State<UploadImage> {
                       ]
                   ),
                   style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 14,
                     color: Colors.white60
                   ),
                 ),

@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 import '../colorDetails.dart';
@@ -35,18 +38,59 @@ class ColorFinderHome extends StatelessWidget {
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
               children: [
+
                 Container(
                   alignment: Alignment.center,
                   height: screenHeight(context, mulBy: 0.25),
-                  //color: Colors.black,
-                  child: const Text(
-                    "Color Finder | Palette Finder",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold
+                  child: ClipRRect(
+
+                    borderRadius:
+                    BorderRadius.circular(10),
+                    child: Container(
+                      width: screenWidth(context,
+                          mulBy: 0.4),
+                      height: screenHeight(context,
+                          mulBy: 0.15),
+                      alignment: Alignment.center,
+                      child: ColorFiltered(
+                        colorFilter: ColorFilter.mode(
+                            Colors.white.withOpacity(0.1), BlendMode.srcOut, ), // This one will create the magic
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            BackdropFilter(
+                              filter: ImageFilter.blur(
+                                  sigmaX: 60.0, sigmaY: 60.0),
+                              child: Container(
+                                width: screenWidth(context,
+                                    mulBy: 0.4),
+                                height: screenHeight(context,
+                                    mulBy: 0.15),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.white
+                                        .withOpacity(1),
+                                    borderRadius:
+                                    BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                    ),
+                                    backgroundBlendMode: BlendMode.dstIn
+                                ),
+                              ),
+                            ),
+                            Center(
+                              child: Text(
+                                'Hello World',
+                                style: TextStyle(fontSize: 70, fontWeight: FontWeight.w600, color: Colors.white),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   ),
+
                 ),
                 Wrap(
                   direction: Axis.horizontal,
@@ -126,6 +170,19 @@ class ColorFinderHome extends StatelessWidget {
           )
         ],
       ),
+    );
+  }
+}
+
+
+class ImageShaderWidget extends StatelessWidget {
+  const ImageShaderWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Image.network("https://www.google.com/imgres?imgurl=https%3A%2F%2Fmiro.medium.com%2Fmax%2F1400%2F1*HVIwQmVuZdil6WuJxoMyPw.jpeg&imgrefurl=https%3A%2F%2Fwolfenrain.medium.com%2Fflutter-shaders-an-initial-look-d9eb98d3fd7a&tbnid=k9_QyWG8PPgfUM&vet=12ahUKEwjeqYf-qIL7AhX_y3MBHSKKB0UQMygIegUIARDOAQ..i&docid=k_LslFWvagFByM&w=1400&h=933&q=create%20shader%20in%20flutter&ved=2ahUKEwjeqYf-qIL7AhX_y3MBHSKKB0UQMygIegUIARDOAQ"),
+
     );
   }
 }

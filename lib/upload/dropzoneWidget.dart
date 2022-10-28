@@ -31,9 +31,9 @@ class _DropHereState extends State<DropHere> {
         ),
       ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+        filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
         child: Container(
-          decoration: BoxDecoration(color: Colors.black.withOpacity(0.8)),
+          decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
           child: DropzoneView(
             operation: DragOperation.copy,
             onCreated: (DropzoneViewController ctrl) =>controller=ctrl,

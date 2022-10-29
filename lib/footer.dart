@@ -13,7 +13,6 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log(screenHeight(context, mulBy: 0.58).toString());
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),

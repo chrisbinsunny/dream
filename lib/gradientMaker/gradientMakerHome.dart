@@ -1,7 +1,9 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:color_finder/gradientMaker/bgGradView.dart';
 import 'package:color_finder/gradientMaker/gradientCode.dart';
+import 'package:color_finder/heading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +40,8 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
 
   @override
   Widget build(BuildContext context) {
+
+    log(screenWidth(context, mulBy: 0.3).toString());
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const DreamDrawer(),
@@ -64,18 +68,7 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  Container(
-                    alignment: Alignment.center,
-                    height: screenHeight(context, mulBy: 0.25),
-                    child: const Text(
-                      "Gradient Maker",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ),
+                  Header(head: "Gradient Maker"),
                   Wrap(
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceEvenly,
@@ -89,22 +82,20 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
                           const SizedBox(
                             height: 20,
                           ),
-                          SizedBox(
+                          Container(
                             width: screenWidth(context, mulBy: 0.3),
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                minWidth: 530,
-                              ),
-                              child: Wrap(
-                                direction: Axis.horizontal,
-                                alignment: WrapAlignment.spaceEvenly,
-                                runSpacing: 20,
-                                spacing: 20,
-                                children: [
-                                  const AngleSelector(),
-                                  GradientType()
-                                ],
-                              ),
+                            constraints: const BoxConstraints(
+                              minWidth: 530,
+                            ),
+                            child: Wrap(
+                              direction: Axis.horizontal,
+                              alignment: WrapAlignment.spaceEvenly,
+                              runSpacing: 20,
+                              spacing: 20,
+                              children: [
+                                const AngleSelector(),
+                                GradientType()
+                              ],
                             ),
                           )
                         ],

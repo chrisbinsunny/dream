@@ -171,8 +171,8 @@ class Footer extends StatelessWidget {
                             Text(
                               "Let's Chat !",
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 21,
+                                  fontWeight: FontWeight.w400,
                                 color: Colors.white
                               ),
                             ),

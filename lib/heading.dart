@@ -19,6 +19,7 @@ class Header extends StatelessWidget {
       child: FittedBox(
         child: AnimatedTextKit(
           repeatForever: true,
+          pause: Duration(seconds: 2),
           animatedTexts: [
             TypewriterAnimatedText(
                 head,
@@ -28,7 +29,7 @@ class Header extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     letterSpacing: 2
                 ),
-                speed: const Duration(milliseconds: 60)
+                speed: const Duration(milliseconds: 100)
             ),
           ],
           displayFullTextOnTap: true,

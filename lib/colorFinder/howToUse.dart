@@ -63,7 +63,7 @@ class HowToUse extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15
                       ),
-                      child: Text.rich(
+                      child: AutoSizeText.rich(
                         textAlign: TextAlign.center,
                         TextSpan(
                             text: "How to use  ",
@@ -79,6 +79,7 @@ class HowToUse extends StatelessWidget {
                               ),
                             ]
                         ),
+                        minFontSize: 19,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 23,

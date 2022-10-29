@@ -112,6 +112,9 @@ class DreamButton extends StatelessWidget {
                   vertical: 12,
                   horizontal: 20
                 ),
+                constraints: BoxConstraints(
+                  maxHeight: 57
+                ),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: hover?Colors.white.withOpacity(0.1):Colors.black.withOpacity(0.2),

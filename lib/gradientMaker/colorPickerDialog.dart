@@ -33,11 +33,11 @@ class ColorPickerDialog extends StatelessWidget {
               sigmaX: 60.0, sigmaY: 60.0),
           child: Container(
             width: screenWidth(context,
-                mulBy: 0.2),
+                mulBy: 0.22),
             height: screenHeight(context,
                 mulBy: 0.7),
             constraints: const BoxConstraints(
-              minWidth: 280,
+              minWidth: 350,
               minHeight: 500,
             ),
             alignment: Alignment.center,
@@ -72,11 +72,11 @@ class ColorPickerDialog extends StatelessWidget {
                     child: Container(
                       width: screenWidth(
                           context,
-                          mulBy: 0.25),
+                          mulBy: 0.22),
                       alignment: Alignment.centerLeft,
                       constraints:
                       const BoxConstraints(
-                          minWidth: 280,
+                          minWidth: 350,
                           minHeight: 65),
                       height: screenHeight(
                           context,
@@ -109,6 +109,7 @@ class ColorPickerDialog extends StatelessWidget {
                 Expanded(
                   child:
                   SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
                     child: Padding(
                       padding:
                       const EdgeInsets
@@ -155,11 +156,14 @@ class ColorPickerDialog extends StatelessWidget {
                                     FontWeight
                                         .w500),
                               ),
-                              SizedBox(
+                              Container(
                                 width: screenWidth(
                                     context,
                                     mulBy:
                                     0.08),
+                                constraints: BoxConstraints(
+                                  minWidth: 150
+                                ),
                                 child:
                                 TextField(
                                   controller:
@@ -248,6 +252,9 @@ class ColorPickerDialog extends StatelessWidget {
                                   color: Colors.white
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                         ],
                       ),

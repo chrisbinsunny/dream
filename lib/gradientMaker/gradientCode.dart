@@ -111,9 +111,8 @@ class GradientCode extends StatelessWidget {
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.only(top: 15, left: 10),
-                          decoration: BoxDecoration(
+                            decoration: BoxDecoration(
                             color: const Color(0xff1d1e22).withOpacity(1),
-
                             borderRadius: const BorderRadius.only(
                                 bottomRight: Radius.circular(10)
                             ),
@@ -318,6 +317,7 @@ class GradientCode extends StatelessWidget {
                               ),
                                 showCursor: true,
                                 cursorColor: Colors.grey,
+
                                 style: const TextStyle(
                                   fontFamily: "techFont",
                                   height: 1.5,
@@ -325,7 +325,7 @@ class GradientCode extends StatelessWidget {
                                   color: Color(0xffddca7e)
                               ),
                             ),
-                        ),
+                          ),
                         )
                       ],
                     ),

@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import '../sizes.dart';
 import 'gradientMakerDetails.dart';
 
-class ShareCode extends StatelessWidget {
-  ShareCode({Key? key}) : super(key: key);
+class ShareCodeButtons extends StatelessWidget {
+  ShareCodeButtons({Key? key}) : super(key: key);
 
   late double angle;
   List<Color> grads=[];
@@ -23,92 +23,94 @@ class ShareCode extends StatelessWidget {
     grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
     gradType= Provider.of<GradientMakerDetails>(context, listen: true).getGradType;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        DreamButton(
-            name: "Share design",
-            onTap: ()async{
-              String a= Uri.base.origin;
-              a+="/gradient-maker?a=${360-angle}&gt=$gradType";
-              grads.forEach((element) {
-                a+="&c=${element.value.toRadixString(16)}";
-              });
-              log(a);
-              await Clipboard.setData(ClipboardData(text: a))
-                  .then((value) {
-                    ScaffoldMessenger.of(context).clearSnackBars();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    DreamSnackBar(content: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-
-                        Icon(
-                          FontAwesomeIcons.solidPaperPlane,
-                          size: 22,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Text(
-                          "Share URL copied to clipboard",
-                          style: TextStyle(
-                              color: Colors.white
-                          ),
-                        ),
-                      ],
-                    ), context: context)
-                );
-              });
-            },
-          icon: FontAwesomeIcons.solidPaperPlane,
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        DreamButton(
-          name: "Copy CSS",
-          onTap: () async{
-            String a="background: rgb(${grads.first.red},${grads.first.green},${grads.first.blue},);\n"
-            "background: -moz-${getValueCode()}"
-                "background: -webkit-${getValueCode()}"
-                "background: ${getValueCode()}"
-            'filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#${grads.first.value.toRadixString(16)}"'
-                ',endColorstr="#${grads.last.value.toRadixString(16)}",GradientType=1);';
-            await Clipboard.setData(ClipboardData(text: a))
-                .then((value) {
-              ScaffoldMessenger.of(context).clearSnackBars();
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                  DreamSnackBar(
-                      content: Row(
+    return FittedBox(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          DreamButton(
+              name: "Share design",
+              onTap: ()async{
+                String a= Uri.base.origin;
+                a+="/gradient-maker?a=${360-angle}&gt=$gradType";
+                grads.forEach((element) {
+                  a+="&c=${element.value.toRadixString(16)}";
+                });
+                log(a);
+                await Clipboard.setData(ClipboardData(text: a))
+                    .then((value) {
+                      ScaffoldMessenger.of(context).clearSnackBars();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      DreamSnackBar(content: Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [
 
                           Icon(
-                            FontAwesomeIcons.code,
+                            FontAwesomeIcons.solidPaperPlane,
                             size: 22,
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           Text(
-                            "Code copied to clipboard",
+                            "Share URL copied to clipboard",
                             style: TextStyle(
                                 color: Colors.white
                             ),
                           ),
                         ],
-                      ), context: context
-                  )
-              );
-            });
-          },
-          icon: FontAwesomeIcons.code,
-        )
-      ],
+                      ), context: context)
+                  );
+                });
+              },
+            icon: FontAwesomeIcons.solidPaperPlane,
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          DreamButton(
+            name: "Copy CSS",
+            onTap: () async{
+              String a="background: rgb(${grads.first.red},${grads.first.green},${grads.first.blue},);\n"
+              "background: -moz-${getValueCode()}"
+                  "background: -webkit-${getValueCode()}"
+                  "background: ${getValueCode()}"
+              'filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#${grads.first.value.toRadixString(16)}"'
+                  ',endColorstr="#${grads.last.value.toRadixString(16)}",GradientType=1);';
+              await Clipboard.setData(ClipboardData(text: a))
+                  .then((value) {
+                ScaffoldMessenger.of(context).clearSnackBars();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                    DreamSnackBar(
+                        content: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+
+                            Icon(
+                              FontAwesomeIcons.code,
+                              size: 22,
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Text(
+                              "Code copied to clipboard",
+                              style: TextStyle(
+                                  color: Colors.white
+                              ),
+                            ),
+                          ],
+                        ), context: context
+                    )
+                );
+              });
+            },
+            icon: FontAwesomeIcons.code,
+          )
+        ],
+      ),
     );
   }
 

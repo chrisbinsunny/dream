@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:color_finder/sizes.dart';
@@ -12,6 +13,7 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(screenHeight(context, mulBy: 0.58).toString());
     return ClipRRect(
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
@@ -19,7 +21,7 @@ class Footer extends StatelessWidget {
           builder: (context, constraints) {
             return Container(
               width: screenWidth(context,),
-              height: screenHeight(context, mulBy: (constraints.biggest.width<850)?((constraints.biggest.width<580)?0.47 :0.37):0.2),
+              height: (constraints.biggest.width<850)?((constraints.biggest.width<580)?((constraints.biggest.width<400)? 480:420) :330):225,
               constraints: const BoxConstraints(
                   minWidth: 400,
                   minHeight: 220

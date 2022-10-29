@@ -30,8 +30,11 @@ class AppBarCustomState extends State<AppBarCustom> {
         : 1;
     return Container(
       color: Colors.black.withOpacity(opacity), ///303030
+      alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(
+          horizontal: 20
+        ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
             ///Had to add a lesser width due to the padding of 40
@@ -69,7 +72,7 @@ class AppBarCustomState extends State<AppBarCustom> {
                   'DREAM',
                   style: GoogleFonts.montserrat(
                     color: Colors.blueGrey[300],
-                    fontSize: 25,
+                    fontSize: 26,
                     fontWeight: FontWeight.w600,
                     letterSpacing: 5,
                   ),
@@ -104,6 +107,7 @@ class AppBarCustomState extends State<AppBarCustom> {
                                         ))
                                         ? Colors.blue[200]
                                         : Colors.white,
+                                    fontSize: 16
                                   ),
                                 ),
                                 SizedBox(height: 5),
@@ -160,6 +164,8 @@ class AppBarCustomState extends State<AppBarCustom> {
                                         ))
                                         ? Colors.blue[200]
                                         : Colors.white,
+                                      fontSize: 16
+
                                   ),
                                 ),
                                 SizedBox(height: 5),

@@ -44,26 +44,52 @@ class _GradientViewerState extends State<GradientViewer> {
     grads= Provider.of<GradientMakerDetails>(context, listen: true).getGrads;
     angle= Provider.of<GradientMakerDetails>(context, listen: true).getAngle;
     gradType= Provider.of<GradientMakerDetails>(context, listen: true).getGradType;
-    return Container(
-      width: screenWidth(context, mulBy: 0.28),
-      height: screenHeight(context, mulBy: 0.64),
-      constraints: const BoxConstraints(
-          minWidth: 500
-      ),
-      margin: EdgeInsets.symmetric(
-          horizontal: 20
-      ),
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(9),
-      decoration: BoxDecoration(
-        border: Border.all(
-            color: Colors.white,
-          width: 5
-        ),
-        borderRadius: BorderRadius.circular(10),
-        gradient: getGradient()
+    return Stack(
+      children: [
+        Container(
+          width: screenWidth(context, mulBy: 0.28),
+          height: screenHeight(context, mulBy: 0.64),
+          constraints: const BoxConstraints(
+              minWidth: 500
+          ),
+          margin: EdgeInsets.symmetric(
+              horizontal: 20
+          ),
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: Colors.white,
+                width: 5
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
 
-      ),
+          child: Image.asset(
+            "assets/gradientBGImage.jpg",
+            fit: BoxFit.cover,
+          ),
+        ),
+        Container(
+          width: screenWidth(context, mulBy: 0.28),
+          height: screenHeight(context, mulBy: 0.64),
+          constraints: const BoxConstraints(
+              minWidth: 500
+          ),
+          margin: EdgeInsets.symmetric(
+              horizontal: 20
+          ),
+          //alignment: Alignment.center,
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: Colors.white,
+              width: 5
+            ),
+            borderRadius: BorderRadius.circular(10),
+            gradient: getGradient(),
+
+          ),
+
+        ),
+      ],
     );
 
   }

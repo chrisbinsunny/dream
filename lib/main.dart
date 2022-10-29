@@ -64,7 +64,7 @@ fixAngle(){
 fixGrads(){
   List<Color> grads;
   if(Uri.base.queryParametersAll["c"]==null || Uri.base.queryParametersAll["c"]!.length<2){
-    grads=[Color(0xFFEE950F), Color(0xFF3F51B5)];
+    grads=[Color(0xFF9600EE), Color(0xFFFFC80F)];
   }
   else{
     grads= Uri.base.queryParametersAll["c"]!.map((e) => Color((int.tryParse(e, radix: 16)??int.parse("FF3F51B5", radix: 16))+ 0xFF000000)).toList();

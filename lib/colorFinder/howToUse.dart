@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,89 +10,92 @@ class HowToUse extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: 20
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
 
-      child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
-        child: Container(
-          width: screenWidth(context, mulBy: 0.5),
-          height: screenHeight(context, mulBy: 0.35),
-          constraints: const BoxConstraints(
-              minWidth: 400,
-              minHeight: 370
-          ),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Colors.white,
-              )
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(10)
-                ),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0, tileMode: TileMode.decal),
-                  child: Container(
-                    width: screenWidth(context, mulBy: 0.5),
-                    constraints: const BoxConstraints(
-                        minWidth: 400,
-                        minHeight: 70
-                    ),
-                    height: screenHeight(context, mulBy: 0.07),
-                    alignment: Alignment.centerLeft,
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        border: const Border(
-                            bottom: BorderSide(
-                                color: Colors.white,
-                                width: 0.5
-                            )
-                        )
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15
-                    ),
-                    child: Text.rich(
-                      textAlign: TextAlign.center,
-                      TextSpan(
-                          text: "How to use  ",
-                          children: [
-                            TextSpan(
-                              text: "\'DREAM\'",
-                                style: GoogleFonts.montserrat(
-                                  color: Colors.blueGrey[300],
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w600,
-                                  letterSpacing: 5,
-                                ),
-                            ),
-                          ]
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
+          child: Container(
+            width: screenWidth(context, mulBy: 0.5),
+            height: screenHeight(context, mulBy: 0.35),
+            constraints: const BoxConstraints(
+                minWidth: 400,
+                minHeight: 370
+            ),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: Colors.white,
+                )
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(10)
+                  ),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0, tileMode: TileMode.decal),
+                    child: Container(
+                      width: screenWidth(context, mulBy: 0.5),
+                      constraints: const BoxConstraints(
+                          minWidth: 400,
+                          minHeight: 70
                       ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 23,
+                      height: screenHeight(context, mulBy: 0.07),
+                      alignment: Alignment.centerLeft,
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.1),
+                          border: const Border(
+                              bottom: BorderSide(
+                                  color: Colors.white,
+                                  width: 0.5
+                              )
+                          )
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15
+                      ),
+                      child: Text.rich(
+                        textAlign: TextAlign.center,
+                        TextSpan(
+                            text: "How to use  ",
+                            children: [
+                              TextSpan(
+                                text: "\'DREAM\'",
+                                  style: GoogleFonts.montserrat(
+                                    color: Colors.blueGrey[300],
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 5,
+                                  ),
+                              ),
+                            ]
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 23,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
 
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15,
-                      horizontal: 20
-                    ),
-                    child: SingleChildScrollView(
-                      child: Text.rich(
+                Expanded(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 15,
+                        horizontal: 20
+                      ),
+                      child: AutoSizeText.rich(
                         textAlign: TextAlign.start,
                         TextSpan(
                             text: "Use your cursor on the image to find the color. \n\nUse",
@@ -132,13 +136,15 @@ class HowToUse extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 16,
                         ),
+                        minFontSize: 12,
+                        maxLines: 15,
                       ),
                     ),
                   ),
                 ),
-              ),
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

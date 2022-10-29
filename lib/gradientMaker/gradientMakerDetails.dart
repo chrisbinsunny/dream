@@ -8,7 +8,7 @@ class GradientMakerDetails extends ChangeNotifier {
 
 
   GradientMakerDetails({
-    this.grads=const[Color(0xFFEE950F), Color(0xFF3F51B5)],
+    this.grads=const[Color(0xFF9600EE), Color(0xFFFFC80F)],
     this.angle=315,
     this.gradientType=0
 });

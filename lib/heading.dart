@@ -13,6 +13,9 @@ class Header extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       height: screenHeight(context, mulBy: 0.25),
+      margin: EdgeInsets.symmetric(
+          horizontal: 20
+      ),
       child: FittedBox(
         child: AnimatedTextKit(
           repeatForever: true,

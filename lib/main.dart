@@ -83,7 +83,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
             textTheme: TextTheme(
-              headline1: GoogleFonts.poppins(color: Colors.white),
+              headline1: GoogleFonts.poppins(color: Colors.white, ),
               headline2: GoogleFonts.poppins(color: Colors.white),
               headline3: GoogleFonts.poppins(color: Colors.white),
               headline4: GoogleFonts.poppins(color: Colors.white),
@@ -96,7 +96,8 @@ class MyApp extends StatelessWidget {
               button: GoogleFonts.poppins(color: Colors.white),
               caption: GoogleFonts.poppins(color: Colors.white),
               overline: GoogleFonts.poppins(color: Colors.white),
-            )
+            ),
+
         ),
         initialRoute: "/",
         routes: {

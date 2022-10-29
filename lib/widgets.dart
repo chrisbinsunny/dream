@@ -36,7 +36,7 @@ class GradientTypeButton extends StatelessWidget {
         }
       },
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(15),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
           child: Container(
@@ -104,19 +104,11 @@ class DreamButton extends StatelessWidget {
             }
           },
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 60.0, sigmaY: 60.0),
               child: Container(
-                // width: screenWidth(context, mulBy: 0.115
-                // ),
-                // height: screenHeight(context, mulBy: 0.06
-                // ),
-                // constraints: const BoxConstraints(
-                //     minWidth: 210,
-                //     minHeight: 50
-                // ),
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   vertical: 12,
                   horizontal: 20
                 ),
@@ -152,7 +144,7 @@ class DreamButton extends StatelessWidget {
                         overflow: TextOverflow.clip,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     Icon(

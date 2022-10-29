@@ -343,12 +343,7 @@ class GradientCode extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          Container(
-              width: screenWidth(context, mulBy: 0.6),
-              constraints: const BoxConstraints(
-                  minWidth: 400,
-              ),
-              child: ShareCode()),
+          ShareCodeButtons(),
         ],
       ),
     );

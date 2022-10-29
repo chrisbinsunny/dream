@@ -44,6 +44,7 @@ dependencies:
   font_awesome_flutter: ^10.2.1
   google_fonts: ^3.0.1
   flutter_colorpicker: ^1.0.3
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:

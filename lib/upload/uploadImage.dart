@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
@@ -74,26 +75,28 @@ class _UploadImageState extends State<UploadImage> {
                           vertical: 10,
                           horizontal: 15
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Icon(
-                            Icons.upload_file,
-                            size: 30,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            "Choose your Image",
-                            style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600
+                      child: FittedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.upload_file,
+                              size: 30,
                             ),
-                          ),
-                        ],
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Choose your Image",
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -101,8 +104,12 @@ class _UploadImageState extends State<UploadImage> {
                 const SizedBox(
                   height: 20,
                 ),
-                const Text(
+                const AutoSizeText(
                   "Drag & drop image or",
+                  maxLines: 1,
+                  minFontSize: 10,
+                  textAlign: TextAlign.center,
+
                   style: TextStyle(
                       fontSize: 17,
                       color: Colors.white,
@@ -143,8 +150,11 @@ class _UploadImageState extends State<UploadImage> {
                     elevation: MaterialStateProperty.all(20),
                     side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
                   ),
-                    child: const Text(
+                    child: const AutoSizeText(
                         "Upload Image",
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      minFontSize: 14,
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white
@@ -156,7 +166,7 @@ class _UploadImageState extends State<UploadImage> {
                   padding: EdgeInsets.symmetric(
                     horizontal: 15
                   ),
-                  child: Text.rich(
+                  child: AutoSizeText.rich(
                     textAlign: TextAlign.center,
                     TextSpan(
                         text: "We strongly support data privacy. ",
@@ -173,6 +183,7 @@ class _UploadImageState extends State<UploadImage> {
                           )
                         ]
                     ),
+                    minFontSize: 9,
                     style: TextStyle(
                         fontSize: 14,
                       color: Colors.white60

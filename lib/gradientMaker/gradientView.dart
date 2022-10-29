@@ -50,6 +50,9 @@ class _GradientViewerState extends State<GradientViewer> {
       constraints: const BoxConstraints(
           minWidth: 500
       ),
+      margin: EdgeInsets.symmetric(
+          horizontal: 20
+      ),
       alignment: Alignment.center,
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(

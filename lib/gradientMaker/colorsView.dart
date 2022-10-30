@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
 import '../sizes.dart';
 import 'colorPickerDialog.dart';
 import 'gradientMakerDetails.dart';
@@ -113,6 +114,8 @@ class _ColorsViewState extends State<ColorsView> {
                                 return Align(
                                   child: InkWell(
                                     onTap: (){
+                                      Provider.of<AnalyticsService>(context, listen: false)
+                                          .logColorChanged();
                                       showDialog(
                                         barrierColor: Colors.black.withOpacity(0.1),
                                         context: context,
@@ -178,7 +181,9 @@ class _ColorsViewState extends State<ColorsView> {
                                           child: GestureDetector(
                                             onTap: () {
                                               Provider.of<GradientMakerDetails>(context, listen: false).removeGrad(index);
-                                            },
+                                              Provider.of<AnalyticsService>(context, listen: false)
+                                                  .logColorRemoved();
+                                              },
                                             child: const CircleAvatar(
                                               key: Key('closeIconKey'),
                                               radius: 13,
@@ -203,6 +208,8 @@ class _ColorsViewState extends State<ColorsView> {
                                 child: InkWell(
                                   onTap: (){
                                     Provider.of<GradientMakerDetails>(context, listen: false).addGrad();
+                                    Provider.of<AnalyticsService>(context, listen: false)
+                                        .logColorAdded();
                                     showDialog(
                                       barrierColor: Colors.black.withOpacity(0.1),
                                       context: context,

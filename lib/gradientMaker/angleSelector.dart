@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:math' as math;
+import '../analytics.dart';
 import '../sizes.dart';
 import 'gradientMakerDetails.dart';
 
@@ -109,6 +110,10 @@ class _AngleSelectorState extends State<AngleSelector> {
                       child: GestureDetector(
                         onPanUpdate: onPanUpdate,
                         onPanDown: onPanDown,
+                        onPanEnd: (a){
+                          Provider.of<AnalyticsService>(context, listen: false)
+                              .logAngleChanged();
+                        },
                         child: Container(
                           height: radius*2,
                           width: radius*2,

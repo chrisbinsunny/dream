@@ -171,12 +171,13 @@ class DreamButton extends StatelessWidget {
 
 SnackBar DreamSnackBar({required Widget content, required BuildContext context}){
   return SnackBar(
-    content: content,
+    content: FittedBox(child: content, fit: BoxFit.scaleDown,),
     backgroundColor: Colors.blueAccent,
-    width: screenWidth(context, mulBy: 0.2),
+    width: 400,
     behavior: SnackBarBehavior.floating,
-
-
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(10)
+    ),
   );
 }
 

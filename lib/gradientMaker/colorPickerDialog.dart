@@ -35,7 +35,7 @@ class ColorPickerDialog extends StatelessWidget {
             width: screenWidth(context,
                 mulBy: 0.22),
             height: screenHeight(context,
-                mulBy: 0.7),
+                mulBy: 0.73),
             constraints: const BoxConstraints(
               minWidth: 350,
               minHeight: 500,

@@ -106,6 +106,9 @@ class _ColorsViewState extends State<ColorsView> {
                               itemCount:grads.length,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
+                              padding: EdgeInsets.only(
+                                left: 10
+                              ),
                               itemBuilder: (context, index) {
                                 return Align(
                                   child: InkWell(

@@ -199,8 +199,11 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                SelectableText(
                                   'Hex: #${color.value.toRadixString(16)}',
+                                  scrollPhysics: NeverScrollableScrollPhysics(),
+                                  maxLines: 1,
+                                  showCursor: false,
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
@@ -254,8 +257,11 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
+                                SelectableText(
                                   'RGB: rgba(${color.red},${color.green},${color.blue},${color.alpha})',
+                                  showCursor: false,
+                                  scrollPhysics: NeverScrollableScrollPhysics(),
+                                  maxLines: 1,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.w400,

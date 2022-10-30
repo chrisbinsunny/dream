@@ -8,9 +8,9 @@ class AnalyticsService extends ChangeNotifier{
   FirebaseAnalyticsObserver getAnalyticsObserver() =>
       FirebaseAnalyticsObserver(analytics: analytics);
 
-  Future<void> setCurrentScreen(String screen) {
+  Future<void> setCurrentScreen(String screen) async {
     print('Setting current screen to $screen');
-    return analytics.setCurrentScreen(
+    await analytics.setCurrentScreen(
       screenName: screen,
     );
   }

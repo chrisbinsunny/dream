@@ -119,7 +119,7 @@ class HowToUse extends StatelessWidget {
                                   text: "We strongly support data privacy. ",
                                   children: [
                                     TextSpan(
-                                        text: "No data is being sent to our servers. ",
+                                        text: "Your image is not being sent to our servers. ",
                                         style: TextStyle(
                                             fontStyle: FontStyle.italic,
                                             decoration: TextDecoration.underline,

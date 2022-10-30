@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'analytics.dart';
+
 class AppBarCustom extends StatefulWidget {
 
   const AppBarCustom({super.key});
@@ -224,6 +226,8 @@ class AppBarCustomState extends State<AppBarCustom> {
       case "/color-finder/":
       case "/":
         return (){
+          Provider.of<AnalyticsService>(context, listen: false)
+              .setCurrentScreen("Gradient Builder");
           Navigator.of(context).pushNamed("/gradient-maker");
         };
         break;
@@ -236,6 +240,8 @@ class AppBarCustomState extends State<AppBarCustom> {
       case "/gradient-maker":
       case "/gradient-maker/":
       return (){
+        Provider.of<AnalyticsService>(context, listen: false)
+            .setCurrentScreen("Color Finder");
         Navigator.of(context).pushNamed("/color-finder");
       };
         break;

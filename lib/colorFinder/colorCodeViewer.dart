@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
+
 
 class ColorCodeViewer extends StatefulWidget {
   const ColorCodeViewer({Key? key, }) : super(key: key);
@@ -208,6 +210,8 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                     onPressed:  () async {
                                       await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
                                           .then((value) {
+                                        Provider.of<AnalyticsService>(context, listen: false)
+                                            .logColorCopy(color: "#${color.value.toRadixString(16)}", hex: true);
                                         ScaffoldMessenger.of(context).clearSnackBars();
 
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -262,6 +266,8 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                     onPressed:  () async {
                                       await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
                                           .then((value) {
+                                        Provider.of<AnalyticsService>(context, listen: false)
+                                            .logColorCopy(color: "rgba(${color.red},${color.green},${color.blue},${color.alpha})", hex: false);
                                         ScaffoldMessenger.of(context).clearSnackBars();
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           DreamSnackBar(content: const Text(

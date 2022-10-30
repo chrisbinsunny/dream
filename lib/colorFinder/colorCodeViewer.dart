@@ -214,7 +214,7 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                       await Clipboard.setData(ClipboardData(text: "#${color.value.toRadixString(16)}"))
                                           .then((value) {
                                         Provider.of<AnalyticsService>(context, listen: false)
-                                            .logColorCopy(color: "#${color.value.toRadixString(16)}", hex: true);
+                                            .logColorCopy(hex: true);
                                         ScaffoldMessenger.of(context).clearSnackBars();
 
                                         ScaffoldMessenger.of(context).showSnackBar(
@@ -273,7 +273,7 @@ class _ColorCodeViewerState extends State<ColorCodeViewer> {
                                       await Clipboard.setData(ClipboardData(text: "rgba(${color.red},${color.green},${color.blue},${color.alpha})"))
                                           .then((value) {
                                         Provider.of<AnalyticsService>(context, listen: false)
-                                            .logColorCopy(color: "rgba(${color.red},${color.green},${color.blue},${color.alpha})", hex: false);
+                                            .logColorCopy(hex: false);
                                         ScaffoldMessenger.of(context).clearSnackBars();
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           DreamSnackBar(content: const Text(

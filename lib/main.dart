@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Color Finder',
+        title: 'Dream | Color Finder | Gradient Builder',
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
             textTheme: TextTheme(
@@ -123,14 +123,18 @@ class MyApp extends StatelessWidget {
           switch(Uri.base.path){
             case "/gradient-maker":
             case "/gradient-maker/":
+              log("1");
+              Provider.of<AnalyticsService>(context, listen: false)
+                  .setCurrentScreen("Gradient Builder");
               route=MaterialPageRoute(builder: (context) => const GradientMakerHome(),
-                  settings: const RouteSettings(name: "Gradient Maker"),
               );
               break;
             case "/color-finder":
             case "/color-finder/":
-              route=MaterialPageRoute(builder: (context) => const ColorFinderHomePage(),
-                settings: const RouteSettings(name: "Color Finder"),
+            log("2");
+            Provider.of<AnalyticsService>(context, listen: false)
+                .setCurrentScreen("Color Finder");
+            route=MaterialPageRoute(builder: (context) => const ColorFinderHomePage(),
               );
               break;
           }

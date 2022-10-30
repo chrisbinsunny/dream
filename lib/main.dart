@@ -6,24 +6,25 @@ import 'package:color_finder/gradientMaker/gradientMakerHome.dart';
 import 'package:color_finder/home.dart';
 import 'package:color_finder/palette/test.dart';
 import 'package:color_finder/upload/dropFile.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'colorDetails.dart';
+import 'firebase_options.dart';
 
 ///flutter run -d chrome --web-renderer canvaskit --release --dart-define=BROWSER_IMAGE_DECODING_ENABLED=false
 
 ///gradient-maker?c=FFEE000E&c=00B506&a=215&gt=2
 
 
-void main() {
-  // String myurl = Uri.base.toString(); //get complete url
-  // List<String> para2 = Uri.base.queryParametersAll["c"]??[]; //get parameter with attribute "para2"
-  // para2.forEach((element) {
-  //   log(element);
-  // });
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+
   usePathUrlStrategy();
   Paint.enableDithering = true;
   runApp(MultiProvider(providers: [
@@ -35,14 +36,15 @@ void main() {
     ),
     ChangeNotifierProvider<GradientMakerDetails>(
       create: (context) => GradientMakerDetails(
-        angle: fixAngle(),
-        gradientType: fixGradientType(),
-        grads: fixGrads()
+          angle: fixAngle(),
+          gradientType: fixGradientType(),
+          grads: fixGrads()
       ),
     ),
   ],
       child: const MyApp()));
 }
+
 
 
 fixGradientType(){
@@ -76,6 +78,10 @@ fixGrads(){
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+  FirebaseAnalyticsObserver(analytics: analytics);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -99,6 +105,7 @@ class MyApp extends StatelessWidget {
             ),
 
         ),
+        navigatorObservers: <NavigatorObserver>[observer],
         initialRoute: "/",
         routes: {
           "/": (context) => const HomePage(),

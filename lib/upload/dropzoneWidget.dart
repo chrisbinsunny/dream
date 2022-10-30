@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
 import '../colorDetails.dart';
 import 'dropFile.dart';
 
@@ -66,6 +67,8 @@ class _DropHereState extends State<DropHere> {
       mime: mime,
       bytes: bytes,
     );
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logDragDrop(image: name, type: mime);
     Provider.of<ColorDetails>(context, listen: false).setFile(droppedFile);
   }
 

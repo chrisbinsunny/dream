@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
 import '../colorDetails.dart';
 import '../sizes.dart';
 import 'dropFile.dart';
@@ -133,6 +134,7 @@ class _UploadImageState extends State<UploadImage> {
                       );
 
                       if(events.isEmpty) return;
+
                       acceptFile(events.first);
                     },
 
@@ -209,6 +211,8 @@ class _UploadImageState extends State<UploadImage> {
     final bytes = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
 
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logUploadImage(image: name, type: mime);
     final droppedFile = DroppedFile(
       url: url,
       name: name,

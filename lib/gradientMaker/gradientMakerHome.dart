@@ -67,7 +67,7 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  const Header(head: "Gradient Maker"),
+                  const Header(head: "Gradient Builder"),
                   Wrap(
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceEvenly,

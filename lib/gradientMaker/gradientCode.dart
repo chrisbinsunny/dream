@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-import 'package:color_finder/gradientMaker/shareCode.dart';
-import 'package:color_finder/sizes.dart';
+import 'package:dream/gradientMaker/shareCode.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';

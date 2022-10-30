@@ -1,9 +1,9 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:color_finder/gradientMaker/bgGradView.dart';
-import 'package:color_finder/gradientMaker/gradientCode.dart';
-import 'package:color_finder/heading.dart';
+import 'package:dream/gradientMaker/bgGradView.dart';
+import 'package:dream/gradientMaker/gradientCode.dart';
+import 'package:dream/heading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

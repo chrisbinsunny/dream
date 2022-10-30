@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:color_finder/appBar.dart';
-import 'package:color_finder/gradientMaker/gradientMakerDetails.dart';
-import 'package:color_finder/gradientMaker/gradientMakerHome.dart';
-import 'package:color_finder/home.dart';
-import 'package:color_finder/palette/test.dart';
-import 'package:color_finder/upload/dropFile.dart';
+import 'package:dream/appBar.dart';
+import 'package:dream/gradientMaker/gradientMakerDetails.dart';
+import 'package:dream/gradientMaker/gradientMakerHome.dart';
+import 'package:dream/home.dart';
+import 'package:dream/palette/test.dart';
+import 'package:dream/upload/dropFile.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
 
   usePathUrlStrategy();
   Paint.enableDithering = true;
@@ -42,9 +42,9 @@ Future<void> main() async {
           grads: fixGrads()
       ),
     ),
-    // ChangeNotifierProvider<AnalyticsService>(
-    //   create: (context) => AnalyticsService(),
-    // ),
+    ChangeNotifierProvider<AnalyticsService>(
+      create: (context) => AnalyticsService(),
+    ),
   ],
       child: const MyApp()));
 }
@@ -107,8 +107,8 @@ class MyApp extends StatelessWidget {
 
         ),
         navigatorObservers: [
-          // Provider.of<AnalyticsService>(context, listen: false)
-          //     .getAnalyticsObserver()
+          Provider.of<AnalyticsService>(context, listen: false)
+              .getAnalyticsObserver()
         ],
         initialRoute: "/",
         routes: {

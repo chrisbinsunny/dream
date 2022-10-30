@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:color_finder/sizes.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'dart:html' as html;
 

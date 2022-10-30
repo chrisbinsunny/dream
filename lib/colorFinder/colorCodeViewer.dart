@@ -1,10 +1,10 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:color_finder/colorDetails.dart';
-import 'package:color_finder/upload/dropFile.dart';
-import 'package:color_finder/sizes.dart';
-import 'package:color_finder/widgets.dart';
+import 'package:dream/colorDetails.dart';
+import 'package:dream/upload/dropFile.dart';
+import 'package:dream/sizes.dart';
+import 'package:dream/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

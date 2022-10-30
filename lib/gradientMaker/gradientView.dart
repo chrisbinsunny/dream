@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:color_finder/gradientMaker/gradientMakerDetails.dart';
-import 'package:color_finder/palette/paletteViewer.dart';
-import 'package:color_finder/sizes.dart';
+import 'package:dream/gradientMaker/gradientMakerDetails.dart';
+import 'package:dream/palette/paletteViewer.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:palette_generator/palette_generator.dart';

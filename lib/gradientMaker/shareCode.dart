@@ -1,12 +1,13 @@
 import 'dart:developer';
 
-import 'package:color_finder/widgets.dart';
+import 'package:dream/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
 import '../sizes.dart';
 import 'gradientMakerDetails.dart';
 
@@ -62,6 +63,9 @@ class ShareCodeButtons extends StatelessWidget {
                       ), context: context)
                   );
                 });
+
+                Provider.of<AnalyticsService>(context, listen: false)
+                    .logShareCode(gradCount: grads.length, type: gradType);
               },
             icon: FontAwesomeIcons.solidPaperPlane,
           ),
@@ -106,6 +110,8 @@ class ShareCodeButtons extends StatelessWidget {
                     )
                 );
               });
+              Provider.of<AnalyticsService>(context, listen: false)
+                  .logShareCode(gradCount: grads.length, type: gradType, copyCSS: true);
             },
             icon: FontAwesomeIcons.code,
           )

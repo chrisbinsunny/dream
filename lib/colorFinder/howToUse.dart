@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:color_finder/sizes.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 

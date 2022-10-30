@@ -2,7 +2,7 @@
 
 import 'dart:ui';
 
-import 'package:color_finder/sizes.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

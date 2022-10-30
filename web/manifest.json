@@ -1,6 +1,6 @@
 {
-    "name": "color_finder",
-    "short_name": "color_finder",
+    "name": "dream",
+    "short_name": "dream",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -6,6 +6,7 @@ import 'package:color_finder/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'analytics.dart';
 import 'gradientMaker/gradientMakerDetails.dart';
 
 class GradientTypeButton extends StatelessWidget {
@@ -27,6 +28,8 @@ class GradientTypeButton extends StatelessWidget {
     return InkWell(
       onTap: (){
         Provider.of<GradientMakerDetails>(context, listen: false).setGradType(itemNo);
+        Provider.of<AnalyticsService>(context, listen: false)
+            .logGradientTypeChanged(type: name);
       },
       onHover: (hover1){
         if(hover1){

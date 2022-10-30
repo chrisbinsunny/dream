@@ -35,7 +35,7 @@ class AppBarCustomState extends State<AppBarCustom> {
       alignment: Alignment.centerLeft,
       child: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 20
+          horizontal: 30
         ),
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -158,7 +158,7 @@ class AppBarCustomState extends State<AppBarCustom> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
-                                  'Gradient Maker',
+                                  'Gradient Builder',
                                   style: TextStyle(
                                     color: ((hover==1)||
                                         ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||

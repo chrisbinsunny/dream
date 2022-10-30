@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'analytics.dart';
 import 'colorDetails.dart';
 import 'firebase_options.dart';
 
@@ -23,7 +24,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
 
   usePathUrlStrategy();
   Paint.enableDithering = true;
@@ -41,6 +42,9 @@ Future<void> main() async {
           grads: fixGrads()
       ),
     ),
+    // ChangeNotifierProvider<AnalyticsService>(
+    //   create: (context) => AnalyticsService(),
+    // ),
   ],
       child: const MyApp()));
 }
@@ -78,9 +82,6 @@ fixGrads(){
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static FirebaseAnalyticsObserver observer =
-  FirebaseAnalyticsObserver(analytics: analytics);
 
   @override
   Widget build(BuildContext context) {
@@ -105,32 +106,34 @@ class MyApp extends StatelessWidget {
             ),
 
         ),
-        navigatorObservers: <NavigatorObserver>[observer],
+        navigatorObservers: [
+          // Provider.of<AnalyticsService>(context, listen: false)
+          //     .getAnalyticsObserver()
+        ],
         initialRoute: "/",
         routes: {
-          "/": (context) => const HomePage(),
-          "/color-finder": (context) => const HomePage(),
-          "/color-finder/": (context) => const HomePage(),
+          "/": (context) => const ColorFinderHomePage(),
+          "/color-finder": (context) => const ColorFinderHomePage(),
+          "/color-finder/": (context) => const ColorFinderHomePage(),
           "/gradient-maker": (context)=> const GradientMakerHome(),
           "/gradient-maker/": (context)=> const GradientMakerHome(),
         },
         onGenerateRoute: (settings) {
-          late Route route=MaterialPageRoute(builder: (context) => const HomePage());
-          List<String> para2 = Uri.base.queryParametersAll["c"]??[];
-          para2.forEach((element) {
-            log(element);
-          });
+          late Route route=MaterialPageRoute(builder: (context) => const ColorFinderHomePage());
           switch(Uri.base.path){
             case "/gradient-maker":
             case "/gradient-maker/":
-              route=MaterialPageRoute(builder: (context) => const GradientMakerHome());
+              route=MaterialPageRoute(builder: (context) => const GradientMakerHome(),
+                  settings: const RouteSettings(name: "Gradient Maker"),
+              );
               break;
             case "/color-finder":
             case "/color-finder/":
-              route=MaterialPageRoute(builder: (context) => const HomePage());
+              route=MaterialPageRoute(builder: (context) => const ColorFinderHomePage(),
+                settings: const RouteSettings(name: "Color Finder"),
+              );
               break;
           }
-          log(Uri.base.path.toString());
           return route;
         }
     );

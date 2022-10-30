@@ -123,7 +123,6 @@ class MyApp extends StatelessWidget {
           switch(Uri.base.path){
             case "/gradient-maker":
             case "/gradient-maker/":
-              log("1");
               Provider.of<AnalyticsService>(context, listen: false)
                   .setCurrentScreen("Gradient Builder");
               route=MaterialPageRoute(builder: (context) => const GradientMakerHome(),
@@ -131,7 +130,6 @@ class MyApp extends StatelessWidget {
               break;
             case "/color-finder":
             case "/color-finder/":
-            log("2");
             Provider.of<AnalyticsService>(context, listen: false)
                 .setCurrentScreen("Color Finder");
             route=MaterialPageRoute(builder: (context) => const ColorFinderHomePage(),

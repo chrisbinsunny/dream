@@ -17,14 +17,14 @@ import 'colorFinder/colorCodeViewer.dart';
 import 'colorDetails.dart';
 import 'upload/dropzoneWidget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ColorFinderHomePage extends StatefulWidget {
+  const ColorFinderHomePage({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ColorFinderHomePage> createState() => _ColorFinderHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ColorFinderHomePageState extends State<ColorFinderHomePage> {
 
   final ScrollController scrollController= ScrollController();
 

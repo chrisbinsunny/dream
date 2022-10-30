@@ -41,7 +41,6 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
   @override
   Widget build(BuildContext context) {
 
-    log(screenWidth(context, mulBy: 0.3).toString());
     return Scaffold(
       extendBodyBehindAppBar: true,
       drawer: const DreamDrawer(),
@@ -68,7 +67,7 @@ class _GradientMakerHomeState extends State<GradientMakerHome> {
                 controller: scrollController,
                 physics: const BouncingScrollPhysics(),
                 children: [
-                  Header(head: "Gradient Maker"),
+                  const Header(head: "Gradient Maker"),
                   Wrap(
                     direction: Axis.horizontal,
                     alignment: WrapAlignment.spaceEvenly,

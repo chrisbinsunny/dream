@@ -29,12 +29,14 @@ The "DREAM" has the following features:
 - 📱 Responsiveness
 
 
-<br/><br/>
+<br/>
+
 ## 🖥️ Demo
 
 Go here>>>> [View DREAM](https://chrisbinsunny.github.io/dream)
 
-<br/><br/>
+<br/>
+
 ## 🚀 Deployment
 
 To debug this project run
@@ -48,7 +50,8 @@ Due to an ongoing issue, viewing the color from the image in debug mode is not a
 🚨 View my comment on similar [issue.](https://github.com/flutter/flutter/issues/52609#issuecomment-1283735805)
 Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), & [103612](https://github.com/flutter/flutter/issues/103612).
 
-<br/><br/>
+<br/>
+
 ## 🔰 To-Do
 
 - [  ] Add color palette in color finder
@@ -58,9 +61,8 @@ Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), 
 - [  ] Innovative UI
 - [  ] Live test CSS in codepen
 
+<br/>
 
-
-<br/><br/>
 ## 📸 Screenshots
 
 <table>
@@ -84,9 +86,9 @@ Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), 
     <td><img src="docs/ss2P.png" width=178.3 height=319></td>
   </tr>
  </table>
+ 
+<br/>
 
-
-<br/><br/>
 ## 👩🏻‍💻 Contributing
 
 Contributions are always welcome!
@@ -96,6 +98,7 @@ See `contributing.md` for ways to get started.
 Please adhere to this project's `code of conduct`.
 
 
+<br />
 
 ## 🔐 License
 

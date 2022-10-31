@@ -1,7 +1,7 @@
 
 
-import 'package:color_finder/sizes.dart';
-import 'package:color_finder/upload/dropFile.dart';
+import 'package:dream/sizes.dart';
+import 'package:dream/upload/dropFile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:palette_generator/palette_generator.dart';

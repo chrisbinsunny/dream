@@ -2,10 +2,12 @@
 import 'dart:developer';
 import 'dart:ui';
 
-import 'package:color_finder/sizes.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import 'analytics.dart';
 
 class AppBarCustom extends StatefulWidget {
 
@@ -16,123 +18,241 @@ class AppBarCustom extends StatefulWidget {
 }
 
 class AppBarCustomState extends State<AppBarCustom> {
-  final List _isHovering = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
+
   double opacity=0.1;
 
+  final hovered=ValueNotifier<int>(-1);
 
   @override
   Widget build(BuildContext context) {
-    opacity = Provider.of<ScrollDetail>(context, listen: true).getPos < screenHeight(context, mulBy: 0.1)
-        ? Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1)
+    opacity = (Provider.of<ScrollDetail>(context, listen: true).getPos < screenHeight(context, mulBy: 0.1))
+        ? ((Provider.of<ScrollDetail>(context, listen: true).getPos > 0)?
+    Provider.of<ScrollDetail>(context, listen: true).getPos / screenHeight(context, mulBy: 0.1):0
+    )
         : 1;
     return Container(
-      color: Colors.black.withOpacity(0.8), ///303030
+      color: Colors.black.withOpacity(opacity), ///303030
+      alignment: Alignment.centerLeft,
       child: Padding(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'DREAM',
-              style: GoogleFonts.montserrat(
-                color: Colors.blueGrey[300],
-                fontSize: 25,
-                fontWeight: FontWeight.w600,
-                letterSpacing: 5,
-              ),
-            ),
-            Expanded(
-              child: Row(
+        padding: EdgeInsets.symmetric(
+          horizontal: 30
+        ),
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            ///Had to add a lesser width due to the padding of 40
+            if(constraints.biggest.width<510){
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(width: screenWidth(context, mulBy: 0.125)),
-                  InkWell(
-                    onHover: (value) {
-                      setState(() {
-                        value
-                            ? _isHovering[0] = true
-                            : _isHovering[0] = false;
-                      });
-                    },
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Color Finder',
-                          style: TextStyle(
-                            color: _isHovering[0]
-                                ? Colors.blue[200]
-                                : Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Visibility(
-                          maintainAnimation: true,
-                          maintainState: true,
-                          maintainSize: true,
-                          visible: _isHovering[0],
-                          child: Container(
-                            height: 2,
-                            width: 20,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
-                    ),
+                  IconButton(
+                      onPressed: (){
+                        Scaffold.of(context).openDrawer();
+                      },
+                      icon: Icon(Icons.menu, size: 22,),
+                    padding: EdgeInsets.zero,
                   ),
-                  SizedBox(width: screenWidth(context, mulBy: 0.05)),
-                  InkWell(
-                    onHover: (value) {
-                      setState(() {
-                        value
-                            ? _isHovering[1] = true
-                            : _isHovering[1] = false;
-                      });
-                    },
-                    onTap: () {},
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Gradient Finder',
-                          style: TextStyle(
-                            color: _isHovering[1]
-                                ? Colors.blue[200]
-                                : Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Visibility(
-                          maintainAnimation: true,
-                          maintainState: true,
-                          maintainSize: true,
-                          visible: _isHovering[1],
-                          child: Container(
-                            height: 2,
-                            width: 20,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(
+                    'DREAM',
+                    style: GoogleFonts.montserrat(
+                      color: Colors.blueGrey[300],
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      letterSpacing: 5,
                     ),
                   ),
                 ],
-              ),
-            ),
-          ],
-        ),
+              );
+            }
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'DREAM',
+                  style: GoogleFonts.montserrat(
+                    color: Colors.blueGrey[300],
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 5,
+                  ),
+                ),
+                ValueListenableBuilder<int>(
+                  valueListenable: hovered,
+                  builder: (context, hover, child) {
+                    return Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(width: screenWidth(context, mulBy: 0.125)),
+                          InkWell(
+                            onHover: (value) {
+                              if(value){
+                                hovered.value=0;
+                              }else{
+                                hovered.value=-1;
+                              }
+                            },
+                            onTap: cfOnTap(),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Color Finder',
+                                  style: TextStyle(
+                                    color: ((hover==0)||
+                                        ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
+                                            (ModalRoute.of(context)!.settings.name=="/color-finder")||
+                                            (ModalRoute.of(context)!.settings.name=="/")
+                                        ))
+                                        ? Colors.blue[200]
+                                        : Colors.white,
+                                    fontSize: 16
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                AnimatedContainer(
+                                  duration: const Duration(milliseconds: 100),
+                                  height: 2,
+                                  curve: Curves.bounceIn,
+                                  width: hover==0?80:0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                ),
+                                Visibility(
+                                  maintainAnimation: true,
+                                  maintainState: true,
+                                  maintainSize: true,
+                                  visible:
+                                  ((ModalRoute.of(context)!.settings.name=="/color-finder/")||
+                                      (ModalRoute.of(context)!.settings.name=="/color-finder")||
+                                      (ModalRoute.of(context)!.settings.name=="/")
+                                  ),
+                                  child: Container(
+                                    height: 2,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          SizedBox(width: screenWidth(context, mulBy: 0.05)),
+                          InkWell(
+                            onHover: (value) {
+                              if(value){
+                                hovered.value=1;
+                              }else{
+                                hovered.value=-1;
+                              }
+                            },
+                            onTap: gmOnTap(),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Gradient Builder',
+                                  style: TextStyle(
+                                    color: ((hover==1)||
+                                        ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||
+                                            (ModalRoute.of(context)!.settings.name=="/gradient-maker")
+                                        ))
+                                        ? Colors.blue[200]
+                                        : Colors.white,
+                                      fontSize: 16
+
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                AnimatedContainer(
+                                  duration: const Duration(milliseconds: 100),
+                                  height: 2,
+                                  curve: Curves.bounceIn,
+                                  width: hover==1?100:0,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                ),
+                                Visibility(
+                                  maintainAnimation: true,
+                                  maintainState: true,
+                                  maintainSize: true,
+                                  visible:
+                                  ((ModalRoute.of(context)!.settings.name=="/gradient-maker/")||
+                                      (ModalRoute.of(context)!.settings.name=="/gradient-maker")
+                                  ),
+                                  child: Container(
+                                    height: 2,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10)
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },)
+
+              ],
+            );
+          },
+          
+        )
       ),
     );
+  }
+
+
+  VoidCallback? gmOnTap(){
+    switch(ModalRoute.of(context)!.settings.name){
+      case "/gradient-maker":
+      case "/gradient-maker/":
+        return null;
+        break;
+      case "/color-finder":
+      case "/color-finder/":
+      case "/":
+        return (){
+          Provider.of<AnalyticsService>(context, listen: false)
+              .setCurrentScreen("Gradient Builder");
+          Navigator.of(context).pushNamed("/gradient-maker");
+        };
+        break;
+    }
+    return null;
+  }
+
+  VoidCallback? cfOnTap(){
+    switch(ModalRoute.of(context)!.settings.name){
+      case "/gradient-maker":
+      case "/gradient-maker/":
+      return (){
+        Provider.of<AnalyticsService>(context, listen: false)
+            .setCurrentScreen("Color Finder");
+        Navigator.of(context).pushNamed("/color-finder");
+      };
+        break;
+      case "/color-finder":
+      case "/color-finder/":
+      case "/":
+      return null;
+
+      break;
+    }
+    return null;
   }
 }
 

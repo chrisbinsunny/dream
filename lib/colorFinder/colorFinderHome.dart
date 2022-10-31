@@ -1,4 +1,10 @@
+import 'dart:ui';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:dream/heading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../colorDetails.dart';
@@ -11,9 +17,9 @@ import 'howToUse.dart';
 import 'imageView.dart';
 
 class ColorFinderHome extends StatelessWidget {
-  ColorFinderHome({Key? key, }) : super(key: key);
+  ColorFinderHome({Key? key, required this.scrollController}) : super(key: key);
 
-  final ScrollController scrollController= ScrollController();
+  final ScrollController scrollController;
   @override
   Widget build(BuildContext context) {
     return Scrollbar(
@@ -25,35 +31,23 @@ class ColorFinderHome extends StatelessWidget {
       thumbVisibility: true,
       child: Stack(
         children: [
-          const DropHere( ),
-
+          const DropHere(),
           ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
             child: ListView(
               shrinkWrap: false,
               cacheExtent: 10000,
               controller: scrollController,
               physics: const BouncingScrollPhysics(),
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: screenHeight(context, mulBy: 0.25),
-                  //color: Colors.black,
-                  child: const Text(
-                    "Color Finder | Palette Finder",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold
-                    ),
-                  ),
-                ),
+                const Header(head: "Color Finder"),
                 Wrap(
                   direction: Axis.horizontal,
                   alignment: WrapAlignment.spaceEvenly,
                   runSpacing: 20,
                   spacing: 20,
-                  children:  [
+                  children: [
                     const ImageViewer(),
                     Column(
                       children: const [
@@ -80,7 +74,6 @@ class ColorFinderHome extends StatelessWidget {
               ],
             ),
           ),
-
           Visibility(
             visible: Provider.of<ColorDetails>(context, listen: true).getHover,
             child: Container(
@@ -108,17 +101,12 @@ class ColorFinderHome extends StatelessWidget {
                               text: "No data is being sent to our servers. ",
                               style: TextStyle(
                                   fontStyle: FontStyle.italic,
-                                  decoration: TextDecoration.underline
-                              )
-                          ),
+                                  decoration: TextDecoration.underline)),
                           TextSpan(
                             text: "Your browser handles everything.",
                           )
-                        ]
-                    ),
-                    style: TextStyle(
-                        fontSize: 17
-                    ),
+                        ]),
+                    style: TextStyle(fontSize: 17),
                   )
                 ],
               ),
@@ -129,3 +117,5 @@ class ColorFinderHome extends StatelessWidget {
     );
   }
 }
+
+

@@ -1,22 +1,26 @@
-import 'package:dream/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
 
 import '../sizes.dart';
 import 'dart:ui' as ui;
 
+import '../widgets.dart';
+import 'gradientMakerDetails.dart';
+
 class ColorPickerDialog extends StatelessWidget {
-  ColorPickerDialog({Key? key, required this.controller, required this.onSelect}) : super(key: key);
+  ColorPickerDialog({Key? key,   required this.index}) : super(key: key);
 
-  final TextEditingController controller;
-  Function onSelect;
-
+  final TextEditingController controller=TextEditingController();
+  int index;
+  late Color color;
 
 
 
   @override
   Widget build(BuildContext context) {
+    color= Provider.of<GradientMakerDetails>(context, listen: true).getGrads[index];
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -29,11 +33,11 @@ class ColorPickerDialog extends StatelessWidget {
               sigmaX: 60.0, sigmaY: 60.0),
           child: Container(
             width: screenWidth(context,
-                mulBy: 0.2),
+                mulBy: 0.22),
             height: screenHeight(context,
-                mulBy: 0.7),
+                mulBy: 0.73),
             constraints: const BoxConstraints(
-              minWidth: 280,
+              minWidth: 350,
               minHeight: 500,
             ),
             alignment: Alignment.center,
@@ -68,11 +72,11 @@ class ColorPickerDialog extends StatelessWidget {
                     child: Container(
                       width: screenWidth(
                           context,
-                          mulBy: 0.25),
+                          mulBy: 0.22),
                       alignment: Alignment.centerLeft,
                       constraints:
                       const BoxConstraints(
-                          minWidth: 280,
+                          minWidth: 350,
                           minHeight: 65),
                       height: screenHeight(
                           context,
@@ -92,7 +96,7 @@ class ColorPickerDialog extends StatelessWidget {
                           .symmetric(
                           vertical: 10,
                           horizontal: 15),
-                      child: Text(
+                      child: const Text(
                         "Choose your color..",
                         style: TextStyle(
                             fontSize: 20,
@@ -105,6 +109,7 @@ class ColorPickerDialog extends StatelessWidget {
                 Expanded(
                   child:
                   SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
                     child: Padding(
                       padding:
                       const EdgeInsets
@@ -122,14 +127,11 @@ class ColorPickerDialog extends StatelessWidget {
                             height: 20,
                           ),
                           ColorPicker(
-                            pickerColor:Color(
-                                int.parse(
-                                    "FF${controller.text}",
-                                    radix:
-                                    16)),
-                            onColorChanged:(c){},
-                            enableAlpha:
-                            false,
+                            pickerColor: color,
+                            onColorChanged:(c){
+                              Provider.of<GradientMakerDetails>(context, listen: false).setGrad(c, index);
+                            },
+                            enableAlpha: true,
                             hexInputController:
                             controller,
                             paletteType:
@@ -154,11 +156,14 @@ class ColorPickerDialog extends StatelessWidget {
                                     FontWeight
                                         .w500),
                               ),
-                              SizedBox(
+                              Container(
                                 width: screenWidth(
                                     context,
                                     mulBy:
                                     0.08),
+                                constraints: BoxConstraints(
+                                  minWidth: 150
+                                ),
                                 child:
                                 TextField(
                                   controller:
@@ -210,12 +215,11 @@ class ColorPickerDialog extends StatelessWidget {
                                             ScaffoldMessenger.of(
                                             context)
                                             .showSnackBar(
-                                              DreamSnackBar(content: const Text(
-                                                "Text Copied to clipboard",
-                                                style:
-                                                TextStyle(color: Colors.white),
-                                              ), context: context)
-                                           );
+                                                DreamSnackBar(content: const Text(
+                                                  "Text Copied to clipboard",
+                                                  style:
+                                                  TextStyle(color: Colors.white),
+                                                ), context: context));
                                       });
                                 },
                               ),
@@ -225,14 +229,32 @@ class ColorPickerDialog extends StatelessWidget {
                             height: 20,
                           ),
                           ElevatedButton(
-                            child: const Text(
-                                'Got it'),
                             onPressed: () {
-                              onSelect();
-                              Navigator.of(
-                                  context)
-                                  .pop();
+                              Navigator.pop(context);
                             },
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(const StadiumBorder(side: BorderSide.none)),
+                              padding: MaterialStateProperty.all(
+                                  const EdgeInsets.symmetric(
+                                      vertical: 17,
+                                      horizontal: 30
+                                  )),
+                              enableFeedback: true,
+                              backgroundColor: MaterialStateProperty.all(Colors.white.withOpacity(0.2)),
+                              overlayColor: MaterialStateProperty.all(Colors.deepPurpleAccent.withOpacity(0.3)),
+                              elevation: MaterialStateProperty.all(0),
+                              side: MaterialStateProperty.all(const BorderSide(color: Colors.white)),
+                            ),
+                            child: const Text(
+                              "Done",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                         ],
                       ),

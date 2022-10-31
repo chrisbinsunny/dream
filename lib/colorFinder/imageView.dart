@@ -1,7 +1,7 @@
 import 'dart:developer';
 
-import 'package:color_finder/palette/paletteViewer.dart';
-import 'package:color_finder/sizes.dart';
+import 'package:dream/palette/paletteViewer.dart';
+import 'package:dream/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -50,7 +50,9 @@ class _ImageViewerState extends State<ImageViewer> {
     file= Provider.of<ColorDetails>(context, listen: true).getFile;
     return Container(
       width: screenWidth(context, mulBy: 0.35),
-
+      margin: EdgeInsets.symmetric(
+          horizontal: 20
+      ),
       //height: screenHeight(context, mulBy: 0.4),
       constraints: const BoxConstraints(
           minWidth: 500

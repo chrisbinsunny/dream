@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
 
+import '../analytics.dart';
 import '../colorDetails.dart';
 import 'dropFile.dart';
 
@@ -31,7 +32,7 @@ class _DropHereState extends State<DropHere> {
         ),
       ),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 30.0, sigmaY: 30.0),
+        filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
         child: Container(
           decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
           child: DropzoneView(
@@ -59,10 +60,6 @@ class _DropHereState extends State<DropHere> {
     final mime = await controller.getFileMIME(event);
     final bytes = await controller.getFileSize(event);
     final url = await controller.createFileUrl(event);
-    print('Name: $name');
-    print('Mime: $mime');
-    print('Bytes: $bytes');
-    print('Url: $url');
 
     final droppedFile = DroppedFile(
       url: url,
@@ -70,6 +67,8 @@ class _DropHereState extends State<DropHere> {
       mime: mime,
       bytes: bytes,
     );
+    Provider.of<AnalyticsService>(context, listen: false)
+        .logDragDrop(image: name, type: mime);
     Provider.of<ColorDetails>(context, listen: false).setFile(droppedFile);
   }
 

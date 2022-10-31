@@ -19,11 +19,16 @@ All types of contributions are encouraged and valued. See the [Table of Contents
 - [I Want To Contribute](#i-want-to-contribute)
   - [Reporting Bugs](#reporting-bugs)
   - [Suggesting Enhancements](#suggesting-enhancements)
-  - [Your First Code Contribution](#your-first-code-contribution)
-  - [Improving The Documentation](#improving-the-documentation)
-- [Styleguides](#styleguides)
-  - [Commit Messages](#commit-messages)
-- [Join The Project Team](#join-the-project-team)
+
+[//]: # (  - [Your First Code Contribution]&#40;#your-first-code-contribution&#41;)
+
+[//]: # (  - [Improving The Documentation]&#40;#improving-the-documentation&#41;)
+
+[//]: # (- [Styleguides]&#40;#styleguides&#41;)
+
+[//]: # (  - [Commit Messages]&#40;#commit-messages&#41;)
+
+[//]: # (- [Join The Project Team]&#40;#join-the-project-team&#41;)
 
 
 ## Code of Conduct

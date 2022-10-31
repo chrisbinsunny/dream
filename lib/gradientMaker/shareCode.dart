@@ -28,50 +28,50 @@ class ShareCodeButtons extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          DreamButton(
-              name: "Share design",
-              onTap: ()async{
-                String a= Uri.base.origin;
-                a+="/gradient-maker?a=${360-angle}&gt=$gradType";
-                grads.forEach((element) {
-                  a+="&c=${element.value.toRadixString(16)}";
-                });
-                log(a);
-                await Clipboard.setData(ClipboardData(text: a))
-                    .then((value) {
-                      ScaffoldMessenger.of(context).clearSnackBars();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      DreamSnackBar(content: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-
-                          Icon(
-                            FontAwesomeIcons.solidPaperPlane,
-                            size: 22,
-                          ),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            "Share URL copied to clipboard",
-                            style: TextStyle(
-                                color: Colors.white
-                            ),
-                          ),
-                        ],
-                      ), context: context)
-                  );
-                });
-
-                Provider.of<AnalyticsService>(context, listen: false)
-                    .logShareCode(gradCount: grads.length, type: gradType);
-              },
-            icon: FontAwesomeIcons.solidPaperPlane,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
+          // DreamButton(
+          //     name: "Share design",
+          //     onTap: ()async{
+          //       String a= Uri.base.origin;
+          //       a+="/gradient-maker?a=${360-angle}&gt=$gradType";
+          //       grads.forEach((element) {
+          //         a+="&c=${element.value.toRadixString(16)}";
+          //       });
+          //       log(a);
+          //       await Clipboard.setData(ClipboardData(text: a))
+          //           .then((value) {
+          //             ScaffoldMessenger.of(context).clearSnackBars();
+          //         ScaffoldMessenger.of(context).showSnackBar(
+          //             DreamSnackBar(content: Row(
+          //               mainAxisSize: MainAxisSize.min,
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               children: const [
+          //
+          //                 Icon(
+          //                   FontAwesomeIcons.solidPaperPlane,
+          //                   size: 22,
+          //                 ),
+          //                 SizedBox(
+          //                   width: 20,
+          //                 ),
+          //                 Text(
+          //                   "Share URL copied to clipboard",
+          //                   style: TextStyle(
+          //                       color: Colors.white
+          //                   ),
+          //                 ),
+          //               ],
+          //             ), context: context)
+          //         );
+          //       });
+          //
+          //       Provider.of<AnalyticsService>(context, listen: false)
+          //           .logShareCode(gradCount: grads.length, type: gradType);
+          //     },
+          //   icon: FontAwesomeIcons.solidPaperPlane,
+          // ),
+          // const SizedBox(
+          //   width: 20,
+          // ),
           DreamButton(
             name: "Copy CSS",
             onTap: () async{

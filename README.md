@@ -5,7 +5,15 @@
 
 Find colors from images and screenshots. Just drag & drop the image and copy the color. 
 Use the gradient builder to build beautiful background for your websites. 
- 
+
+![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fchrisbinsunny.github.io%2FFlutter-Talks)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chrisbinsunny/dream)
+![GitHub issues](https://img.shields.io/github/issues/chrisbinsunny/dream)
+![GitHub](https://img.shields.io/github/license/chrisbinsunny/dream)
+![GitHub Repo stars](https://img.shields.io/github/stars/chrisbinsunny/dream?style=social)
+![Twitter Follow](https://img.shields.io/twitter/follow/chrisbinsunny?style=social)
+
+
 The project started as a vague idea and the initial thread was from my dream. 
 The "DREAM" has the following features:
 ## ✨ Features
@@ -52,18 +60,25 @@ Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), 
 
 <table>
   <tr>
-    <td>First Screen Page</td>
-     <td>Holiday Mention</td>
-     <td>Present day in purple and selected day in pink</td>
+    <td>Color Finder- Desktop</td>
+     <td>Color Finder- Mobile</td>
   </tr>
   <tr>
-    <td><img src="screenshots/Screenshot_1582745092.png" width=270 height=480></td>
-    <td><img src="screenshots/Screenshot_1582745125.png" width=270 height=480></td>
-    <td><img src="screenshots/Screenshot_1582745139.png" width=270 height=480></td>
+    <td><img src="docs/ss1D.jpg" width=640 height=319></td>
+    <td><img src="docs/ss1P.jpg" width=178.3 height=319></td>
   </tr>
  </table>
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+<table>
+  <tr>
+    <td>Gradient Builder- Desktop</td>
+     <td>Gradient Builder- Mobile</td>
+  </tr>
+  <tr>
+    <td><img src="docs/ss2D.jpg" width=640 height=319></td>
+    <td><img src="docs/ss2P.jpg" width=178.3 height=319></td>
+  </tr>
+ </table>
 
 ## 👩🏻‍💻 Contributing
 

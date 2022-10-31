@@ -7,7 +7,7 @@ Find colors from images and screenshots. Just drag & drop the image and copy the
 Use the gradient builder to build beautiful background for your websites. 
 
 
-![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fchrisbinsunny.github.io%2FFlutter-Talks)
+![Website](https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Fchrisbinsunny.github.io%2Fdream)
 ![example workflow](https://github.com/chrisbinsunny/Flutter-Talks/actions/workflows/web.yml/badge.svg)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/chrisbinsunny/dream)
 ![GitHub issues](https://img.shields.io/github/issues/chrisbinsunny/dream)

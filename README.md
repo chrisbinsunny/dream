@@ -25,7 +25,6 @@ The "DREAM" has the following features:
 - 😲 Supports png, apng, avif, jpeg, png, webp
 - 🎨 Gradient builder upto 5 colors
 - 🧊 Supports transperancy
-- 🧑🏻‍💻 Share code with friends
 - 📱 Responsiveness
 
 
@@ -54,6 +53,7 @@ Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), 
 
 ## 🔰 To-Do
 
+- [  ] Share code with friends
 - [  ] Add color palette in color finder
 - [  ] Dart code support in gradient builder
 - [  ] Drag to move colors

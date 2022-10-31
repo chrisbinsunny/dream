@@ -1,4 +1,4 @@
-![Dream Logo](docs\dreamLogo.png)
+![Dream Logo](docs/dreamLogo.png)
 
 
 # D R E A M
@@ -78,7 +78,7 @@ Track the issue here: [94895](https://github.com/flutter/flutter/issues/94895), 
   </tr>
   <tr>
     <td><img src="docs/ss2D.jpg" width=640 height=319></td>
-    <td><img src="docs/ss2P.jpg" width=178.3 height=319></td>
+    <td><img src="docs/ss2P.png" width=178.3 height=319></td>
   </tr>
  </table>
 

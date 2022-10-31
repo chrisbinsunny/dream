@@ -96,7 +96,7 @@ See `contributing.md` for ways to get started.
 Please adhere to this project's `code of conduct`.
 
 
-<br/><br/>
+
 ## 🔐 License
 
 MIT License

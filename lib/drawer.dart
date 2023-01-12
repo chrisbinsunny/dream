@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -103,7 +105,9 @@ class DreamDrawer extends StatelessWidget {
       if(
       Scaffold.of(context).isDrawerOpen
       ){
-        Scaffold.of(context).closeDrawer();
+        Timer(Duration.zero, () {
+          Scaffold.of(context).closeDrawer();
+        },);
       }
       return const SizedBox();
     },

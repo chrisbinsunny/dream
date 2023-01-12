@@ -14,6 +14,7 @@ Use the gradient builder to build beautiful background for your websites.
 ![GitHub](https://img.shields.io/github/license/chrisbinsunny/dream)
 ![GitHub Repo stars](https://img.shields.io/github/stars/chrisbinsunny/dream?style=social)
 ![Twitter Follow](https://img.shields.io/twitter/follow/chrisbinsunny?style=social)
+[![Visitors](https://api.visitorbadge.io/api/combined?path=https%3A%2F%2Fgithub.com%2Fchrisbinsunny%2Fdream&label=Visitors&countColor=%23263759&style=flat)](https://visitorbadge.io/status?path=https%3A%2F%2Fgithub.com%2Fchrisbinsunny%2Fdream)
 
 
 The project started as a vague idea and the initial thread was from my dream. 
